@@ -1,4 +1,4 @@
-public class Cleaning {
+public class Cleaning extends Product {
     private int toxicityLevel;
     
     public Cleaning() {}

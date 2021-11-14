@@ -1,4 +1,4 @@
-public class Food {
+public class Food extends Product {
     private int caloriesPer100G;
     private float fatPercent;
 

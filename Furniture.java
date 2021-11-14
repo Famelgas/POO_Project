@@ -1,4 +1,4 @@
-public class Furniture {
+public class Furniture extends Product {
     private float height;
     private float width;
     private float depth;
