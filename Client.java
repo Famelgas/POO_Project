@@ -67,13 +67,10 @@ public class Client {
 
     // Creates a new a account for a new client, this means creating a new Client
     // and writing his information in the data base to enable login
-    public Client createAccount(String name, String address, String email, int phoneNumber, Date birthday) {
-        Client newClient = new Client(name, address, email, phoneNumber, birthday);
-        
-        // Add email and user name to text file
+    public void createAccount(String name, String address, String email, int phoneNumber, Date birthday) {
+        // Add email to text file
         addClientToDataBase(newClient);
 
-        return newClient;
     }
    
 
