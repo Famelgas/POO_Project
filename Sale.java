@@ -6,5 +6,13 @@ public class Sale {
     
     public Sale(String type) {
         this.promotionType = promotionType;
-    }   
+    }
+
+    public String getPromotionType() {
+        return promotionType;
+    }
+
+    public void setPromotionType(String promotionType) {
+        this.promotionType = promotionType;
+    }
 }

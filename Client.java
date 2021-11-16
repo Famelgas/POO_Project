@@ -16,7 +16,54 @@ public class Client {
         this.birthday = birthday;
         this.frequent = false;
     }
-   
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public boolean isFrequent() {
+        return frequent;
+    }
+
+    public void setFrequent(boolean frequent) {
+        this.frequent = frequent;
+    }
 
     // Creates a new a account for a new client, this means creating a new Client
     // and writing his information in the data base to enable login

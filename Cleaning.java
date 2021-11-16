@@ -7,4 +7,11 @@ public class Cleaning extends Product {
         this.toxicityLevel = toxicityLevel;
     }
 
+    public int getToxicityLevel() {
+        return toxicityLevel;
+    }
+
+    public void setToxicityLevel(int toxicityLevel) {
+        this.toxicityLevel = toxicityLevel;
+    }
 }
