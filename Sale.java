@@ -15,4 +15,10 @@ public class Sale {
     public void setPromotionType(String promotionType) {
         this.promotionType = promotionType;
     }
+
+    public float priceCalculator(int numberPurchased,float unitPrice){
+        float finalPrice = 0;
+        finalPrice = unitPrice*numberPurchased;
+        return finalPrice;
+    }
 }
