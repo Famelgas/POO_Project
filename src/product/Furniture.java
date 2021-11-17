@@ -1,3 +1,5 @@
+package product;
+
 public class Furniture extends Product {
     private float height;
     private float width;

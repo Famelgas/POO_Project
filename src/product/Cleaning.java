@@ -1,3 +1,5 @@
+package product;
+
 public class Cleaning extends Product {
     private int toxicityLevel;
     
