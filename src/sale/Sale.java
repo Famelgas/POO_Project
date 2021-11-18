@@ -35,10 +35,9 @@ public class Sale {
 
     }
     
-    public float calculatePrice(Product product, int quantity) {
-        float unitPrice = product.getUnitPrice();
-        return unitPrice * quantity;  
-    } 
+    public float priceCalculator(int numberPurchased,float unitPrice){
+        return unitPrice * numberPurchased;
+    }
 
 
 }
