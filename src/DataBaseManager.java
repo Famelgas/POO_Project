@@ -1,10 +1,11 @@
-import java.util.ArrayList; 
+import java.util.ArrayList;
+import java.lang.String;
 
 public class DataBaseManager {
     // Imported client list from text file
-    ArrayList<Client> clientList;
+    private ArrayList<Client> clientList;
     // Imported supermarket protuct stock form text file 
-    ArrayList<Product> productList;
+    private ArrayList<Product> productList;
 
     public ManageDataBase() {
        clientList = new ArrayList<>();
@@ -12,7 +13,7 @@ public class DataBaseManager {
     }
     
     // Import all the data from the text file to the corresponding ArrayLists
-    public static void importFromTextFile(String fileName) {
+    public void importFromTextFile(String fileName) {
         File file = new File(fileName);
         
         if (file.exists() && file.isFile()) {
@@ -22,11 +23,17 @@ public class DataBaseManager {
                 
                 String line;
                 while ((line = buffRead.readLine) != null) {
+                    // If it's the clients file then every line is a client so 
+                    // we can add a new client to de ArrayList for every line
                     if (fileName == "Clients.txt") {
-                        insertInClientList(line);
+                        Client newClient = new Client();
+                        separateClientInfo(newClient, line);
+                        clientList.add(newClient);
                     }
                     if (fileName == "Products.txt") {
-                        intserInProductList(line);
+                        Product newProduct = new Product();
+                        separateProductInfo(newProduct, line);
+                        productList.add(newProduct);
                     }
                 }
                 
@@ -43,12 +50,24 @@ public class DataBaseManager {
             System.out.prinln("File doesn't exist");
         }
     }
-   
-    private static void insertInClientList(String line) {
+  
+    private void addClient() {}
+
+    private void addProduct() {}
+
+
+    // Separates the string so we can create a new client
+    public static void separateClientInfo(Client newClient, String line) {
+        String name = "";
+        for (int i = 0; line.chatAt(i) != "/" || line.chatAt(i) != null; ++i) {
+              name += line.chatAt(i);
+        }
+        setName(name);
         
     }
     
-    private static void insertInProductList(String line) {
+    // Separates the string so we can create a new product
+    private static void separateProductInfo(Product newProduct, String line) {
 
     }
 }
