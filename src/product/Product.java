@@ -1,12 +1,16 @@
+package product;
+import sale.*;
+
 public class Product {
     protected int identifier;
     protected String name;
     protected float unitPrice;
     protected int stock;
+    protected Sale promotion;
 
     public Product() {}
 
-    public Produtct(int identifier, String name, float unitPrice, int stock) {
+    public Product(int identifier, String name, float unitPrice, int stock) {
         this.identifier = identifier;
         this.name = name;
         this.unitPrice = unitPrice;

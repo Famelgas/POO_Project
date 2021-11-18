@@ -1,3 +1,6 @@
+package client;
+import date.Date;
+
 public class Client {
     private String name;
     private String address;
