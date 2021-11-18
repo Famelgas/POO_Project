@@ -1,4 +1,3 @@
-package onlineshoppingmanager;
 import java.util.ArrayList; 
 
 public class ManageDataBase {

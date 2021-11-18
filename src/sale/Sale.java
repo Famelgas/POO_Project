@@ -1,6 +1,6 @@
 package sale;
 import java.lang.Math;
-
+import product.*;
 
 public class Sale {
     // Each sale can be normal or have two types of promotion
@@ -35,7 +35,10 @@ public class Sale {
 
     }
     
-    
+    public float calculatePrice(Product product, int quantity) {
+        float unitPrice = product.getUnitPrice();
+        return unitPrice * quantity;  
+    } 
 
 
 }

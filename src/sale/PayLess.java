@@ -1,4 +1,5 @@
 package sale;
+import product.*;
 
 public class PayLess extends Sale {
     public PayLess() {}
@@ -7,5 +8,9 @@ public class PayLess extends Sale {
         super(promotionType); 
     }
 
+    public float calculatePrice(Product product, int quantity) {
+        unitPrice = product.getPrice();
+        return unitPrice * quantity; 
+    }
 
 }

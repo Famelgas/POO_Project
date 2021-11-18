@@ -1,6 +1,6 @@
 package sale;
 
-public class PaySomeItems {
+public class PaySomeItems extends Sale {
     public PaySomeItems() {}
 
     public PaySomeItems(String promotionType) {
