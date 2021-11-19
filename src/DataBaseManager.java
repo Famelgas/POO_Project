@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.lang.String;
 import java.lang.NumberFormatException;
 import client.Client;
+import date.Date;
 import product.*;
 import sale.*;
 
@@ -24,7 +25,7 @@ public class DataBaseManager {
         if (file.exists() && file.isFile()) {
             try {
                 FileReader fileRead = new FileReader(file);
-                BufferedReader buffRead = new BufferReader(fileRead);
+                BufferedReader buffRead = new BufferedReader(fileRead);
                 
                 String line;
                 while ((line = buffRead.readLine()) != null) {
@@ -52,7 +53,7 @@ public class DataBaseManager {
             }
         }
         else {
-            System.out.prinln("File doesn't exist");
+            System.out.println("File doesn't exist");
         }
     }
   
@@ -66,7 +67,7 @@ public class DataBaseManager {
         String[] clientAtributes = {"name", "address", "email", "phoneNumber", "birthday", "frequent"};
         int atrib = 0;
         String words = "";
-        for (int i = 0; j < line.length(); ++i) {
+        for (int i = 0; i < line.length(); ++i) {
             if (line.charAt(i) == '/' || line.charAt(i) == '\n') {
                 if (clientAtributes[atrib].equals("name")) {
                     newClient.setName(words);
@@ -113,4 +114,12 @@ public class DataBaseManager {
 
     // Separates the string so we can create a new product
     private static void separateProductInfo(Product newProduct, String line) {}
+
+    private static Date convertToDate(String strDate) {
+        Date date = new Date();
+
+
+        return date;
+    }
+
 }

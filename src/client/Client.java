@@ -1,4 +1,5 @@
 package client;
+import date.Date;
 
 public class Client {
     private String name;
@@ -71,14 +72,10 @@ public class Client {
     // and writing his information in the data base to enable login
     public void createAccount(String name, String address, String email, int phoneNumber, Date birthday) {
         // Add email to text file
-        addClientToDataBase(newClient);
 
     }
    
 
-    private static void addClientToDataBase(Client newClient) {
-       // write in file  
-    }
     
     
 
