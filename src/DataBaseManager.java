@@ -1,5 +1,10 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.lang.String;
+import client.*;
+import product.*;
+import sale.*;
+
 
 public class DataBaseManager {
     // Imported client list from text file
