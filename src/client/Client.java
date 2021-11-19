@@ -80,6 +80,9 @@ public class Client {
     private static void addClientToDataBase(Client newClient) {
        // write in file  
     }
+    
+    
+
 
 }
 
