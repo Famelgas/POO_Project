@@ -1,4 +1,3 @@
-import java.io.*;
 import java.util.ArrayList;
 import java.lang.String;
 import client.*;
@@ -12,7 +11,7 @@ public class DataBaseManager {
     // Imported supermarket protuct stock form text file 
     private ArrayList<Product> productList;
 
-    public ManageDataBase() {
+    public DataBaseManager() {
        clientList = new ArrayList<>();
        productList = new ArrayList<>(); 
     }
