@@ -1,6 +1,5 @@
 package sale;
 import java.lang.Math;
-import product.*;
 
 public class Sale {
     // Each sale can be normal or have two types of promotion
@@ -35,7 +34,7 @@ public class Sale {
         return newSale;
     }
     
-    public float priceCalculator(int numberPurchased,float unitPrice){
+    public float priceCalculator(int numberPurchased, float unitPrice){
         return unitPrice * numberPurchased;
     }
 

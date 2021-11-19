@@ -5,7 +5,6 @@ import java.lang.NumberFormatException;
 import client.Client;
 import date.Date;
 import product.*;
-import sale.*;
 
 public class DataBaseManager {
     // Imported client list from text file
@@ -57,9 +56,6 @@ public class DataBaseManager {
         }
     }
   
-    private void addClient() {}
-
-    private void addProduct() {}
 
 
     // Separates the string so we can create a new client
@@ -96,7 +92,7 @@ public class DataBaseManager {
                     if (words.equals("true")) {
                         newClient.setFrequent(true);
                     }
-                    else if (words.equals(false)) {
+                    else if (words.equals("false")) {
                         newClient.setFrequent(false);
                     }
                 } 

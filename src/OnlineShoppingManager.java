@@ -1,7 +1,4 @@
 import java.util.Scanner;
-import client.*;
-import product.*;
-import sale.*;
 
 public class OnlineShoppingManager {
     public static void main(String[] args) {
@@ -22,6 +19,7 @@ public class OnlineShoppingManager {
             else{
                 flag = 1;
             }
+            sc.close();
         }  
         
         if(num == 1){   //onde vamos permitir realizar o login
