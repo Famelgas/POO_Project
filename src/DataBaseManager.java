@@ -110,7 +110,10 @@ public class DataBaseManager {
     }
 
     // Separates the string so we can create a new product
-    private static void separateProductInfo(Product newProduct, String line) {}
+    private static void separateProductInfo(Product newProduct, String line) {
+        // fazer funçao que separa os produtos 
+
+    }
 
     private static Date convertToDate(String strDate) {
         Date date = new Date();
