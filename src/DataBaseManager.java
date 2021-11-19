@@ -64,15 +64,35 @@ public class DataBaseManager {
     // Separates the string so we can create a new client
     public static void separateClientInfo(Client newClient, String line) {
         String name = "";
-        for (int i = 0; line.chatAt(i) != "/" || line.chatAt(i) != null; ++i) {
-              name += line.chatAt(i);
-        }
+        array argu = [nome, morada, email.....]
+         
+            for (int i = 0; line.chatAt(i) != null; ++i) {
+                if line.charAt(i) == "/"
+                    arg++;
+
+
+                if (tipo == comida) {
+                    
+                }
+                if arg == morada
+                    
+                if arg == Number
+                    convertpranumero 
+                    setnumber
+            }
         setName(name);
         
     }
     
     // Separates the string so we can create a new product
     private static void separateProductInfo(Product newProduct, String line) {
+        array tipos = [comida, mobila, limpeza];
+        for ...    ;
+            if tipo == comida 
+                array agrscomida
+                for 
+
+            if tipo == mobilia
 
     }
 }
