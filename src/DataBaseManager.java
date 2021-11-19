@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.lang.String;
 import java.lang.NumberFormatException;
-import client.*;
+import client.Client;
 import product.*;
 import sale.*;
 
@@ -67,15 +67,15 @@ public class DataBaseManager {
         int atrib = 0;
         String words = "";
         for (int i = 0; j < line.length(); ++i) {
-            if (line.charAt(i) == "/" || line.charAt(i) == "\n") {
+            if (line.charAt(i) == '/' || line.charAt(i) == '\n') {
                 if (clientAtributes[atrib].equals("name")) {
-                    setName(words);
+                    newClient.setName(words);
                 }
                 if (clientAtributes[atrib].equals("address")) {
-                    setAddress(words);
+                    newClient.setAddress(words);
                 }
                 if (clientAtributes[atrib].equals("email")) {
-                    setEmail(words);
+                    newClient.setEmail(words);
                 }
                 if (clientAtributes[atrib].equals("phoneNumber")) {
                     int phNum;
@@ -85,18 +85,18 @@ public class DataBaseManager {
                     catch (NumberFormatException nfe) {
                        phNum = -1;
                     }
-                    setPhoneNumber(phNum);
+                    newClient.setPhoneNumber(phNum);
                 }
                 if (clientAtributes[atrib].equals("birthday")) {
                     Date date = convertToDate(words);
-                    setDate(date);
+                    newClient.setBirthday(date);
                 }
                 if (clientAtributes[atrib].equals("frequent")){
                     if (words.equals("true")) {
-                        setFrequent(true);
+                        newClient.setFrequent(true);
                     }
                     else if (words.equals(false)) {
-                        setFrequent(false);
+                        newClient.setFrequent(false);
                     }
                 } 
                 
