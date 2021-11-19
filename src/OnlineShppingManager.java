@@ -1,4 +1,4 @@
-public class OnlineShoppingManager {
+public class OnlineShppingManager {
     public static void main(String[] args) {
         
     }
