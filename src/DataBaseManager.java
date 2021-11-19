@@ -1,10 +1,10 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.lang.String;
+import java.lang.NumberFormatException;
 import client.*;
 import product.*;
 import sale.*;
-
 
 public class DataBaseManager {
     // Imported client list from text file
@@ -27,7 +27,7 @@ public class DataBaseManager {
                 BufferedReader buffRead = new BufferReader(fileRead);
                 
                 String line;
-                while ((line = buffRead.readLine) != null) {
+                while ((line = buffRead.readLine()) != null) {
                     // If it's the clients file then every line is a client so 
                     // we can add a new client to de ArrayList for every line
                     if (fileName == "Clients.txt") {
@@ -63,36 +63,54 @@ public class DataBaseManager {
 
     // Separates the string so we can create a new client
     public static void separateClientInfo(Client newClient, String line) {
-        String name = "";
-        array argu = [nome, morada, email.....]
-         
-            for (int i = 0; line.chatAt(i) != null; ++i) {
-                if line.charAt(i) == "/"
-                    arg++;
-
-
-                if (tipo == comida) {
-                    
+        String[] clientAtributes = {"name", "address", "email", "phoneNumber", "birthday", "frequent"};
+        int atrib = 0;
+        String words = "";
+        for (int i = 0; j < line.length(); ++i) {
+            if (line.charAt(i) == "/" || line.charAt(i) == "\n") {
+                if (clientAtributes[atrib].equals("name")) {
+                    setName(words);
                 }
-                if arg == morada
-                    
-                if arg == Number
-                    convertpranumero 
-                    setnumber
+                if (clientAtributes[atrib].equals("address")) {
+                    setAddress(words);
+                }
+                if (clientAtributes[atrib].equals("email")) {
+                    setEmail(words);
+                }
+                if (clientAtributes[atrib].equals("phoneNumber")) {
+                    int phNum;
+                    try {
+                       phNum = Integer.parseInt(words);
+                    }
+                    catch (NumberFormatException nfe) {
+                       phNum = -1;
+                    }
+                    setPhoneNumber(phNum);
+                }
+                if (clientAtributes[atrib].equals("birthday")) {
+                    Date date = convertToDate(words);
+                    setDate(date);
+                }
+                if (clientAtributes[atrib].equals("frequent")){
+                    if (words.equals("true")) {
+                        setFrequent(true);
+                    }
+                    else if (words.equals(false)) {
+                        setFrequent(false);
+                    }
+                } 
+                
+                atrib++; 
+                words = "";
             }
-        setName(name);
-        
+
+            else {
+                words += line.charAt(i);
+            }
+        } 
+
     }
-    
+
     // Separates the string so we can create a new product
-    private static void separateProductInfo(Product newProduct, String line) {
-        array tipos = [comida, mobila, limpeza];
-        for ...    ;
-            if tipo == comida 
-                array agrscomida
-                for 
-
-            if tipo == mobilia
-
-    }
+    private static void separateProductInfo(Product newProduct, String line) {}
 }
