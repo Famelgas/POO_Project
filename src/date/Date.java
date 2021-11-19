@@ -36,4 +36,24 @@ public class Date {
     public void setYear(int year) {
         this.year = year;
     }
+    
+    public void setDateAtributes(String numStr, int atrib) {
+        int num;
+        try {
+            num = Integer.parseInt(numStr);
+        }
+        catch (NumberFormatException nfe) {
+            num = -1;
+        }  
+        switch (atrib) {
+            case 1 -> setDay(num);
+            case 2 -> setMonth(num);
+            case 3 -> setYear(num);
+            default -> { setDay(-1);    
+                         setMonth(-1);
+                         setYear(-1);
+            }
+        }
+    }
+
 }

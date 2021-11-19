@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.lang.String;
 import java.lang.NumberFormatException;
+import java.lang.Character;
 import client.Client;
 import date.Date;
 import product.*;
@@ -113,9 +114,23 @@ public class DataBaseManager {
 
     private static Date convertToDate(String strDate) {
         Date date = new Date();
+        String numStr = "";
+        int atrib = 1;        
 
+        for (int i = 0; i < strDate.length(); ++i) {
+            if (!Character.isDigit(strDate.charAt(i))) {
+                date.setDateAtributes(numStr, atrib);
+                ++atrib;
+            }
+            if (i + 1 == strDate.length()) {
+                numStr += strDate.charAt(i);
+                date.setDateAtributes(numStr, atrib);
+            }
+            numStr += strDate.charAt(i);
+        }
 
         return date;
     }
+
 
 }
