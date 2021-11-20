@@ -37,7 +37,7 @@ public class Date {
         this.year = year;
     }
     
-    public void setDateAtributes(String numStr, int atrib) {
+    private void setDateAtributes(String numStr, int atrib) {
         int num;
         try {
             num = Integer.parseInt(numStr);
@@ -54,6 +54,27 @@ public class Date {
                          setYear(-1);
             }
         }
+    }
+
+
+    public static Date convertToDate(String strDate) {
+        Date date = new Date();
+        String numStr = "";
+        int atrib = 1;        
+
+        for (int i = 0; i < strDate.length(); ++i) {
+            if (!Character.isDigit(strDate.charAt(i))) {
+                date.setDateAtributes(numStr, atrib);
+                ++atrib;
+            }
+            if (i + 1 == strDate.length()) {
+                numStr += strDate.charAt(i);
+                date.setDateAtributes(numStr, atrib);
+            }
+            numStr += strDate.charAt(i);
+        }
+
+        return date;
     }
 
 }

@@ -1,5 +1,6 @@
 package product;
 import sale.*;
+import java.lang.String;
 
 public class Product {
     protected int identifier;
@@ -55,5 +56,32 @@ public class Product {
 
     public void setPromotion(String promotion) {
         this.promotion = new Sale(promotion); 
+    }
+
+    // Separates the string so we can create a new product
+    public static Product separateProductInfo(String line) {
+        String[] productType = {"cleaning" , "food", "furniture"};
+        String words = "";
+        int type = 0;
+
+        for (int i = 0; i < line.length(); ++i) {
+            if (line.charAt(i) == '/' || line.charAt(i) == '\n') {
+                if (productType[type].equals("cleaning")) {
+                    return Cleaning.separateCleaningInfo(line);                    
+                }    
+                if (productType[type].equals("food")) {
+                    return Food.separateFoodInfo(line);
+                }
+                if (productType[type].equals("furniture")) {
+                    return Furniture.separateFurnitureInfo(line);
+                }
+            }
+
+            else {
+                words += line.charAt(i);
+            }
+        }
+
+        return new Product();
     }
 }

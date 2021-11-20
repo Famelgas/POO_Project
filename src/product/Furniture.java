@@ -1,4 +1,7 @@
 package product;
+import java.lang.NumberFormatException;
+import java.lang.String;
+
 
 public class Furniture extends Product {
     private float height;
@@ -45,5 +48,13 @@ public class Furniture extends Product {
 
     public void setWeight(float weight) {
         this.weight = weight;
+    }
+
+
+    public static Furniture separateFurnitureInfo(String line) {
+        Furniture newProduct = new Furniture();
+        String[] atributes = {"identifier", "name", "unitPrice", "stock", "promotion", "height", "width", "depth", "wight"};
+
+        return newProduct;
     }
 }

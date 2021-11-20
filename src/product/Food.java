@@ -1,4 +1,6 @@
 package product;
+import java.lang.NumberFormatException;
+import java.lang.String;
 
 public class Food extends Product {
     private int caloriesPer100G;
@@ -25,5 +27,13 @@ public class Food extends Product {
 
     public void setFatPercent(float fatPercent) {
         this.fatPercent = fatPercent;
+    }
+
+
+    public static Food separateFoodInfo(String line) {
+        Food newProduct = new Food();
+        String[] atributes = {"identifier", "name", "unitPrice", "stock", "promotion", "caloriesPer100G", "fatPercent"};
+
+        return newProduct;
     }
 }
