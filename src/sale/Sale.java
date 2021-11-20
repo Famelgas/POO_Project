@@ -15,6 +15,10 @@ public class Sale {
         return promotionType;
     }
 
+    public void setPromotionType(String promotion) {
+        this.promotionType = promotion;
+    }
+
     public Sale createNewSale() {
         Sale newSale;
         // generate a promotion randomly

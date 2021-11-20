@@ -48,4 +48,12 @@ public class Product {
     public void setStock(int stock) {
         this.stock = stock;
     }
+
+    public Sale getPromotion() {
+        return promotion;
+    }
+
+    public void setPromotion(String promotion) {
+        this.promotion = new Sale(promotion); 
+    }
 }

@@ -32,14 +32,10 @@ public class DataBaseManager {
                     // If it's the clients file then every line is a client so 
                     // we can add a new client to de ArrayList for every line
                     if (fileName == "Clients.txt") {
-                        Client newClient = new Client();
-                        separateClientInfo(newClient, line);
-                        clientList.add(newClient);
+                        clientList.add(separateClientInfo(line));
                     }
                     if (fileName == "Products.txt") {
-                        Product newProduct = new Product();
-                        separateProductInfo(newProduct, line);
-                        productList.add(newProduct);
+                        productList.add(separateProductInfo(line));
                     }
                 }
                 
@@ -60,10 +56,12 @@ public class DataBaseManager {
 
 
     // Separates the string so we can create a new client
-    public static void separateClientInfo(Client newClient, String line) {
+    public static Client separateClientInfo(String line) {
+        Client newClient = new Client();
         String[] clientAtributes = {"name", "address", "email", "phoneNumber", "birthday", "frequent"};
         int atrib = 0;
         String words = "";
+
         for (int i = 0; i < line.length(); ++i) {
             if (line.charAt(i) == '/' || line.charAt(i) == '\n') {
                 if (clientAtributes[atrib].equals("name")) {
@@ -78,10 +76,10 @@ public class DataBaseManager {
                 if (clientAtributes[atrib].equals("phoneNumber")) {
                     int phNum;
                     try {
-                       phNum = Integer.parseInt(words);
+                        phNum = Integer.parseInt(words);
                     }
                     catch (NumberFormatException nfe) {
-                       phNum = -1;
+                        phNum = -1;
                     }
                     newClient.setPhoneNumber(phNum);
                 }
@@ -98,7 +96,7 @@ public class DataBaseManager {
                     }
                 } 
                 
-                atrib++; 
+                ++atrib; 
                 words = "";
             }
 
@@ -106,14 +104,120 @@ public class DataBaseManager {
                 words += line.charAt(i);
             }
         } 
-
+        
+        return newClient;
     }
 
     // Separates the string so we can create a new product
-    private static void separateProductInfo(Product newProduct, String line) {
-        // fazer funçao que separa os produtos 
+    private static Product separateProductInfo(String line) {
+        String[] productType = {"cleaning" , "food", "furniture"};
+        String words = "";
+        int type = 0;
 
+        for (int i = 0; i < line.length(); ++i) {
+            if (line.charAt(i) == '/' || line.charAt(i) == '\n') {
+                if (productType[type].equals("cleaning")) {
+                    return separateCleaningInfo(line);                    
+                }    
+                if (productType[type].equals("food")) {
+                    return separateFoodInfo(line);
+                }
+                if (productType[type].equals("furniture")) {
+                    return separateFurnitureInfo(line);
+                }
+            }
+
+            else {
+                words += line.charAt(i);
+            }
+        }
+
+        return new Product();
     }
+
+    private static Cleaning separateCleaningInfo(String line) {
+        Cleaning newProduct = new Cleaning();
+        String[] atributes = {"identifier", "name", "unitPrice", "stock", "promotion", "toxicityLevel"};
+        String words = "";
+        int atrib = 0;
+        
+        for (int i = 0; i < line.length(); ++i) {
+            if (line.charAt(i) == '/' || line.charAt(i) == '\n') {
+                if (atributes[atrib].equals("identifier")) {
+                    int ident;
+                    try {
+                        ident = Integer.parseInt(words);
+                    }
+                    catch (NumberFormatException nfe) {
+                        ident = -1;
+                    }
+                    newProduct.setIdentifier(ident);
+                }
+                if (atributes[atrib].equals("name")) {
+                    newProduct.setName(words);
+                }
+                if (atributes[atrib].equals("unitPrice")) {
+                    int price;
+                    try {
+                        price = Integer.parseInt(words);
+                    }
+                    catch (NumberFormatException nfe) {
+                        price = -1;
+                    }
+                    newProduct.setUnitPrice(price);
+                }
+                if (atributes[atrib].equals("stoc")) {
+                    int stock;
+                    try {
+                        stock = Integer.parseInt(words);
+                    }
+                    catch (NumberFormatException nfe) {
+                        stock = -1;
+                    }
+                    newProduct.setStock(stock);
+                }
+                if (atributes[atrib].equals("promotion")) {
+                    newProduct.setPromotion(words);
+                }
+                if (atributes[atrib].equals("toxicityLevel")) {
+                    int level;
+                    try {
+                       level = Integer.parseInt(words);
+                    }
+                    catch (NumberFormatException nfe) {
+                       level = -1;
+                    }
+                    newProduct.setToxicityLevel(level);
+                }
+                
+                ++atrib; 
+                words = "";
+            }
+
+            else {
+                words += line.charAt(i);
+            }
+        }
+
+        return newProduct;
+    }
+
+    private static Food separateFoodInfo(String line) {
+        Food newProduct = new Food();
+        String[] atributes = {"identifier", "name", "unitPrice", "stock", "promotion", "caloriesPer100G", "fatPercent"};
+
+        return newProduct;
+    }
+
+    private static Furniture separateFurnitureInfo(String line) {
+        Furniture newProduct = new Furniture();
+        String[] atributes = {"identifier", "name", "unitPrice", "stock", "promotion", "height", "width", "depth", "wight"};
+
+        return newProduct;
+    }
+
+
+
 
     private static Date convertToDate(String strDate) {
         Date date = new Date();
