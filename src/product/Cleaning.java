@@ -51,7 +51,7 @@ public class Cleaning extends Product {
                     }
                     newProduct.setUnitPrice(price);
                 }
-                if (atributes[atrib].equals("stoc")) {
+                if (atributes[atrib].equals("stock")) {
                     int stock;
                     try {
                         stock = Integer.parseInt(words);
