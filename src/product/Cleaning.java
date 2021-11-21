@@ -22,12 +22,15 @@ public class Cleaning extends Product {
 
     public static Cleaning separateCleaningInfo(String line) {
         Cleaning newProduct = new Cleaning();
-        String[] atributes = {"identifier", "name", "unitPrice", "stock", "promotion", "toxicityLevel"};
+        String[] atributes = {"type", "identifier", "name", "unitPrice", "stock", "promotion", "toxicityLevel"};
         String words = "";
         int atrib = 0;
         
         for (int i = 0; i < line.length(); ++i) {
             if (line.charAt(i) == '/' || line.charAt(i) == '\n') {
+                if (atributes[atrib].equals("type")) {
+                    newProduct.setProductType(words);
+                }                 
                 if (atributes[atrib].equals("identifier")) {
                     int ident;
                     try {

@@ -3,6 +3,7 @@ import sale.*;
 import java.lang.String;
 
 public class Product {
+    protected String productType; 
     protected int identifier;
     protected String name;
     protected float unitPrice;
@@ -11,11 +12,20 @@ public class Product {
 
     public Product() {}
 
-    public Product(int identifier, String name, float unitPrice, int stock) {
+    public Product(String productType, int identifier, String name, float unitPrice, int stock) {
+        this.productType = productType;
         this.identifier = identifier;
         this.name = name;
         this.unitPrice = unitPrice;
         this.stock = stock;
+    }
+
+    public String getProductType() {
+        return productType;
+    }
+
+    public void setProductType(String productType) {
+        this.productType = productType;
     }
 
     public int getIdentifier() {
@@ -66,15 +76,17 @@ public class Product {
 
         for (int i = 0; i < line.length(); ++i) {
             if (line.charAt(i) == '/' || line.charAt(i) == '\n') {
-                if (productType[type].equals("cleaning")) {
+                if (productType[type].equals(words)) {
                     return Cleaning.separateCleaningInfo(line);                    
                 }    
-                if (productType[type].equals("food")) {
+                if (productType[type].equals(words)) {
                     return Food.separateFoodInfo(line);
                 }
-                if (productType[type].equals("furniture")) {
+                if (productType[type].equals(words)) {
                     return Furniture.separateFurnitureInfo(line);
                 }
+
+                ++type;
             }
 
             else {
