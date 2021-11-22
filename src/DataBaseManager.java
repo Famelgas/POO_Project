@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.lang.String;
 import client.Client;
 import product.*;
 
@@ -24,17 +23,22 @@ public class DataBaseManager {
                 FileReader fileRead = new FileReader(file);
                 BufferedReader buffRead = new BufferedReader(fileRead);
                 
-                String line;
-                while ((line = buffRead.readLine()) != null) {
-                    // If it's the clients file then every line is a client so 
-                    // we can add a new client to de ArrayList for every line
-                    if (fileName == "Clients.txt") {
+                String line = "";
+                if (fileName.equals("Clients.txt")) {
+                    while ((line = buffRead.readLine()) != null) {
+                        // If it's the clients file then every line is a client so 
+                        // we can add a new client to de ArrayList for every line
                         clientList.add(Client.separateClientInfo(line));
                     }
-                    if (fileName == "Products.txt") {
+                }
+                if (fileName.equals("Products.txt")) {
+                    while ((line = buffRead.readLine()) != null) {
+                        // If it's the clients file then every line is a client so 
+                        // we can add a new client to de ArrayList for every line
                         productList.add(Product.separateProductInfo(line));
                     }
                 }
+
                 
                 buffRead.close();
             }
@@ -50,5 +54,43 @@ public class DataBaseManager {
         }
     }
   
+    public void importFromObjectFile(String fileName) {
+        File file = new File(fileName);
+        
+        if (file.exists() && file.isFile()) {
+            try {
+                FileInputStream inputStream = new FileInputStream(file);
+                ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+                
+                if (fileName.equals("Clients.obj")) {
+                    Client newClient = (Client) objectInputStream.readObject();
+                    clientList.add(newClient);
+                }
+                if (fileName.equals("Products.obj")) {
+                    Product newProduct = (Product) objectInputStream.readObject();
+                    productList.add(newProduct);
+                
+                }
+                objectInputStream.close();  
+            } 
+            catch (FileNotFoundException fnf) {
+                System.out.println("Error opening specified file");
+            }
+            catch (IOException ioe) {
+                System.out.println("Error reading specified file");
+            } catch (ClassNotFoundException cnf) {
+                System.out.println("Error - class not found");
+            }
+        }
+    
+        else {
+            System.out.println("File doesn't exist");
+        }
+
+    }
+
+    public void exportToObjectFile() {
+        
+    }
 
 }
