@@ -1,10 +1,8 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.lang.String;
-import client.*;
+import client.Client;
 import product.*;
-import sale.*;
-
 
 public class DataBaseManager {
     // Imported client list from text file
@@ -24,21 +22,17 @@ public class DataBaseManager {
         if (file.exists() && file.isFile()) {
             try {
                 FileReader fileRead = new FileReader(file);
-                BufferedReader buffRead = new BufferReader(fileRead);
+                BufferedReader buffRead = new BufferedReader(fileRead);
                 
                 String line;
-                while ((line = buffRead.readLine) != null) {
+                while ((line = buffRead.readLine()) != null) {
                     // If it's the clients file then every line is a client so 
                     // we can add a new client to de ArrayList for every line
                     if (fileName == "Clients.txt") {
-                        Client newClient = new Client();
-                        separateClientInfo(newClient, line);
-                        clientList.add(newClient);
+                        clientList.add(Client.separateClientInfo(line));
                     }
                     if (fileName == "Products.txt") {
-                        Product newProduct = new Product();
-                        separateProductInfo(newProduct, line);
-                        productList.add(newProduct);
+                        productList.add(Product.separateProductInfo(line));
                     }
                 }
                 
@@ -52,47 +46,9 @@ public class DataBaseManager {
             }
         }
         else {
-            System.out.prinln("File doesn't exist");
+            System.out.println("File doesn't exist");
         }
     }
   
-    private void addClient() {}
 
-    private void addProduct() {}
-
-
-    // Separates the string so we can create a new client
-    public static void separateClientInfo(Client newClient, String line) {
-        String name = "";
-        array argu = [nome, morada, email.....]
-         
-            for (int i = 0; line.chatAt(i) != null; ++i) {
-                if line.charAt(i) == "/"
-                    arg++;
-
-
-                if (tipo == comida) {
-                    
-                }
-                if arg == morada
-                    
-                if arg == Number
-                    convertpranumero 
-                    setnumber
-            }
-        setName(name);
-        
-    }
-    
-    // Separates the string so we can create a new product
-    private static void separateProductInfo(Product newProduct, String line) {
-        array tipos = [comida, mobila, limpeza];
-        for ...    ;
-            if tipo == comida 
-                array agrscomida
-                for 
-
-            if tipo == mobilia
-
-    }
 }

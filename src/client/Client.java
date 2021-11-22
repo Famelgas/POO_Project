@@ -1,4 +1,7 @@
 package client;
+import date.Date;
+import java.lang.NumberFormatException;
+import java.lang.String;
 
 public class Client {
     private String name;
@@ -71,13 +74,60 @@ public class Client {
     // and writing his information in the data base to enable login
     public void createAccount(String name, String address, String email, int phoneNumber, Date birthday) {
         // Add email to text file
-        addClientToDataBase(newClient);
 
     }
    
+    // Separates the string so we can create a new client
+    public static Client separateClientInfo(String line) {
+        Client newClient = new Client();
+        String[] clientAtributes = {"name", "address", "email", "phoneNumber", "birthday", "frequent"};
+        int atrib = 0;
+        String words = "";
 
-    private static void addClientToDataBase(Client newClient) {
-       // write in file  
+        for (int i = 0; i < line.length(); ++i) {
+            if (line.charAt(i) == '/' || line.charAt(i) == '\n') {
+                if (clientAtributes[atrib].equals("name")) {
+                    newClient.setName(words);
+                }
+                if (clientAtributes[atrib].equals("address")) {
+                    newClient.setAddress(words);
+                }
+                if (clientAtributes[atrib].equals("email")) {
+                    newClient.setEmail(words);
+                }
+                if (clientAtributes[atrib].equals("phoneNumber")) {
+                    int phNum;
+                    try {
+                        phNum = Integer.parseInt(words);
+                    }
+                    catch (NumberFormatException nfe) {
+                        phNum = -1;
+                    }
+                    newClient.setPhoneNumber(phNum);
+                }
+                if (clientAtributes[atrib].equals("birthday")) {
+                    Date date = Date.convertToDate(words);
+                    newClient.setBirthday(date);
+                }
+                if (clientAtributes[atrib].equals("frequent")){
+                    if (words.equals("true")) {
+                        newClient.setFrequent(true);
+                    }
+                    else if (words.equals("false")) {
+                        newClient.setFrequent(false);
+                    }
+                } 
+                
+                ++atrib; 
+                words = "";
+            }
+
+            else {
+                words += line.charAt(i);
+            }
+        } 
+        
+        return newClient;
     }
     
     

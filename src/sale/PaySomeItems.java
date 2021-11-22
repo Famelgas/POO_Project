@@ -7,10 +7,10 @@ public class PaySomeItems extends Sale {
         super(promotionType);
     }
 
-    public float priceCalculator(int numberPurchased,float unitPrice){
+    public float priceCalculator(int numberPurchased, float unitPrice){
         float finalPrice = 0;
         for(int i = 0; i < numberPurchased; i++){
-            if(i%4 != 0){
+            if(i % 4 != 0){
                 finalPrice = finalPrice + unitPrice;
             }
         }

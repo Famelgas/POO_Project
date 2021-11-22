@@ -1,4 +1,6 @@
 package product;
+import java.lang.NumberFormatException;
+import java.lang.String;
 
 public class Food extends Product {
     private int caloriesPer100G;
@@ -25,5 +27,86 @@ public class Food extends Product {
 
     public void setFatPercent(float fatPercent) {
         this.fatPercent = fatPercent;
+    }
+
+
+    public static Food separateFoodInfo(String line) {
+        Food newProduct = new Food();
+        String[] atributes = {"identifier", "name", "unitPrice", "stock", "promotion", "caloriesPer100G", "fatPercent"};
+        String words = "";
+        int atrib = 0;
+        
+        for (int i = 0; i < line.length(); ++i) {
+            if (line.charAt(i) == '/' || line.charAt(i) == '\n') {
+                if (atributes[atrib].equals("type")) {
+                    newProduct.setProductType(words);
+                }                 
+                if (atributes[atrib].equals("identifier")) {
+                    int ident;
+                    try {
+                        ident = Integer.parseInt(words);
+                    }
+                    catch (NumberFormatException nfe) {
+                        ident = -1;
+                    }
+                    newProduct.setIdentifier(ident);
+                }
+                if (atributes[atrib].equals("name")) {
+                    newProduct.setName(words);
+                }
+                if (atributes[atrib].equals("unitPrice")) {
+                    int price;
+                    try {
+                        price = Integer.parseInt(words);
+                    }
+                    catch (NumberFormatException nfe) {
+                        price = -1;
+                    }
+                    newProduct.setUnitPrice(price);
+                }
+                if (atributes[atrib].equals("stock")) {
+                    int stock;
+                    try {
+                        stock = Integer.parseInt(words);
+                    }
+                    catch (NumberFormatException nfe) {
+                        stock = -1;
+                    }
+                    newProduct.setStock(stock);
+                }
+                if (atributes[atrib].equals("promotion")) {
+                    newProduct.setPromotion(words);
+                }
+                if (atributes[atrib].equals("toxicityLevel")) {
+                    int cal;
+                    try {
+                       cal = Integer.parseInt(words);
+                    }
+                    catch (NumberFormatException nfe) {
+                       cal = -1;
+                    }
+                    newProduct.setCaloriesPer100G(cal);
+                }
+                if (atributes[atrib].equals("fatPercent")) {
+                    float fat;
+                    try {
+                       fat = Float.parseFloat(words);
+                    }
+                    catch (NumberFormatException nfe) {
+                       fat = -1;
+                    }
+                    newProduct.setFatPercent(fat);
+                }
+                
+                ++atrib; 
+                words = "";
+            }
+
+            else {
+                words += line.charAt(i);
+            }
+        }
+
+        return newProduct;
     }
 }
