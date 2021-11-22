@@ -1,8 +1,9 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 import client.Client;
 import product.*;
-
+import date.Date;
 
 /**
  * Manages data related to files, clients and products from the supermarket
@@ -161,5 +162,52 @@ public class DataBaseManager {
             System.out.println("Error writing specified file");
         }
     }
+
+
+    // Creates a new a account for a new client, this means creating a new Client
+    // and writing his information in the data base to enable login
+
+    
+    /**
+     * Creates a new client and adds the client to the clientList where it can be 
+     * managed or written into an object file
+     */
+    public void createAccount() {
+        Scanner sc = new Scanner(System.in);        
+        String name; 
+        String address;
+        String email; 
+        int phoneNumber; 
+        String strDate;
+        Date birthday;
+
+        System.out.print("Enter your name:");
+        name = sc.nextLine();
+        System.out.println();
+        
+        System.out.print("Enter your address:");
+        address = sc.nextLine();
+        System.out.println();
+
+        System.out.print("Enter your email:");
+        email = sc.nextLine();
+        System.out.println();
+        
+        System.out.print("Enter your phone number:");
+        phoneNumber = sc.nextInt();
+        System.out.println();
+     
+        System.out.print("Enter your birthday date:");
+        strDate = sc.nextLine();
+        System.out.println();
+        
+        birthday = Date.convertToDate(strDate);
+        
+        sc.close();
+
+        Client newClient = new Client(name, address, email, phoneNumber, birthday, false);
+        clientList.add(newClient);
+    }
+
 
 }

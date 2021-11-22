@@ -13,7 +13,8 @@ public class Client {
 
     public Client() {}
 
-    public Client(String name, String address, String email, int phoneNumber, Date birthday) {
+    public Client(String name, String address, String email, int phoneNumber, Date birthday, Boolean frequent) {
+        this.frequent = frequent;
         this.name = name;
         this.address = address;
         this.email = email;
@@ -70,12 +71,6 @@ public class Client {
         this.frequent = frequent;
     }
 
-    // Creates a new a account for a new client, this means creating a new Client
-    // and writing his information in the data base to enable login
-    public void createAccount(String name, String address, String email, int phoneNumber, Date birthday) {
-        // Add email to text file
-
-    }
    
     // Separates the string so we can create a new client
     public static Client separateClientInfo(String line) {
