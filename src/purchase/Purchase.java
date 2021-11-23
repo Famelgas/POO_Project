@@ -41,6 +41,5 @@ public class Purchase{
     public float priceCalculator(int numberPurchased, float unitPrice){
         return unitPrice * numberPurchased;
     }
-
-
+    
 }

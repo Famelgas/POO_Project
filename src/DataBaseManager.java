@@ -163,10 +163,6 @@ public class DataBaseManager {
         }
     }
 
-
-    // Creates a new a account for a new client, this means creating a new Client
-    // and writing his information in the data base to enable login
-
     
     /**
      * Creates a new client and adds the client to the clientList where it can be 
@@ -206,8 +202,17 @@ public class DataBaseManager {
         sc.close();
 
         Client newClient = new Client(name, address, email, phoneNumber, birthday, false);
-        clientList.add(newClient);
+        clientList.add(newClient); 
     }
 
+    public void buyProduct(Client client) {
+        ArrayList<Product>
+
+        for (Product product : productList) {
+            if (product.getName.equals(productName)) {
+
+            }
+        }
+    }
 
 }
