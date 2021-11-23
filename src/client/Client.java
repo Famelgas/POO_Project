@@ -26,7 +26,7 @@ public class Client {
         this.phoneNumber = phoneNumber;
         this.birthday = birthday;
         this.frequent = false;
-        this.clientPuchases = new ArrayList<>();
+        this.clientPurchases = new ArrayList<>();
     }
 
     public String getName() {
