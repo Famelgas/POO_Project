@@ -1,7 +1,9 @@
 package client;
-import date.Date;
 import java.lang.NumberFormatException;
 import java.lang.String;
+import java.util.ArrayList;
+import date.Date;
+import purchase.Purchase;
 
 public class Client {
     private String name;
@@ -9,7 +11,10 @@ public class Client {
     private String email;
     private int phoneNumber;
     private Date birthday;
-    private boolean frequent; 
+    private boolean frequent;
+    // To keep the clients shopping history an ArrayList of Sales is needed,
+    // this allows the client to keep track of every purchase he has ever made
+    private ArrayList<Purchase> clientPurchases;  
 
     public Client() {}
 
@@ -21,6 +26,7 @@ public class Client {
         this.phoneNumber = phoneNumber;
         this.birthday = birthday;
         this.frequent = false;
+        this.clientPuchases = new ArrayList<>();
     }
 
     public String getName() {
