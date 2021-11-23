@@ -23,8 +23,11 @@ public class OnlineShoppingManager {
         }  
         
         if(num == 1){   //onde vamos permitir realizar o login
-
-
+            String email = "";
+            System.out.print("Please, enter your e-mail: ");
+            Scanner sc = new Scanner(System.in);
+            email = sc.next();
+            
 
         }
 
@@ -38,6 +41,8 @@ public class OnlineShoppingManager {
 
 
 
+            
         }
+
     }   
 }
