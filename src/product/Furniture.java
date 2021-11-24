@@ -2,6 +2,9 @@ package product;
 import java.lang.NumberFormatException;
 import java.lang.String;
 
+// tirei a parte das promoçoes, falta implementar isso 
+
+
 
 public class Furniture extends Product {
     private float height;
@@ -53,7 +56,7 @@ public class Furniture extends Product {
 
     public static Furniture separateFurnitureInfo(String line) {
         Furniture newProduct = new Furniture();
-        String[] atributes = {"identifier", "name", "unitPrice", "stock", "promotion", "height", "width", "depth", "weight"};
+        String[] atributes = {"identifier", "name", "unitPrice", "stock", "height", "width", "depth", "weight"};
         String words = "";
         int atrib = 0;
         
@@ -94,9 +97,6 @@ public class Furniture extends Product {
                         stock = -1;
                     }
                     newProduct.setStock(stock);
-                }
-                if (atributes[atrib].equals("promotion")) {
-                    newProduct.setPromotion(words);
                 }
                 if (atributes[atrib].equals("height")) {
                     float height;

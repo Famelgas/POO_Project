@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import client.Client;
 import product.*;
+import purchase.Purchase;
 import date.Date;
 
 /**
@@ -205,14 +206,35 @@ public class DataBaseManager {
         clientList.add(newClient); 
     }
 
-    public void buyProduct(Client client) {
-        ArrayList<Product>
+    /**
+     * Buy a product from the online strore
+     * @param client - client buying the product
+     * @return - returns true if the purchase is succesful 
+     *           returns false if theres is a problem
+     */
+    public boolean buyProduct(Client client) {
+        ArrayList<Product> shoppingCart = client.getShoppingCart();
+        Purchase newPurchase = new Purchase();
 
-        for (Product product : productList) {
-            if (product.getName.equals(productName)) {
+        // Serching through the client's shopping cart
+        for (Product productToBuy : shoppingCart) {
 
-            }
+            // Need to find a way to return false if the item isn´t in stock
+
+
+
+            // Serching through the store's stock 
+            for (Product productInStock : productList) {
+                if (productToBuy.getName().equals(productInStock.getName())) {
+                    productInStock.setStock(productInStock.getStock() - productToBuy.getStock());
+                    newPurchase.addToPurchasedProducts(productToBuy);
+                }
+            } 
+            
         }
+        client.addToPurchaseHistory(newPurchase);
+
+        return true;
     }
 
 }

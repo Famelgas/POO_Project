@@ -1,6 +1,5 @@
 package product;
 import java.lang.String;
-import purchase.*;
 
 public class Product {
     protected String productType; 
@@ -8,7 +7,6 @@ public class Product {
     protected String name;
     protected float unitPrice;
     protected int stock;
-    protected Purchase promotion;
 
     public Product() {}
 
@@ -60,13 +58,6 @@ public class Product {
         this.stock = stock;
     }
 
-    public Purchase getPromotion() {
-        return promotion;
-    }
-
-    public void setPromotion(String promotion) {
-        this.promotion = new Purchase(promotion); 
-    }
 
     // Separates the string so we can create a new product
     public static Product separateProductInfo(String line) {

@@ -1,45 +1,42 @@
 package purchase;
-import java.lang.Math;
+import java.util.ArrayList;
+import product.*;
+
+
+// revise class Purchase: pra mantermos um historico de compras do cliente
+// temos que ter um arraylist das compras que ele ja fez, a minha questao e 
+// como guardar a informaçao dos items comprados, podemos usar a class Purchase
+// pra isso, usando um arraylist de Products, e guardando um arraylist de Purchases 
+// em cada client. Porem vamos ter que mudar um bocado a estrutura das compras e 
+// promoções
+// acho que as promoções nao deviam herdar class nenhuma, simplesmente em cada produto
+// ter um atributo promoçao, e assim poderiamos usar esta classe para manter o historico.
+// ate porque nao faz sentido ter esta classe pras promoçoes, pq uma compra normal 
+// simplesmente nao tem promoçao.
+
+
+
+
+// falar com a professora sobre a inicializaçao de arraylists nos construtores das classes
+// deve ser inicializado sempre? apesar de poder criar uma nova compra sem adicionar 
+// produto nenhum previamente tenho sempre que ser capaz de adicionar mais a frente se eu quiser
+
 
 public class Purchase{
-    // Each sale can be normal or have two types of promotion
-    private String promotionType;
-    
-    public Purchase() {}
-    
-    public Purchase(String promotionType) {
-        this.promotionType = promotionType;
-    }
+    private ArrayList<Product> purchasedProducts;
 
-    public String getPromotionType() {
-        return promotionType;
-    }
 
-    public void setPromotionType(String promotion) {
-        this.promotionType = promotion;
-    }
-
-    public Purchase createNewSale() {
-        Purchase newSale;
-        // generate a promotion randomly
-        // for now I'm using math.random but it can change
-        int promType = (int) (Math.random() * ((101 - 0) + 101));
-        
-        if (promType > 85 && promType <= 90) {
-            newSale = new PayLess("pay less");
-        }
-
-        if (promType > 90 && promType <= 100) {
-            newSale = new PaySomeItems("pay 3 take 4");
-        }
-
-        newSale = new Purchase("none");
-
-        return newSale;
+    public Purchase() {
+        this.purchasedProducts = new ArrayList<>();
     }
     
-    public float priceCalculator(int numberPurchased, float unitPrice){
-        return unitPrice * numberPurchased;
+    public Purchase(Product product) {
+        this.purchasedProducts = new ArrayList<>();
+        purchasedProducts.add(product);
     }
-    
+
+    public void addToPurchasedProducts(Product product) {
+        purchasedProducts.add(product);
+    }
+
 }

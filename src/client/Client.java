@@ -16,7 +16,7 @@ public class Client {
     private ArrayList<Product> shoppingCart;
     // To keep the clients shopping history an ArrayList of Sales is needed,
     // this allows the client to keep track of every purchase he has ever made
-    private ArrayList<Purchase> clientPurchases;  
+    private ArrayList<Purchase> purchaseHistory;  
 
     public Client() {}
 
@@ -29,7 +29,7 @@ public class Client {
         this.birthday = birthday;
         this.frequent = false;
         this.shoppingCart = new ArrayList<>();
-        this.clientPurchases = new ArrayList<>();
+        this.purchaseHistory = new ArrayList<>();
     }
 
     public String getName() {
@@ -80,11 +80,18 @@ public class Client {
         this.frequent = frequent;
     }
 
+    public ArrayList<Product> getShoppingCart() {
+        return shoppingCart;
+    }
+
     public void addToShoppingCart(Product product, int numberOfProducts) {
         product.setStock(numberOfProducts);
         this.shoppingCart.add(product);
     }
 
+    public void addToPurchaseHistory(Purchase purchase) {
+        this.purchaseHistory.add(purchase);
+    }
    
     // Separates the string so we can create a new client
     public static Client separateClientInfo(String line) {
