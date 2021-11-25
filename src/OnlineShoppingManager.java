@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 
 public class OnlineShoppingManager {
@@ -8,8 +7,9 @@ public class OnlineShoppingManager {
         while(flag  == 0){
             System.out.println("choose one of the following options by selecting a number: ");
             System.out.println("1. Login");
-            System.out.println("2. Make a purchase");
-            System.out.println("3. Consult purchases made");
+            System.out.println("2. Create new account");
+            System.out.println("2. Create new account");
+            System.out.println("3. Make a purchase");
             System.out.print("Your option: ");
             Scanner sc = new Scanner(System.in);
             num = sc.nextInt();

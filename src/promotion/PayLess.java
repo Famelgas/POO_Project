@@ -11,19 +11,19 @@ public class PayLess extends Promotion {
     }
 
     public float priceCalculator(Product product){
-        ArrayList <Double> array;
-        double discount = 0.05;
-        double finalPrice = 0;
+        ArrayList <Float> array = new ArrayList<>();
+        float discount = 0.05f;
+        float finalPrice = 0;
         for (int i = 0; i < product.getStock(); i++ ){
             if (product.getStock() == 1){
                 finalPrice = product.getUnitPrice();
             }
             else{
-                double discountedProduct = product.getUnitPrice() - (i*discount);
+                float discountedProduct = product.getUnitPrice() - (i*discount);
                 array.add(discountedProduct);
             }
         }
-        for (Double discountedProduct : array) {
+        for (Float discountedProduct : array) {
             finalPrice += discountedProduct;
         }
         return finalPrice;
