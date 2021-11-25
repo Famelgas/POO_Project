@@ -1,6 +1,5 @@
 package promotion;
 import java.util.ArrayList;
-import java.util.ArrayList;
 import product.*;
 
 public class PayLess extends Promotion {

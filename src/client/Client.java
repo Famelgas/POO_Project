@@ -42,10 +42,6 @@ public class Client {
         this.phoneNumber = phoneNumber;
         this.birthday = birthday;
         this.frequent = false;
-        this.mbWayPin = mbWayPin;
-        this.creditCardNumber = creditCardNumber;
-        this.creditCardDate = creditCardDate;
-        this.creditCardCVV = creditCardCVV;
         this.shoppingCart = new ArrayList<>();
         this.purchaseHistory = new ArrayList<>();
     }
