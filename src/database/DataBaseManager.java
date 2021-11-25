@@ -207,7 +207,7 @@ public class DataBaseManager {
         strDate = sc.nextLine();
         System.out.println();
         
-        birthday = Date.convertToDate(strDate);
+        birthday = Date.convertStringToDate(strDate);
         
         sc.close();
 
@@ -223,7 +223,9 @@ public class DataBaseManager {
      */
     public boolean buyProduct(Client client) {
         ArrayList<Product> shoppingCart = client.getShoppingCart();
-        Purchase newPurchase = new Purchase();
+        Date date = new Date();
+        date.getDate();
+        Purchase newPurchase = new Purchase(date);
 
         // Serching through the client's shopping cart
         for (Product productToBuy : shoppingCart) {
@@ -234,9 +236,15 @@ public class DataBaseManager {
 
             // Serching through the store's stock 
             for (Product productInStock : productList) {
-                if (productToBuy.getName().equals(productInStock.getName())) {
+                if (productToBuy.getIdentifier() == productInStock.getIdentifier())) {
+                    
+                    
                     productInStock.setStock(productInStock.getStock() - productToBuy.getStock());
                     newPurchase.addToPurchasedProducts(productToBuy);
+                }
+
+                else {
+                    System.out.println("Product out of stock.");
                 }
             } 
             

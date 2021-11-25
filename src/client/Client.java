@@ -13,7 +13,17 @@ public class Client {
     private int phoneNumber;
     private Date birthday;
     private boolean frequent;
+
+
+    // falta fazer getter e setter da promotion 
+    // perguntar a prof se pode ou nao ser abstrata
     private Promotion promotion;
+    
+    
+    private int mbWayPin;
+    private int creditCardNumber;
+    private Date creditCardDate;
+    private int creditCardCVV;
     private ArrayList<Product> shoppingCart;
     // To keep the clients shopping history an ArrayList of Sales is needed,
     // this allows the client to keep track of every purchase he has ever made
@@ -24,7 +34,7 @@ public class Client {
         this.purchaseHistory = new ArrayList<>();
     }
 
-    public Client(String name, String address, String email, int phoneNumber, Date birthday, Boolean frequent) {
+    public Client(String name, String address, String email, int phoneNumber, Date birthday, Boolean frequent, int mbWayPin, int creditCardNumber, Date creditCardDate, int creditCardCVV) {
         this.frequent = frequent;
         this.name = name;
         this.address = address;
@@ -32,6 +42,10 @@ public class Client {
         this.phoneNumber = phoneNumber;
         this.birthday = birthday;
         this.frequent = false;
+        this.mbWayPin = mbWayPin;
+        this.creditCardNumber = creditCardNumber;
+        this.creditCardDate = creditCardDate;
+        this.creditCardCVV = creditCardCVV;
         this.shoppingCart = new ArrayList<>();
         this.purchaseHistory = new ArrayList<>();
     }
@@ -84,6 +98,38 @@ public class Client {
         this.frequent = frequent;
     }
 
+    public int getMbWayPin() {
+        return mbWayPin;
+    }
+
+    public void setMbWayPin(int pin) {
+        this.mbWayPin = pin;
+    }
+
+    public int getCreditCardNumber() {
+        return creditCardNumber;
+    }
+
+    public void setCreditCardNumber(int creditCardNumber) {
+        this.creditCardNumber = creditCardNumber;
+    }
+
+    public Date getCreditCardDate() {
+        return creditCardDate;
+    }
+
+    public void setCreditCardDate(Date date) {
+        this.creditCardDate = date;
+    }
+
+    public int getCreditCardCVV() {
+        return creditCardCVV;
+    }
+
+    public void setCreditCardCVV(int cvv) {
+        this.creditCardCVV = cvv;
+    }
+
     public ArrayList<Product> getShoppingCart() {
         return shoppingCart;
     }
@@ -126,7 +172,7 @@ public class Client {
                     newClient.setPhoneNumber(phNum);
                 }
                 if (clientAtributes[atrib].equals("birthday")) {
-                    Date date = Date.convertToDate(words);
+                    Date date = Date.convertStringToDate(words);
                     newClient.setBirthday(date);
                 }
                 if (clientAtributes[atrib].equals("frequent")){
