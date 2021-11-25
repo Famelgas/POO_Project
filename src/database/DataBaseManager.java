@@ -236,7 +236,7 @@ public class DataBaseManager {
 
             // Serching through the store's stock 
             for (Product productInStock : productList) {
-                if (productToBuy.getIdentifier() == productInStock.getIdentifier())) {
+                if (productToBuy.getIdentifier() == productInStock.getIdentifier()) {
                     
                     
                     productInStock.setStock(productInStock.getStock() - productToBuy.getStock());

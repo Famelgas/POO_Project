@@ -34,6 +34,22 @@ public class Client {
         this.purchaseHistory = new ArrayList<>();
     }
 
+    public Client(String name, String address, String email, int phoneNumber, Date birthday, Boolean frequent) {
+        this.frequent = frequent;
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.birthday = birthday;
+        this.frequent = false;
+        this.mbWayPin = mbWayPin;
+        this.creditCardNumber = creditCardNumber;
+        this.creditCardDate = creditCardDate;
+        this.creditCardCVV = creditCardCVV;
+        this.shoppingCart = new ArrayList<>();
+        this.purchaseHistory = new ArrayList<>();
+    }
+
     public Client(String name, String address, String email, int phoneNumber, Date birthday, Boolean frequent, int mbWayPin, int creditCardNumber, Date creditCardDate, int creditCardCVV) {
         this.frequent = frequent;
         this.name = name;
