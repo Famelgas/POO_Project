@@ -17,7 +17,10 @@ public class Client {
     // this allows the client to keep track of every purchase he has ever made
     private ArrayList<Purchase> purchaseHistory;  
 
-    public Client() {}
+    public Client() {
+        this.shoppingCart = new ArrayList<>();
+        this.purchaseHistory = new ArrayList<>();
+    }
 
     public Client(String name, String address, String email, int phoneNumber, Date birthday, Boolean frequent) {
         this.frequent = frequent;

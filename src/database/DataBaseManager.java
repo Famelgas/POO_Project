@@ -1,3 +1,4 @@
+package database;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -19,6 +20,14 @@ public class DataBaseManager {
        clientList = new ArrayList<>();
        productList = new ArrayList<>(); 
     }
+
+
+
+    // passar funçoes que tratam de ficheiros pra uma classe prorpia !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
     
     /**
      * Imports every client ou product from .txt file to the corresponding ArrayList

@@ -1,4 +1,5 @@
 package purchase;
+import product.*;
 
 public class PayLess extends Promotion {
     public PayLess() {}
@@ -8,13 +9,13 @@ public class PayLess extends Promotion {
     }
 
 
-    public float priceCalculator(int numberPurchased, float unitPrice){
+    public float priceCalculator(Product product) {
         float finalPrice = 0;
-        float discount = (100 - (5 * numberPurchased)) / 100;
-        if (discount >= 50){
-            discount = 50;
-        }
-        finalPrice = unitPrice*discount;
+        int numberOfProducts = product.getStock();
+    
+        
+
+
         return finalPrice;
     }
 
