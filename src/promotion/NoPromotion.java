@@ -1,4 +1,4 @@
-package purchase;
+package promotion;
 import product.*;
 
 public class NoPromotion extends Promotion{

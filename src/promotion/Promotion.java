@@ -1,4 +1,4 @@
-package purchase;
+package promotion;
 import product.Product;
 
 public abstract class Promotion {

@@ -4,6 +4,7 @@ import java.lang.String;
 import java.util.ArrayList;
 import date.Date;
 import product.*;
+import promotion.*;
 
 public class Client {
     private String name;
@@ -12,6 +13,7 @@ public class Client {
     private int phoneNumber;
     private Date birthday;
     private boolean frequent;
+    private Promotion promotion;
     private ArrayList<Product> shoppingCart;
     // To keep the clients shopping history an ArrayList of Sales is needed,
     // this allows the client to keep track of every purchase he has ever made
