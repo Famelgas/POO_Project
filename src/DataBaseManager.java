@@ -2,8 +2,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import client.Client;
+import client.Purchase;
 import product.*;
-import purchase.Purchase;
 import date.Date;
 
 /**

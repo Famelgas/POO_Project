@@ -3,7 +3,6 @@ import java.lang.NumberFormatException;
 import java.lang.String;
 import java.util.ArrayList;
 import date.Date;
-import purchase.Purchase;
 import product.*;
 
 public class Client {

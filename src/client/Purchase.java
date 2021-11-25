@@ -1,4 +1,4 @@
-package purchase;
+package client;
 import java.util.ArrayList;
 import product.*;
 

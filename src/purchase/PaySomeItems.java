@@ -1,7 +1,12 @@
 package purchase;
 
-public class PaySomeItems {
+public class PaySomeItems extends Promotion {
     public PaySomeItems() {}
+    
+    public PaySomeItems(String promotionType) {
+        super(promotionType);
+    }
+
 
     public float priceCalculator(int numberPurchased, float unitPrice){
         float finalPrice = 0;
