@@ -2,6 +2,11 @@ package product;
 import java.lang.NumberFormatException;
 import java.lang.String;
 
+
+// tirei a parte das promoçoes, falta implementar isso 
+
+
+
 public class Cleaning extends Product {
     private int toxicityLevel;
     
@@ -22,7 +27,7 @@ public class Cleaning extends Product {
 
     public static Cleaning separateCleaningInfo(String line) {
         Cleaning newProduct = new Cleaning();
-        String[] atributes = {"type", "identifier", "name", "unitPrice", "stock", "promotion", "toxicityLevel"};
+        String[] atributes = {"type", "identifier", "name", "unitPrice", "stock", "toxicityLevel"};
         String words = "";
         int atrib = 0;
         
@@ -63,9 +68,6 @@ public class Cleaning extends Product {
                         stock = -1;
                     }
                     newProduct.setStock(stock);
-                }
-                if (atributes[atrib].equals("promotion")) {
-                    newProduct.setPromotion(words);
                 }
                 if (atributes[atrib].equals("toxicityLevel")) {
                     int level;

@@ -1,7 +1,9 @@
+package database;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import client.Client;
+import client.Purchase;
 import product.*;
 import date.Date;
 
@@ -18,6 +20,14 @@ public class DataBaseManager {
        clientList = new ArrayList<>();
        productList = new ArrayList<>(); 
     }
+
+
+
+    // passar funçoes que tratam de ficheiros pra uma classe prorpia !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
     
     /**
      * Imports every client ou product from .txt file to the corresponding ArrayList
@@ -163,10 +173,6 @@ public class DataBaseManager {
         }
     }
 
-
-    // Creates a new a account for a new client, this means creating a new Client
-    // and writing his information in the data base to enable login
-
     
     /**
      * Creates a new client and adds the client to the clientList where it can be 
@@ -206,8 +212,38 @@ public class DataBaseManager {
         sc.close();
 
         Client newClient = new Client(name, address, email, phoneNumber, birthday, false);
-        clientList.add(newClient);
+        clientList.add(newClient); 
     }
 
+    /**
+     * Buy a product from the online strore
+     * @param client - client buying the product
+     * @return - returns true if the purchase is succesful 
+     *           returns false if theres is a problem
+     */
+    public boolean buyProduct(Client client) {
+        ArrayList<Product> shoppingCart = client.getShoppingCart();
+        Purchase newPurchase = new Purchase();
+
+        // Serching through the client's shopping cart
+        for (Product productToBuy : shoppingCart) {
+
+            // Need to find a way to return false if the item isn´t in stock
+
+
+
+            // Serching through the store's stock 
+            for (Product productInStock : productList) {
+                if (productToBuy.getName().equals(productInStock.getName())) {
+                    productInStock.setStock(productInStock.getStock() - productToBuy.getStock());
+                    newPurchase.addToPurchasedProducts(productToBuy);
+                }
+            } 
+            
+        }
+        client.addToPurchaseHistory(newPurchase);
+
+        return true;
+    }
 
 }

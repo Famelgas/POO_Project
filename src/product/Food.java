@@ -2,6 +2,10 @@ package product;
 import java.lang.NumberFormatException;
 import java.lang.String;
 
+
+// tirei a parte das promoçoes, falta implementar isso 
+
+
 public class Food extends Product {
     private int caloriesPer100G;
     private float fatPercent;
@@ -32,7 +36,7 @@ public class Food extends Product {
 
     public static Food separateFoodInfo(String line) {
         Food newProduct = new Food();
-        String[] atributes = {"identifier", "name", "unitPrice", "stock", "promotion", "caloriesPer100G", "fatPercent"};
+        String[] atributes = {"identifier", "name", "unitPrice", "stock", "caloriesPer100G", "fatPercent"};
         String words = "";
         int atrib = 0;
         
@@ -73,9 +77,6 @@ public class Food extends Product {
                         stock = -1;
                     }
                     newProduct.setStock(stock);
-                }
-                if (atributes[atrib].equals("promotion")) {
-                    newProduct.setPromotion(words);
                 }
                 if (atributes[atrib].equals("toxicityLevel")) {
                     int cal;

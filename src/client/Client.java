@@ -3,7 +3,7 @@ import java.lang.NumberFormatException;
 import java.lang.String;
 import java.util.ArrayList;
 import date.Date;
-import purchase.Purchase;
+import product.*;
 
 public class Client {
     private String name;
@@ -12,11 +12,15 @@ public class Client {
     private int phoneNumber;
     private Date birthday;
     private boolean frequent;
+    private ArrayList<Product> shoppingCart;
     // To keep the clients shopping history an ArrayList of Sales is needed,
     // this allows the client to keep track of every purchase he has ever made
-    private ArrayList<Purchase> clientPurchases;  
+    private ArrayList<Purchase> purchaseHistory;  
 
-    public Client() {}
+    public Client() {
+        this.shoppingCart = new ArrayList<>();
+        this.purchaseHistory = new ArrayList<>();
+    }
 
     public Client(String name, String address, String email, int phoneNumber, Date birthday, Boolean frequent) {
         this.frequent = frequent;
@@ -26,7 +30,8 @@ public class Client {
         this.phoneNumber = phoneNumber;
         this.birthday = birthday;
         this.frequent = false;
-        this.clientPurchases = new ArrayList<>();
+        this.shoppingCart = new ArrayList<>();
+        this.purchaseHistory = new ArrayList<>();
     }
 
     public String getName() {
@@ -77,6 +82,18 @@ public class Client {
         this.frequent = frequent;
     }
 
+    public ArrayList<Product> getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public void addToShoppingCart(Product product, int numberOfProducts) {
+        product.setStock(numberOfProducts);
+        this.shoppingCart.add(product);
+    }
+
+    public void addToPurchaseHistory(Purchase purchase) {
+        this.purchaseHistory.add(purchase);
+    }
    
     // Separates the string so we can create a new client
     public static Client separateClientInfo(String line) {
