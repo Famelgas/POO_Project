@@ -1,7 +1,7 @@
 package client;
 import java.util.ArrayList;
 import product.*;
-
+import date.*;
 
 // revise class Purchase: pra mantermos um historico de compras do cliente
 // temos que ter um arraylist das compras que ele ja fez, a minha questao e 
@@ -23,6 +23,7 @@ import product.*;
 
 
 public class Purchase{
+    private Date date;
     private ArrayList<Product> purchasedProducts;
 
 
@@ -30,9 +31,9 @@ public class Purchase{
         this.purchasedProducts = new ArrayList<>();
     }
     
-    public Purchase(Product product) {
+    public Purchase(Date date) {
         this.purchasedProducts = new ArrayList<>();
-        purchasedProducts.add(product);
+        this.date = date;
     }
 
     public void addToPurchasedProducts(Product product) {

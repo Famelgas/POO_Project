@@ -1,4 +1,5 @@
 package date;
+import java.util.Scanner;
 
 public class Date {
     private int day;
@@ -57,7 +58,7 @@ public class Date {
     }
 
 
-    public static Date convertToDate(String strDate) {
+    public static Date convertStringToDate(String strDate) {
         Date date = new Date();
         String numStr = "";
         int atrib = 1;        
@@ -75,6 +76,27 @@ public class Date {
         }
 
         return date;
+    }
+
+    public Date getDate() {
+        Sytem.out.println("Enter the pretended date:");
+        Scanner sc = new Scanner(System.in);
+        int day;
+        int month;
+        int year;
+        
+        System.out.println("Enter the day:");
+        day = sc.nextInt();
+        
+        System.out.println("Enter the month:");
+        month = sc.nextInt();
+        
+        System.out.println("Enter the year:");
+        year = sc.nextInt();
+        
+        sc.close();
+        
+        return new Date(day, month, year);
     }
 
 }
