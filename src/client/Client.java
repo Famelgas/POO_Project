@@ -236,7 +236,9 @@ public class Client {
         return newClient;
     }
 
+    private boolean acceptPayment() {
         
+    }         
     
 
 

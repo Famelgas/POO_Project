@@ -224,33 +224,45 @@ public class DataBaseManager {
     public boolean buyProduct(Client client) {
         ArrayList<Product> shoppingCart = client.getShoppingCart();
         Date date = new Date();
-        date.getDate();
+        date = date.getUsersDate();
         Purchase newPurchase = new Purchase(date);
 
         // Serching through the client's shopping cart
         for (Product productToBuy : shoppingCart) {
-
-            // Need to find a way to return false if the item isn´t in stock
-
-
-
             // Serching through the store's stock 
             for (Product productInStock : productList) {
                 if (productToBuy.getIdentifier() == productInStock.getIdentifier()) {
-                    
-                    
                     productInStock.setStock(productInStock.getStock() - productToBuy.getStock());
-                    newPurchase.addToPurchasedProducts(productToBuy);
+                    newPurchase.addToPurchasedProducts(productToBuy);            
                 }
-
+                
                 else {
                     System.out.println("Product out of stock.");
                 }
             } 
             
         }
-        client.addToPurchaseHistory(newPurchase);
+        System.out.println("Your total is: " + newPurchase.getPrice());
+        int option = 1;
+        while (option == 1) {
+            if (client.acceptPayment()) {
+                System.out.println("Payment accepted!\nThank you for choosing us!");
+                client.addToPurchaseHistory(newPurchase);
+                return true;
+            }
+            else {
+                Scanner sc = new Scanner(System.in);
+                System.out.println("Payment not accepted.");
+                System.out.println("Enter the option you desire:");
+                System.out.println("Try again: 1\n" + "Return to the  store: 2");
+                option = sc.nextInt();
+                sc.close();
+                if (option == 2) {
+                    return false;
+                }
+            }
 
+        }
         return true;
     }
 
