@@ -1,5 +1,7 @@
 package date;
 import java.util.Scanner;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 
 public class Date {
     private int day;
@@ -79,7 +81,7 @@ public class Date {
     }
 
     public Date getDate() {
-        Sytem.out.println("Enter the pretended date:");
+        System.out.println("Enter the pretended date:");
         Scanner sc = new Scanner(System.in);
         int day;
         int month;
@@ -99,4 +101,10 @@ public class Date {
         return new Date(day, month, year);
     }
 
+    public Date getActualDate() {
+        LocalDate localDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String formattedDate = localDate.format(formatter);
+        return convertStringToDate(formattedDate);
+    }
 }
