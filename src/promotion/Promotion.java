@@ -1,7 +1,7 @@
 package promotion;
 import product.Product;
 
-public abstract class Promotion {
+public class Promotion {
     protected String promotionType;
 
     public Promotion() {}
@@ -10,5 +10,7 @@ public abstract class Promotion {
         this.promotionType = promotionType;
     }
 
-    public abstract float priceCalculator(Product product);
+    public float priceCalculator(Product product) {
+        return product.getUnitPrice();
+    }
 }

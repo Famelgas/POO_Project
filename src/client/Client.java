@@ -4,7 +4,6 @@ import java.lang.String;
 import java.util.ArrayList;
 import date.Date;
 import product.*;
-import promotion.*;
 
 public class Client {
     private String name;
@@ -13,13 +12,6 @@ public class Client {
     private int phoneNumber;
     private Date birthday;
     private boolean frequent;
-
-
-    // falta fazer getter e setter da promotion 
-    // perguntar a prof se pode ou nao ser abstrata
-    private Promotion promotion;
-    
-    
     private int mbWayPin;
     private int creditCardNumber;
     private Date creditCardDate;

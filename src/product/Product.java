@@ -1,4 +1,5 @@
 package product;
+import promotion.*;
 import java.lang.String;
 
 public class Product {
@@ -7,6 +8,9 @@ public class Product {
     protected String name;
     protected float unitPrice;
     protected int stock;
+    // falta fazer getter e setter da promotion
+    // perguntar a prof se pode ou nao ser abstrata
+    private Promotion promotion;
 
     public Product() {}
 
@@ -16,6 +20,7 @@ public class Product {
         this.name = name;
         this.unitPrice = unitPrice;
         this.stock = stock;
+        
     }
 
     public String getProductType() {
@@ -56,6 +61,14 @@ public class Product {
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    public Promotion getPromotion() {
+        return promotion;
+    }
+
+    public void setPromotion(Promotion promotion) {
+        this.promotion = promotion;
     }
 
 

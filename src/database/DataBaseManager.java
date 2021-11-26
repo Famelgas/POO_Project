@@ -6,6 +6,7 @@ import client.Client;
 import client.Purchase;
 import product.*;
 import date.Date;
+import promotion.*;
 
 /**
  * Manages data related to files, clients and products from the supermarket
@@ -232,13 +233,29 @@ public class DataBaseManager {
             // Serching through the store's stock 
             for (Product productInStock : productList) {
                 if (productToBuy.getIdentifier() == productInStock.getIdentifier()) {
-                    productInStock.setStock(productInStock.getStock() - productToBuy.getStock());
-                    newPurchase.addToPurchasedProducts(productToBuy);            
+                    Promotion promotion = productToBuy.getPromotion();
+                    float productsPrice;
+                    if ((productInStock.getStock() - productToBuy.getStock()) >= 0) {
+                        productsPrice = promotion.priceCalculator(productToBuy);
+                        productInStock.setStock(productInStock.getStock() - productToBuy.getStock());
+                        
+                        
+                    }
+                    if ((productInStock.getStock() - productToBuy.getStock()) < 0) {
+                        productToBuy.setStock(productInStock.getStock());
+                        productsPrice = promotion.priceCalculator(productToBuy);
+                        productInStock.setStock(productInStock.getStock() - productToBuy.getStock());
+                        
+                    }
+
+                    newPurchase.addToPurchasedProducts(productToBuy);          
+                    newPurchase.raisePurchasePrice(productsPrice);
                 }
                 
                 else {
                     System.out.println("Product out of stock.");
                 }
+
             } 
             
         }
