@@ -1,5 +1,4 @@
 package database;
-import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import client.Client;
@@ -22,158 +21,13 @@ public class DataBaseManager {
        productList = new ArrayList<>(); 
     }
 
-
-
-    // passar funçoes que tratam de ficheiros pra uma classe prorpia !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-
-
-    
-    /**
-     * Imports every client ou product from .txt file to the corresponding ArrayList
-     * @param fileName - .txt file to import from
-     */
-    public void importFromTextFile(String fileName) {
-        File file = new File(fileName);
-        
-        if (file.exists() && file.isFile()) {
-            try {
-                FileReader fileRead = new FileReader(file);
-                BufferedReader buffRead = new BufferedReader(fileRead);
-                
-                String line = "";
-                if (fileName.equals("Clients.txt")) {
-                    while ((line = buffRead.readLine()) != null) {
-                        // If it's the clients file then every line is a client so 
-                        // we can add a new client to de ArrayList for every line
-                        clientList.add(Client.separateClientInfo(line));
-                    }
-                }
-                if (fileName.equals("Products.txt")) {
-                    while ((line = buffRead.readLine()) != null) {
-                        // If it's the clients file then every line is a client so 
-                        // we can add a new client to de ArrayList for every line
-                        productList.add(Product.separateProductInfo(line));
-                    }
-                }
-
-                
-                buffRead.close();
-            }
-            catch (FileNotFoundException fnf) {
-                System.out.println("Error opening specified file");
-            }
-            catch (IOException ioe) {
-                System.out.println("Error reading specified file");
-            }
-        }
-        else {
-            System.out.println("File doesn't exist");
-        }
+    public void addToClientList(String line) {
+        clientList.add(Client.separateClientInfo(line));
     }
     
-    /**
-     * Imports every client or object from .obj file to the corresponding ArrayList
-     * @param fileName - .obj file to import from
-     */
-    public void importFromObjectFile(String fileName) {
-        File file = new File(fileName);
-        
-        if (file.exists() && file.isFile()) {
-            try {
-                FileInputStream inputStream = new FileInputStream(file);
-                ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-                
-                if (fileName.equals("Clients.obj")) {
-                    Client newClient = (Client) objectInputStream.readObject();
-                    clientList.add(newClient);
-                }
-                if (fileName.equals("Products.obj")) {
-                    Product newProduct = (Product) objectInputStream.readObject();
-                    productList.add(newProduct);
-                
-                }
-                objectInputStream.close();  
-            } 
-            catch (FileNotFoundException fnf) {
-                System.out.println("Error opening specified file");
-            }
-            catch (IOException ioe) {
-                System.out.println("Error reading specified file");
-            }
-            catch (ClassNotFoundException cnf) {
-                System.out.println("Error - class not found");
-            }
-        }
-    
-        else {
-            System.out.println("File doesn't exist");
-        }
-
+    public void addToProductList(String line) {
+        productList.add(Product.separateProductInfo(line));
     }
-
-    /**
-     * Writes every client and product in the corresponding .obj files. If a file doesn't exist
-     * creates a new one
-     * @param clientFileName - .obj client file 
-     * @param productFileName - .obj product file
-     */
-    public void exportToObjectFile(String clientFileName, String productFileName) {
-        // Write every client in the ArrayList in the Clients.obj file
-        File clientFile = new File(clientFileName);
-
-        try {
-            clientFile.createNewFile();       
-        }
-        catch (IOException ioe) {
-            System.out.println("Error creating new .obj file");
-        }
-
-        if (clientFile.exists() && clientFile.isFile()) {
-            try {
-                FileOutputStream outputStream = new FileOutputStream(clientFile, true);
-                ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-                for (Client client: clientList) {
-                    objectOutputStream.writeObject(client);
-                } 
-                objectOutputStream.close();
-            }
-            catch (FileNotFoundException fnf) {
-                System.out.println("Error opening specified file");
-            }
-            catch (IOException ioe) {
-                System.out.println("Error writing specified file");
-            }
-        }
-
-
-        // Write every product in the ArrayList in the Products.obj file
-        File productFile = new File(productFileName);
-
-        try {
-            productFile.createNewFile();       
-        }
-        catch (IOException ioe) {
-            System.out.println("Error creating new .obj file");
-        }
-
-        try {
-            FileOutputStream outputStream = new FileOutputStream(productFile, true);
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-            for (Product product: productList) {
-                objectOutputStream.writeObject(product);
-            } 
-            objectOutputStream.close();
-        }
-        catch (FileNotFoundException fnf) {
-            System.out.println("Error opening specified file");
-        }
-        catch (IOException ioe) {
-            System.out.println("Error writing specified file");
-        }
-    }
-
     
     /**
      * Creates a new client and adds the client to the clientList where it can be 
@@ -234,18 +88,20 @@ public class DataBaseManager {
             for (Product productInStock : productList) {
                 if (productToBuy.getIdentifier() == productInStock.getIdentifier()) {
                     Promotion promotion = productToBuy.getPromotion();
-                    float productsPrice;
+                    float productsPrice = 0;
+                    // If there is more items in stock then what the client wants to buy
                     if ((productInStock.getStock() - productToBuy.getStock()) >= 0) {
                         productsPrice = promotion.priceCalculator(productToBuy);
                         productInStock.setStock(productInStock.getStock() - productToBuy.getStock());
                         
                         
                     }
+                    // If the client wants to buy more items then what the supermarket has 
+                    // then he can only buy the existing stock
                     if ((productInStock.getStock() - productToBuy.getStock()) < 0) {
                         productToBuy.setStock(productInStock.getStock());
                         productsPrice = promotion.priceCalculator(productToBuy);
-                        productInStock.setStock(productInStock.getStock() - productToBuy.getStock());
-                        
+                        productList.remove(productInStock);
                     }
 
                     newPurchase.addToPurchasedProducts(productToBuy);          
@@ -259,7 +115,10 @@ public class DataBaseManager {
             } 
             
         }
-        System.out.println("Your total is: " + newPurchase.getPrice());
+
+
+
+        System.out.println("Your total is: " + newPurchase.getPurchasePrice());
         int option = 1;
         while (option == 1) {
             if (client.acceptPayment()) {
@@ -271,7 +130,7 @@ public class DataBaseManager {
                 Scanner sc = new Scanner(System.in);
                 System.out.println("Payment not accepted.");
                 System.out.println("Enter the option you desire:");
-                System.out.println("Try again: 1\n" + "Return to the  store: 2");
+                System.out.println("Try again: 1\n" + "Go back: 2");
                 option = sc.nextInt();
                 sc.close();
                 if (option == 2) {

@@ -9,6 +9,9 @@ public class OnlineShoppingManager {
         int flag = 0;
         Client client = new Client();
         DataBaseManager dataBaseManager = new DataBaseManager();
+
+        
+
         while(true) {
             while (flag == 0) {
                 System.out.println("        Object-Oriented Programming SuperMarket");

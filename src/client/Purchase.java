@@ -36,6 +36,30 @@ public class Purchase{
     public Purchase(Date date) {
         this.purchasedProducts = new ArrayList<>();
         this.date = date;
+    }  
+
+    public Date getPurchaseDate() {
+        return date;
+    }
+
+    public void setPurchaseDate(Date date) {
+        this.date = date;
+    }
+
+    public int getPurchaseReference() {
+        return reference;
+    }
+
+    public void setPurchaseReference(int reference) {
+        this.reference = reference;
+    }
+
+    public float getPurchasePrice() {
+        return purchasePrice;
+    }
+
+    public void setPurchasePrice(float purchasePrice) {
+        this.purchasePrice = purchasePrice;
     }
 
     public void addToPurchasedProducts(Product product) {
@@ -46,9 +70,6 @@ public class Purchase{
         this.purchasePrice += priceToRaise;
     }
  
-
-    public float getPrice() {
-
-    }
+    
 
 }
