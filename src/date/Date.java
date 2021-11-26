@@ -80,7 +80,7 @@ public class Date {
         return date;
     }
 
-    public Date getDate() {
+    public Date getUsersDate() {
         System.out.println("Enter the pretended date:");
         Scanner sc = new Scanner(System.in);
         int day;

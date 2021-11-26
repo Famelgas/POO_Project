@@ -24,6 +24,8 @@ import date.*;
 
 public class Purchase{
     private Date date;
+    private int reference;
+    private float purchasePrice;
     private ArrayList<Product> purchasedProducts;
 
 
@@ -38,6 +40,15 @@ public class Purchase{
 
     public void addToPurchasedProducts(Product product) {
         purchasedProducts.add(product);
+    }
+
+    public void raisePurchasePrice(float priceToRaise) {
+        this.purchasePrice += priceToRaise;
+    }
+ 
+
+    public float getPrice() {
+
     }
 
 }
