@@ -26,15 +26,15 @@ public class OnlineShoppingManager {
                 }
             }
             
-            if(num == 1){   
-           
-        
-
-
+            if(num == 1){   //login
+                
+                
+                
+                
 
             }
-    
-            if(num == 2){  
+     
+            if(num == 2){  //create a new account
                 if(createAccount() == true){
                     client = dataBaseManager.createAccount();
                 }
