@@ -16,7 +16,7 @@ public class Client {
     private boolean frequent;
     private int mbWayPin;
     private int creditCardNumber;
-    private Date creditCardDate;
+    private Date expirationDate;
     private int creditCardCVV;
     private ArrayList<Product> shoppingCart;
     // To keep the clients shopping history an ArrayList of Sales is needed,
@@ -50,7 +50,7 @@ public class Client {
         this.frequent = false;
         this.mbWayPin = mbWayPin;
         this.creditCardNumber = creditCardNumber;
-        this.creditCardDate = creditCardDate;
+        this.expirationDate = creditCardDate;
         this.creditCardCVV = creditCardCVV;
         this.shoppingCart = new ArrayList<>();
         this.purchaseHistory = new ArrayList<>();
@@ -78,7 +78,7 @@ public class Client {
         this.birthday = birthday;
         this.frequent = false;
         this.creditCardNumber = creditCardNumber;
-        this.creditCardDate = creditCardDate;
+        this.expirationDate = creditCardDate;
         this.creditCardCVV = creditCardCVV;
         this.shoppingCart = new ArrayList<>();
         this.purchaseHistory = new ArrayList<>();
@@ -148,12 +148,12 @@ public class Client {
         this.creditCardNumber = creditCardNumber;
     }
 
-    public Date getCreditCardDate() {
-        return creditCardDate;
+    public Date getExpirationDate() {
+        return expirationDate;
     }
 
-    public void setCreditCardDate(Date date) {
-        this.creditCardDate = date;
+    public void setExpirationDate(Date date) {
+        this.expirationDate = date;
     }
 
     public int getCreditCardCVV() {
@@ -241,18 +241,23 @@ public class Client {
             System.out.println("Invalid option. Please try again.");
             option = sc.nextInt();    
         }
-
+        
         if (option == 1) {
             while (true) {
-                System.out.println("Enter your phone number:");
+                System.out.print("Phone number: ");
                 int phoneNumber = sc.nextInt();
+                System.out.println();
                 if (this.phoneNumber == phoneNumber) {
-                    System.out.println("Enter your PIN:");
+                    System.out.print("PIN: ");
                     int pin = sc.nextInt(); 
+                    System.out.println();
+                    
                     if (this.mbWayPin == pin) {
+                        sc.close();
                         return true;
                     }
                     else {
+                        sc.close();
                         return false;
                     }
                 }
@@ -260,16 +265,45 @@ public class Client {
                     System.out.println("Wrong phone number.");
                     System.out.println("Do you want to try again?\n 1. Yes\n2. No");
                     if (option == 2) {
+                        sc.close();
                         return false;
                     }
                 }   
             }
         }
+        if (option == 2) {
+            System.out.print("Credit card number: ");
+            int ccNumber = sc.nextInt();
+            System.out.println();
 
-
-
-
-
+            System.out.println("Expiration date:");
+            System.out.print("Day -> ");
+            int day = sc.nextInt();
+            System.out.print("\nMonth -> ");
+            int month = sc.nextInt();
+            System.out.print("\nYear -> ");
+            int year = sc.nextInt();
+            System.out.println();
+            
+            Date expDate = new Date(day, month, year);
+            
+            System.out.print("CVV: ");
+            int cvv = sc.nextInt();
+            System.out.println(); 
+            
+            
+            if (this.creditCardNumber == ccNumber && this.expirationDate == expDate && this.creditCardCVV == cvv) {
+                sc.close();
+                return true;
+            }
+            else {
+                System.out.println("The credit card isn´t valid. Please register a valid card in your profile and try again.");
+                sc.close();
+                return false;
+            }
+        }
+        
+        sc.close();
         return true;
     }         
     
