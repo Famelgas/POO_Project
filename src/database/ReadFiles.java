@@ -2,6 +2,8 @@ package database;
 import java.io.*;
 
 public class ReadFiles {
+    public ReadFiles() {}
+
     /**
      * Imports every client ou product from .txt file to the corresponding ArrayList
      * 

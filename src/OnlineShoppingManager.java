@@ -1,4 +1,5 @@
 import java.sql.DatabaseMetaData;
+import java.text.Format;
 import java.util.Scanner;
 import database.DataBaseManager;
 import client.Client;
@@ -9,15 +10,17 @@ public class OnlineShoppingManager {
         int flag = 0;
         Client client = new Client();
         DataBaseManager dataBaseManager = new DataBaseManager();
-
+        Format format = new Format();
         
 
         while(true) {
             while (flag == 0) {
-                System.out.println("        Object-Oriented Programming SuperMarket");
+                System.out.println();
+                System.out.println("");
                 System.out.println("X------------------------------------------------------X");
                 System.out.println("                      1. Login");
                 System.out.println("                2. Create new account");
+                
                 System.out.println("X------------------------------------------------------X");
                 System.out.print("Your option: ");
                 Scanner sc = new Scanner(System.in);
