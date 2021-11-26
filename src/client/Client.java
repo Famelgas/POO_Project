@@ -2,8 +2,10 @@ package client;
 import java.lang.NumberFormatException;
 import java.lang.String;
 import java.util.ArrayList;
+import java.util.Scanner;
 import date.Date;
 import product.*;
+
 
 public class Client {
     private String name;
@@ -228,8 +230,47 @@ public class Client {
         return newClient;
     }
 
-    private boolean acceptPayment() {
-        
+    public boolean acceptPayment() {
+        Scanner sc = new Scanner(System.in);
+        int option;
+        System.out.println("Select your desired payment method:");
+        System.out.println("1. MbWay\n 2. Credit Card");    
+        option = sc.nextInt();
+
+        while(option != 1 && option != 2) {
+            System.out.println("Invalid option. Please try again.");
+            option = sc.nextInt();    
+        }
+
+        if (option == 1) {
+            while (true) {
+                System.out.println("Enter your phone number:");
+                int phoneNumber = sc.nextInt();
+                if (this.phoneNumber == phoneNumber) {
+                    System.out.println("Enter your PIN:");
+                    int pin = sc.nextInt(); 
+                    if (this.mbWayPin == pin) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                }
+                else {
+                    System.out.println("Wrong phone number.");
+                    System.out.println("Do you want to try again?\n 1. Yes\n2. No");
+                    if (option == 2) {
+                        return false;
+                    }
+                }   
+            }
+        }
+
+
+
+
+
+        return true;
     }         
     
 

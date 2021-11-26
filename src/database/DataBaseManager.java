@@ -234,18 +234,20 @@ public class DataBaseManager {
             for (Product productInStock : productList) {
                 if (productToBuy.getIdentifier() == productInStock.getIdentifier()) {
                     Promotion promotion = productToBuy.getPromotion();
-                    float productsPrice;
+                    float productsPrice = 0;
+                    // If there is more items in stock then what the client wants to buy
                     if ((productInStock.getStock() - productToBuy.getStock()) >= 0) {
                         productsPrice = promotion.priceCalculator(productToBuy);
                         productInStock.setStock(productInStock.getStock() - productToBuy.getStock());
                         
                         
                     }
+                    // If the client wants to buy more items then what the supermarket has 
+                    // then he can only buy the existing stock
                     if ((productInStock.getStock() - productToBuy.getStock()) < 0) {
                         productToBuy.setStock(productInStock.getStock());
                         productsPrice = promotion.priceCalculator(productToBuy);
                         productInStock.setStock(productInStock.getStock() - productToBuy.getStock());
-                        
                     }
 
                     newPurchase.addToPurchasedProducts(productToBuy);          
@@ -259,7 +261,10 @@ public class DataBaseManager {
             } 
             
         }
-        System.out.println("Your total is: " + newPurchase.getPrice());
+
+
+
+        System.out.println("Your total is: " + newPurchase.getPurchasePrice());
         int option = 1;
         while (option == 1) {
             if (client.acceptPayment()) {
