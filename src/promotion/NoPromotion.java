@@ -13,4 +13,8 @@ public class NoPromotion extends Promotion{
         int numberOfProducts = product.getStock();
         return unitPrice * numberOfProducts;
     }
+
+    public String toString() {
+        return "No promotion available";
+    }
 }

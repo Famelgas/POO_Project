@@ -59,6 +59,10 @@ public class Date {
         }
     }
 
+    public String toString() {
+        return day + "/" + month + "/" + year; 
+    }
+
 
     public static Date convertStringToDate(String strDate) {
         Date date = new Date();

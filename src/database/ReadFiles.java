@@ -2,12 +2,14 @@ package database;
 import java.io.*;
 
 public class ReadFiles {
+    public ReadFiles() {}
+
     /**
      * Imports every client ou product from .txt file to the corresponding ArrayList
      * 
      * @param fileName - .txt file to import from
      */
-    public void importFromTextFile(DataBaseManager dataBaseManager, String fileName) {
+    public DataBaseManager importFromTextFile(DataBaseManager dataBaseManager, String fileName) {
         File file = new File(fileName);
 
         if (file.exists() && file.isFile()) {
@@ -35,13 +37,20 @@ public class ReadFiles {
                 }
 
                 buffRead.close();
+                return dataBaseManager;        
+
             } catch (FileNotFoundException fnf) {
                 System.out.println("Error opening specified file");
+                return null;
             } catch (IOException ioe) {
                 System.out.println("Error reading specified file");
+                return null;
             }
+
+
         } else {
             System.out.println("File doesn't exist");
+            return null;
         }
     }
 
@@ -50,7 +59,7 @@ public class ReadFiles {
      * 
      * @param fileName - .obj file to import from
      */
-    public DataBaseManager importFromObjectFile(String fileName, DataBaseManager dataBaseManager) {
+    public DataBaseManager importFromObjectFile(DataBaseManager dataBaseManager, String fileName) {
         File file = new File(fileName);
 
         if (file.exists() && file.isFile()) {
@@ -65,19 +74,23 @@ public class ReadFiles {
                         System.out.println("Error reading client list from .obj file");
                     }
                 }
+
                 objectInputStream.close();
+                return dataBaseManager;
+
             } catch (FileNotFoundException fnf) {
                 System.out.println("Error opening specified file");
+                return null;
             } catch (IOException ioe) {
                 System.out.println("Error reading specified file");
+                return null;
             }
         }
 
         else {
             System.out.println("File doesn't exist");
+            return null;
         }
-
-        return dataBaseManager;
     }
 
     /**
@@ -87,7 +100,7 @@ public class ReadFiles {
      * @param clientFileName  - .obj client file
      * @param productFileName - .obj product file
      */
-    public void exportToObjectFile(String fileName, DataBaseManager dataBaseManager) {
+    public void exportToObjectFile(DataBaseManager dataBaseManager, String fileName) {
         // Write every client in the ArrayList in the Clients.obj file
         File clientFile = new File(fileName);
 

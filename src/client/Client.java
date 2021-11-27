@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import date.Date;
 import product.*;
+import database.FormatText;
 
 
 public class Client {
@@ -168,14 +169,64 @@ public class Client {
         return shoppingCart;
     }
 
-    public void addToShoppingCart(Product product, int numberOfProducts) {
-        product.setStock(numberOfProducts);
+    public void addToShoppingCart(Product product, int amount) {
+        product.setStock(amount);
         this.shoppingCart.add(product);
     }
 
     public void addToPurchaseHistory(Purchase purchase) {
         this.purchaseHistory.add(purchase);
     }
+
+    public String toString() {
+        return "Name: " + name + "\nAddress: " + address + "\n Email: " + email + "\n Phone number: " + phoneNumber + "\nBirthday: " + birthday + "\nFrequent: " + frequent + "\nMBWay pin: " + mbWayPin + "\nCredit card number: " + creditCardNumber + "\nExpiration date: " + expirationDate.toString() + "\nCVV: " + creditCardCVV;
+    }
+
+    public void showPurchaseHistory() {
+        int count = 0;
+        for (Purchase purchase : purchaseHistory) {
+            System.out.print(count + ". ");
+            purchase.showPurchase();
+            System.out.println();
+        }
+    }
+
+    public Product verifyStock(Product product, int amount) {
+        for (Product productInCart : shoppingCart) {
+            if (product.getIdentifier() == productInCart.getIdentifier()) {
+                // It's impossible to remove more items from the cart than those that are in the cart 
+                if ((productInCart.getStock() - product.getStock()) < 0) {
+                    product.setStock(productInCart.getStock());
+                }
+            }
+        }
+        return product;
+    }
+
+
+    public Product getProductFromShoppingCart(String productName) {
+        for (Product product : shoppingCart) {
+            if (product.getName().equals(productName)) {
+                return product;
+            }
+        }
+        return null;
+    }
+
+    public void removeProductFromShoppingCart(Product product) {
+        for (Product productInCart : shoppingCart) {
+            if (product.getIdentifier() == productInCart.getIdentifier()) {
+                shoppingCart.remove(productInCart);
+            }
+        }
+    }
+
+    public void clearShoppingCart() {
+        for (Product product : shoppingCart) {
+            shoppingCart.remove(product);
+        }
+    }
+
    
     // Separates the string so we can create a new client
     public static Client separateClientInfo(String line) {
@@ -183,7 +234,6 @@ public class Client {
         String[] clientAtributes = {"name", "address", "email", "phoneNumber", "birthday", "frequent"};
         int atrib = 0;
         String words = "";
-
         for (int i = 0; i < line.length(); ++i) {
             if (line.charAt(i) == '/' || line.charAt(i) == '\n') {
                 if (clientAtributes[atrib].equals("name")) {
@@ -232,17 +282,14 @@ public class Client {
 
     public boolean acceptPayment() {
         Scanner sc = new Scanner(System.in);
-        int option;
-        System.out.println("Select your desired payment method:");
-        System.out.println("1. MbWay\n 2. Credit Card");    
-        option = sc.nextInt();
+        FormatText formatText = new FormatText();
+        System.out.println(formatText.alignCenterText("Select your desired payment method:"));
+        System.out.println(formatText.alignCenterText("1.    MbWay   ")); 
+        System.out.println(formatText.alignCenterText("2. Credit Card"));  
+        int paymentOption= sc.nextInt();
 
-        while(option != 1 && option != 2) {
-            System.out.println("Invalid option. Please try again.");
-            option = sc.nextInt();    
-        }
         
-        if (option == 1) {
+        if (paymentOption == 1) {
             while (true) {
                 System.out.print("Phone number: ");
                 int phoneNumber = sc.nextInt();
@@ -262,8 +309,14 @@ public class Client {
                     }
                 }
                 else {
-                    System.out.println("Wrong phone number.");
-                    System.out.println("Do you want to try again?\n 1. Yes\n2. No");
+                    System.out.println(formatText.alignCenterText("Wrong phone number."));
+                    System.out.println(formatText.alignCenterText("Do you want to try again?"));
+                    System.out.println(formatText.alignCenterText("1. Try again"));
+                    System.out.println(formatText.alignCenterText("2.  Go back "));
+                    System.out.println();
+                    int option = sc.nextInt();
+                    System.out.print("\nEnter the option you disire: ");
+
                     if (option == 2) {
                         sc.close();
                         return false;
@@ -271,7 +324,7 @@ public class Client {
                 }   
             }
         }
-        if (option == 2) {
+        if (paymentOption == 2) {
             System.out.print("Credit card number: ");
             int ccNumber = sc.nextInt();
             System.out.println();
@@ -297,14 +350,15 @@ public class Client {
                 return true;
             }
             else {
-                System.out.println("The credit card isn´t valid. Please register a valid card in your profile and try again.");
+                System.out.println(formatText.alignCenterText("The credit card isn´t valid. Please register a valid card in your profile and try again."));
+                System.out.println();
                 sc.close();
                 return false;
             }
         }
         
         sc.close();
-        return true;
+        return false;
     }         
     
 

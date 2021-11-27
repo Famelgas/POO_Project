@@ -2,6 +2,7 @@ package client;
 import java.util.ArrayList;
 import product.*;
 import date.*;
+import database.FormatText;
 
 // revise class Purchase: pra mantermos um historico de compras do cliente
 // temos que ter um arraylist das compras que ele ja fez, a minha questao e 
@@ -68,6 +69,16 @@ public class Purchase{
 
     public void raisePurchasePrice(float priceToRaise) {
         this.purchasePrice += priceToRaise;
+    }
+
+    public void showPurchase() {
+        FormatText formatText = new FormatText();
+        System.out.println("Purchase date: " + date + "\nReference: " + reference + "\nTotal payed: " + purchasePrice);
+        formatText.intermidietLine();
+        for (Product product : purchasedProducts) {
+            System.out.println(product);
+            formatText.intermidietLine();
+        } 
     }
  
     
