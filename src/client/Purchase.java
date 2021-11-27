@@ -72,7 +72,7 @@ public class Purchase{
 
     public void showPurchase() {
         System.out.println("Purchase date: " + date);
-        
+
 
 
         private Date date;
