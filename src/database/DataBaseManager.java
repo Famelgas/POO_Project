@@ -16,24 +16,56 @@ public class DataBaseManager {
     // Imported supermarket protuct stock form text file 
     private ArrayList<Product> productList;
 
+    /**
+     * DataBaseManager constuctor
+     */
     public DataBaseManager() {
        clientList = new ArrayList<>();
        productList = new ArrayList<>(); 
     }
 
+    /**
+     * Adds a new client account to the shop's database
+     * @param line - Line read from the .txt file
+     */
     public void addToClientList(String line) {
         clientList.add(Client.separateClientInfo(line));
     }
     
+    /**
+     * Adds a new Product to the shop's stock 
+     * @param line - Line read from the .txt file
+     */
     public void addToProductList(String line) {
         productList.add(Product.separateProductInfo(line));
     }
-    
+
+
+
+    /** -----------------------------------------class methods------------------------------------------------- */ 
+
+
+
+    /**
+     * Allows a client to login into the online shop, if the client 
+     * doesn´t have an account yet returns null
+     * @param email - client's email
+     * @return - returns the client, if found, if not returns null
+     */
+    public Client login(String email) {
+        for (Client client : clientList) {
+            if (client.getEmail().equals(email)) {
+                return client;
+            }
+        }
+        return null;
+    }
+
     /**
      * Creates a new client and adds the client to the clientList where it can be 
      * managed or written into an object file
      */
-    public void createAccount() {
+    public Client createAccount() {
         Scanner sc = new Scanner(System.in);        
         String name; 
         String address;
@@ -67,7 +99,9 @@ public class DataBaseManager {
         sc.close();
 
         Client newClient = new Client(name, address, email, phoneNumber, birthday, false);
-        clientList.add(newClient); 
+        clientList.add(newClient);
+        
+        return newClient;
     }
 
     /**
