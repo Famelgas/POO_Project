@@ -280,6 +280,8 @@ public class Client {
         return newClient;
     }
 
+    // Verifies that the payment is accepted 
+    // returns false if not
     public boolean acceptPayment() {
         Scanner sc = new Scanner(System.in);
         FormatText formatText = new FormatText();
@@ -289,6 +291,7 @@ public class Client {
         int paymentOption= sc.nextInt();
 
         
+        // Verify MBWay information 
         if (paymentOption == 1) {
             while (true) {
                 System.out.print("Phone number: ");
@@ -324,6 +327,8 @@ public class Client {
                 }   
             }
         }
+
+        // Verify credit card information
         if (paymentOption == 2) {
             System.out.print("Credit card number: ");
             int ccNumber = sc.nextInt();
@@ -345,6 +350,9 @@ public class Client {
             System.out.println(); 
             
             
+            // If all the credit card information introduced matches the
+            // clients registered credit card information than 
+            // the payment is acceped
             if (this.creditCardNumber == ccNumber && this.expirationDate == expDate && this.creditCardCVV == cvv) {
                 sc.close();
                 return true;
