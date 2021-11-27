@@ -168,14 +168,28 @@ public class Client {
         return shoppingCart;
     }
 
-    public void addToShoppingCart(Product product, int numberOfProducts) {
-        product.setStock(numberOfProducts);
+    public void addToShoppingCart(Product product, int amount) {
+        product.setStock(amount);
         this.shoppingCart.add(product);
     }
 
     public void addToPurchaseHistory(Purchase purchase) {
         this.purchaseHistory.add(purchase);
     }
+
+    public String toString() {
+        return "Name: " + name + "\nAddress: " + address + "\n Email: " + email + "\n Phone number: " + phoneNumber + "\nBirthday: " + birthday + "\nFrequent: " + frequent + "\nMBWay pin: " + mbWayPin + "\nCredit card number: " + creditCardNumber + "\nExpiration date: " + expirationDate.toString() + "\nCVV: " + creditCardCVV;
+    }
+
+    public void showPurchaseHistory() {
+        int count = 0;
+        for (Purchase purchase : purchaseHistory) {
+            System.out.print(count + ". ");
+            purchase.showPurchase();
+            System.out.println();
+        }
+    }
+
    
     // Separates the string so we can create a new client
     public static Client separateClientInfo(String line) {
@@ -183,7 +197,6 @@ public class Client {
         String[] clientAtributes = {"name", "address", "email", "phoneNumber", "birthday", "frequent"};
         int atrib = 0;
         String words = "";
-
         for (int i = 0; i < line.length(); ++i) {
             if (line.charAt(i) == '/' || line.charAt(i) == '\n') {
                 if (clientAtributes[atrib].equals("name")) {

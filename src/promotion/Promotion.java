@@ -13,4 +13,8 @@ public class Promotion {
     public float priceCalculator(Product product) {
         return product.getUnitPrice();
     }
+
+    public String toString() {
+        return promotionType;
+    }
 }

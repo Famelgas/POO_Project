@@ -45,7 +45,8 @@ public class DataBaseManager {
     /** -----------------------------------------class methods------------------------------------------------- */ 
 
 
-
+    /** ---------------------------------------Client associated----------------------------------------------- */
+    
     /**
      * Allows a client to login into the online shop, if the client 
      * doesn´t have an account yet returns null
@@ -60,7 +61,7 @@ public class DataBaseManager {
         }
         return null;
     }
-
+    
     /**
      * Creates a new client and adds the client to the clientList where it can be 
      * managed or written into an object file
@@ -73,7 +74,7 @@ public class DataBaseManager {
         int phoneNumber; 
         String strDate;
         Date birthday;
-
+        
         System.out.print("Enter your name:");
         name = sc.nextLine();
         System.out.println();
@@ -81,7 +82,7 @@ public class DataBaseManager {
         System.out.print("Enter your address:");
         address = sc.nextLine();
         System.out.println();
-
+        
         System.out.print("Enter your email:");
         email = sc.nextLine();
         System.out.println();
@@ -89,7 +90,7 @@ public class DataBaseManager {
         System.out.print("Enter your phone number:");
         phoneNumber = sc.nextInt();
         System.out.println();
-     
+        
         System.out.print("Enter your birthday date:");
         strDate = sc.nextLine();
         System.out.println();
@@ -97,12 +98,18 @@ public class DataBaseManager {
         birthday = Date.convertStringToDate(strDate);
         
         sc.close();
-
+        
         Client newClient = new Client(name, address, email, phoneNumber, birthday, false);
         clientList.add(newClient);
         
         return newClient;
     }
+    
+
+
+    /** --------------------------------------Product associated---------------------------------------------- */
+    
+
 
     /**
      * Buy a product from the online strore
@@ -110,12 +117,12 @@ public class DataBaseManager {
      * @return - returns true if the purchase is succesful 
      *           returns false if theres is a problem
      */
-    public boolean buyProduct(Client client) {
+    public boolean buyProducts(Client client) {
         ArrayList<Product> shoppingCart = client.getShoppingCart();
         Date date = new Date();
         date = date.getUsersDate();
         Purchase newPurchase = new Purchase(date);
-
+        
         // Serching through the client's shopping cart
         for (Product productToBuy : shoppingCart) {
             // Serching through the store's stock 
@@ -124,15 +131,14 @@ public class DataBaseManager {
                     Promotion promotion = productToBuy.getPromotion();
                     float productsPrice = 0;
                     // If there is more items in stock then what the client wants to buy
-                    if ((productInStock.getStock() - productToBuy.getStock()) >= 0) {
+                    if ((productInStock.getStock() - productToBuy.getStock()) > 0) {
                         productsPrice = promotion.priceCalculator(productToBuy);
-                        productInStock.setStock(productInStock.getStock() - productToBuy.getStock());
-                        
-                        
+                        productInStock.setStock(productInStock.getStock() - productToBuy.getStock());                    
                     }
-                    // If the client wants to buy more items then what the supermarket has 
-                    // then he can only buy the existing stock
-                    if ((productInStock.getStock() - productToBuy.getStock()) < 0) {
+                    
+                    // If the client wants to buy all the items ore more then what the supermarket has
+                    // then the product in stock is removed
+                    if ((productInStock.getStock() - productToBuy.getStock()) <= 0) {
                         productToBuy.setStock(productInStock.getStock());
                         productsPrice = promotion.priceCalculator(productToBuy);
                         productList.remove(productInStock);
@@ -176,4 +182,36 @@ public class DataBaseManager {
         return true;
     }
 
-}
+
+    public Product getProduct(String productName) {
+        for (Product product : productList) {
+            if (product.getName().equals(productName)) {
+                return product;
+            }
+        }
+        return null;
+    }
+
+    public Product verifyStock(Product product, int amount) {
+        for (Product productInStock : productList) {
+            if (product.getIdentifier() == productInStock.getIdentifier()) {
+                // If the client wants to add to the cart more items then what the supermarket has
+                // then he can only buy the existing stock
+                if ((productInStock.getStock() - product.getStock()) < 0) {
+                    System.out.println("There are only " + productInStock.getStock() + " " + productInStock.getName() + " in stock, so only " + productInStock.getStock() + " were added to your shopping cart.");
+                    product.setStock(productInStock.getStock());
+                }
+            }
+        }
+        return product;
+    }
+
+
+    public void showAvailableProducts() {
+        for (Product product : productList) {
+            System.out.println(product);
+        }
+    }
+
+
+}   

@@ -24,6 +24,10 @@ public class Cleaning extends Product {
         this.toxicityLevel = toxicityLevel;
     }
 
+    public String toString() {
+        return "Type: " + productType + "\nIdentifier: " + identifier + "\nName: " + name + "\nPrice per unit: " + unitPrice + "\nStock: " + stock + "\nPromotion: " + promotion.toString() + "\nToxicity level: " + toxicityLevel;
+    }
+
 
     public static Cleaning separateCleaningInfo(String line) {
         Cleaning newProduct = new Cleaning();

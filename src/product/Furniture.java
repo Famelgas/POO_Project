@@ -2,9 +2,6 @@ package product;
 import java.lang.NumberFormatException;
 import java.lang.String;
 
-// tirei a parte das promoçoes, falta implementar isso 
-
-
 
 public class Furniture extends Product {
     private float height;
@@ -51,6 +48,10 @@ public class Furniture extends Product {
 
     public void setWeight(float weight) {
         this.weight = weight;
+    }
+
+    public String toString() {
+        return "Type: " + productType + "\nIdentifier: " + identifier + "\nName: " + name + "\nPrice per unit: " + unitPrice + "\nStock: " + stock + "\nPromotion: " + promotion.toString() + "\nHeight: " + height + "\nWidth" + width + "\nDepth: " + depth + "\nWeight: " + weight;
     }
 
 

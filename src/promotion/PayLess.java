@@ -28,6 +28,8 @@ public class PayLess extends Promotion {
         return finalPrice;
     }
 
-
+    public String toString() {
+        return "First item 100% than 5% off for every item";
+    }
 
 }

@@ -25,4 +25,7 @@ public class PaySomeItems extends Promotion {
         return price;
     }
 
+    public String toString() {
+        return "Pay 3 take 4";
+    }
 }

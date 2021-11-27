@@ -10,7 +10,7 @@ public class Product {
     protected int stock;
     // falta fazer getter e setter da promotion
     // perguntar a prof se pode ou nao ser abstrata
-    private Promotion promotion;
+    protected Promotion promotion;
 
     public Product() {}
 
@@ -69,6 +69,10 @@ public class Product {
 
     public void setPromotion(Promotion promotion) {
         this.promotion = promotion;
+    }
+
+    public String toString() {
+        return "Type: " + productType + "\nIdentifier: " + identifier + "\nName: " + name + "\nPrice per unit: " + unitPrice + "\nStock: " + stock + "\nPromotion: " + promotion.toString();
     }
 
 

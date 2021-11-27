@@ -9,28 +9,32 @@ import java.lang.String;
 public class Food extends Product {
     private int caloriesPer100G;
     private float fatPercent;
-
+    
     public Food() {}
     
     public Food(int caloriesPer100G, float fatPercent) {
-       this.caloriesPer100G = caloriesPer100G;
-       this.fatPercent = fatPercent;
+        this.caloriesPer100G = caloriesPer100G;
+        this.fatPercent = fatPercent;
     }
-
+    
     public int getCaloriesPer100G() {
         return caloriesPer100G;
     }
-
+    
     public void setCaloriesPer100G(int caloriesPer100G) {
         this.caloriesPer100G = caloriesPer100G;
     }
-
+    
     public float getFatPercent() {
         return fatPercent;
     }
-
+    
     public void setFatPercent(float fatPercent) {
         this.fatPercent = fatPercent;
+    }
+    
+    public String toString() {
+        return "Type: " + productType + "\nIdentifier: " + identifier + "\nName: " + name + "\nPrice per unit: " + unitPrice + "\nStock: " + stock + "\nPromotion: " + promotion.toString() + "\nCalories per 100g: " + caloriesPer100G + "\nFat percentage: " + fatPercent;
     }
 
 

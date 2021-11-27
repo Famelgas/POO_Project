@@ -69,6 +69,19 @@ public class Purchase{
     public void raisePurchasePrice(float priceToRaise) {
         this.purchasePrice += priceToRaise;
     }
+
+    public void showPurchase() {
+        System.out.println("Purchase date: " + date);
+        
+
+
+        private Date date;
+        private int reference;
+        private float purchasePrice;
+        private ArrayList<Product> purchasedProducts;
+
+
+    }
  
     
 

@@ -6,6 +6,7 @@ import database.FormatText;
 import database.ReadFiles;
 import client.Client;
 import date.Date;
+import product.*;
 
 public class OnlineShoppingManager {
     public static void main(String[] args) {
@@ -161,8 +162,9 @@ public class OnlineShoppingManager {
                         if (subMenuOption == 1) {
                             formatText.separationLine();
                             System.out.println("\n");
-    
-                            client.showProfile();
+                            
+                            // Shows the client info
+                            System.out.println(client);
                             
                             System.out.println(formatText.alignCenterText("1. Change name"));
                             System.out.println(formatText.alignCenterText("2. Change address"));
@@ -296,24 +298,63 @@ public class OnlineShoppingManager {
                     while (true) {
                         formatText.separationLine();
                         System.out.println("\n");
-    
-                        System.out.println(formatText.alignCenterText("1.         Buy            "));
+                        
+                        System.out.println(formatText.alignCenterText("1.          Buy           "));
                         System.out.println(formatText.alignCenterText("2. Show available products"));
+                        System.out.println(formatText.alignCenterText("3.         Go back        "));
                         
                         int subMenuOption;
                         System.out.println("\n");
                         System.out.print("Enter option you desire: ");
                         subMenuOption = sc.nextInt();
                         System.out.println("\n");
-    
+                        
                         // 1. Buy
                         if (subMenuOption == 1) {
-    
+                            System.out.println(formatText.alignCenterText("1. Add to shopping cart"));
+                            System.out.println(formatText.alignCenterText("2.  Check out and pay  "));
+                            System.out.println(formatText.alignCenterText("3.       Go back       "));
+                            
+                            
+                            int buyMenuOption;
+                            System.out.println("\n");
+                            System.out.print("Enter option you desire: ");
+                            buyMenuOption = sc.nextInt();
+                            System.out.println("\n");
+
+                            // Add products to the shopping cart
+                            if (buyMenuOption == 1) {
+                                Product product = new Product();
+                                String productName;
+                                int amount;
+                                sc.nextLine();
+                                System.out.print("Enter the name of the desired product: ");            
+                                productName = sc.nextLine();
+                                sc.nextLine();
+                                System.out.print("Enter the desired amount: ");            
+                                amount = sc.nextInt();
+
+                                if((product = dataBaseManager.getProduct(productName)) == null){
+                                    System.out.println("Product out of stock.");
+                                }
+
+                                product = dataBaseManager.verifyStock(product, amount);
+
+                                client.addToShoppingCart(product, amount);
+
+                            }
+
+                            // Checkout and pay the items in the shopping cart
+
+
+
                         }
-    
+                        
                         // 2. Show available products
                         if (subMenuOption == 2) {
-    
+                            formatText.separationLine();
+                            System.out.println("\n");
+                            dataBaseManager.showAvailableProducts();
                         }
     
                         // 3. Go Back
