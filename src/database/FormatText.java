@@ -26,4 +26,10 @@ public class FormatText {
         }
         System.out.println("x");
     }
+
+    public void intermidietLine() {
+        for (int i = 0; i < 79; ++i) {
+            System.out.print("-");
+        }
+    }
 }

@@ -122,6 +122,7 @@ public class DataBaseManager {
         Date date = new Date();
         date = date.getUsersDate();
         Purchase newPurchase = new Purchase(date);
+        FormatText formatText = new FormatText();
         
         // Serching through the client's shopping cart
         for (Product productToBuy : shoppingCart) {
@@ -143,7 +144,7 @@ public class DataBaseManager {
                         productsPrice = promotion.priceCalculator(productToBuy);
                         productList.remove(productInStock);
                     }
-
+                    
                     newPurchase.addToPurchasedProducts(productToBuy);          
                     newPurchase.raisePurchasePrice(productsPrice);
                 }
@@ -151,27 +152,30 @@ public class DataBaseManager {
                 else {
                     System.out.println("Product out of stock.");
                 }
-
+                
             } 
             
         }
-
-
-
-        System.out.println("Your total is: " + newPurchase.getPurchasePrice());
-        int option = 1;
-        while (option == 1) {
+        formatText.intermidietLine();
+        System.out.println();
+        System.out.print("Your total is: " + newPurchase.getPurchasePrice());
+        while (true) {
             if (client.acceptPayment()) {
-                System.out.println("Payment accepted!\nThank you for choosing us!");
+                System.out.println(formatText.alignCenterText("Payment accepted."));
+                System.out.println();
                 client.addToPurchaseHistory(newPurchase);
+                
                 return true;
             }
             else {
                 Scanner sc = new Scanner(System.in);
-                System.out.println("Payment not accepted.");
-                System.out.println("Enter the option you desire:");
-                System.out.println("Try again: 1\n" + "Go back: 2");
-                option = sc.nextInt();
+                System.out.println(formatText.alignCenterText("Payment not accepted."));
+                System.out.println(formatText.alignCenterText("1. Try again"));
+                System.out.println(formatText.alignCenterText("2.  Go back "));
+                System.out.println();
+                System.out.print("\nEnter the option you disire: ");
+                int option = sc.nextInt();
+                System.out.println();
                 sc.close();
                 if (option == 2) {
                     return false;
@@ -179,7 +183,6 @@ public class DataBaseManager {
             }
 
         }
-        return true;
     }
 
 

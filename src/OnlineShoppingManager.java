@@ -1,5 +1,3 @@
-import java.sql.DatabaseMetaData;
-import java.text.Format;
 import java.util.Scanner;
 import database.DataBaseManager;
 import database.FormatText;
@@ -20,51 +18,56 @@ public class OnlineShoppingManager {
         
         // fazer parte da leitura dos ficheiros 
         // verificar se existe um .obj file, se houver ler esse se nao ler o .txt file
-        int fileOption = 0;
         String objFile = "database.obj";
         
+        // If there is no .obj file then the program has to read the clients and products from .txt files
+        // Every time we close the program a .obj file is updated or created if there isn´t one, so the only
+        // time the program is going to read a .txt file is the first time it's oppened 
         if ((dataBaseManager = readFiles.importFromObjectFile(dataBaseManager, objFile)) == null) {
-            int option = 0; 
             String clientsFile = "Clients.txt";
             String productsFile = "Products.txt";
             Scanner sc = new Scanner(System.in);
-            while (option == 0) {
-                if ((dataBaseManager = readFiles.importFromTextFile(dataBaseManager, clientsFile)) == null) {
-                    System.out.println(formatText.alignCenterText("No Client.txt file found, please enter a valid Client file."));
-                    System.out.println("Do you want to open another file?\n1. Enter new file\nQuit");
-                    option = sc.nextInt();
-                    if (option == 1) {
-                        sc.nextLine();
-                        System.out.print("Please enter the file name:");
-                        clientsFile = sc.nextLine();
-                        sc.nextLine();
-                        option = 0;
-                    }
-                    
-                    if (option == 2) {
-                        sc.close();
-                        return;
-                    }
+            
+            // Verify if the Clients.txt file exists, if it doesn´t asks the user for another file
+            while ((dataBaseManager = readFiles.importFromTextFile(dataBaseManager, clientsFile)) == null) {
+                int option = 0; 
+                System.out.println(formatText.alignCenterText("Error - Client.txt file not found, please enter a valid Client file."));
+                System.out.println("Do you want to open another file?\n1. Enter new file\nQuit");
+                option = sc.nextInt();
+                if (option == 1) {
+                    sc.nextLine();
+                    System.out.print("Please enter the file name:");
+                    clientsFile = sc.nextLine();
+                    sc.nextLine();
+                    option = 0;
                 }
                 
-                if ((dataBaseManager = readFiles.importFromTextFile(dataBaseManager, productsFile)) == null) {
-                    System.out.println(formatText.alignCenterText("No Products.txt file found, please enter a valid Client file."));
-                    System.out.println("Do you want to open another file?\n1. Enter new file\nQuit");
-                    option = sc.nextInt();
-                    if (option == 1) {
-                        sc.nextLine();
-                        System.out.print("Please enter the file name:");
-                        clientsFile = sc.nextLine();
-                        sc.nextLine();
-                        option = 0;
-                    }
-                    
-                    if (option == 2) {
-                        sc.close();
-                        return;
-                    }
+                if (option == 2) {
+                    sc.close();
+                    return;
                 }
             }
+            
+            // Verify if the Products.txt file exists, if it doesn´t asks the user for another file
+            while ((dataBaseManager = readFiles.importFromTextFile(dataBaseManager, productsFile)) == null) {
+                int option = 0;
+                System.out.println(formatText.alignCenterText("Error - Products.txt file not found, please enter a valid Client file."));
+                System.out.println("Do you want to open another file?\n1. Enter new file\nQuit");
+                option = sc.nextInt();
+                if (option == 1) {
+                    sc.nextLine();
+                    System.out.print("Please enter the file name:");
+                    clientsFile = sc.nextLine();
+                    sc.nextLine();
+                    option = 0;
+                }
+                
+                if (option == 2) {
+                    sc.close();
+                    return;
+                }
+            }
+
             sc.close();
         } 
 
@@ -74,17 +77,18 @@ public class OnlineShoppingManager {
         
         System.out.println(formatText.alignCenterText("Welcome to the Online Shopping"));
         System.out.println("\n");
-        formatText.separationLine();
         Scanner sc = new Scanner(System.in);
         
-
+        
         // App menus, first the login menu comes up and once the client has entered the shop menu apears
         while(true) {
             
             // Login menu
             while (true) {
-                int preMenuOption = 0;
+                formatText.separationLine();
                 System.out.println("\n");
+
+                int preMenuOption = 0;
                 System.out.println(formatText.alignCenterText("1. Sign in"));
                 System.out.println(formatText.alignCenterText("2. Sing up"));
                 System.out.println(formatText.alignCenterText("3.  Quit"));
@@ -135,7 +139,8 @@ public class OnlineShoppingManager {
 
                 System.out.println(formatText.alignCenterText("1. View Profile"));
                 System.out.println(formatText.alignCenterText("2.     Shop    "));
-                System.out.println(formatText.alignCenterText("3.     Quit    "));
+                System.out.println(formatText.alignCenterText("3.   Log out   "));
+                System.out.println(formatText.alignCenterText("4.     Quit    "));
                 
                 System.out.println("\n");
                 System.out.print("Enter option you desire: ");
@@ -280,8 +285,11 @@ public class OnlineShoppingManager {
                         if (subMenuOption == 2) {
                             formatText.separationLine();
                             System.out.println("\n");
-    
+                            
                             client.showPurchaseHistory();
+                            
+                            formatText.separationLine();
+                            System.out.println("\n");
                         }
     
                         // 3. Go back
@@ -311,41 +319,97 @@ public class OnlineShoppingManager {
                         
                         // 1. Buy
                         if (subMenuOption == 1) {
-                            System.out.println(formatText.alignCenterText("1. Add to shopping cart"));
-                            System.out.println(formatText.alignCenterText("2.  Check out and pay  "));
-                            System.out.println(formatText.alignCenterText("3.       Go back       "));
-                            
-                            
-                            int buyMenuOption;
-                            System.out.println("\n");
-                            System.out.print("Enter option you desire: ");
-                            buyMenuOption = sc.nextInt();
-                            System.out.println("\n");
+                            while (true) {
+                                formatText.separationLine();
+                                System.out.println();
 
-                            // Add products to the shopping cart
-                            if (buyMenuOption == 1) {
-                                Product product = new Product();
-                                String productName;
-                                int amount;
-                                sc.nextLine();
-                                System.out.print("Enter the name of the desired product: ");            
-                                productName = sc.nextLine();
-                                sc.nextLine();
-                                System.out.print("Enter the desired amount: ");            
-                                amount = sc.nextInt();
-
-                                if((product = dataBaseManager.getProduct(productName)) == null){
-                                    System.out.println("Product out of stock.");
+                                System.out.println(formatText.alignCenterText("1.   Add to shopping cart  "));
+                                System.out.println(formatText.alignCenterText("2. Remove fromshopping cart"));
+                                System.out.println(formatText.alignCenterText("3.   Clear shopping cart   "));
+                                System.out.println(formatText.alignCenterText("4.    Check out and pay    "));
+                                System.out.println(formatText.alignCenterText("5.         Go back         "));
+                                
+                                
+                                int buyMenuOption;
+                                System.out.println("\n");
+                                System.out.print("Enter option you desire: ");
+                                buyMenuOption = sc.nextInt();
+                                System.out.println("\n");
+    
+                                // Add a product to the shopping cart
+                                if (buyMenuOption == 1) {
+                                    Product product = new Product();
+                                    String productName;
+                                    int amount;
+                                    sc.nextLine();
+                                    System.out.print("Enter the name of the desired product: ");            
+                                    productName = sc.nextLine();
+                                    sc.nextLine();
+                                    System.out.print("Enter the desired amount: ");            
+                                    amount = sc.nextInt();
+                                    
+                                    // Gets the product from the supermarket stock
+                                    if((product = dataBaseManager.getProduct(productName)) == null) {
+                                        System.out.println("Product out of stock.\nPlease try again.");
+                                    }
+                                    
+                                    // Verifies if there is enough stock for the amount the client wants
+                                    if((product = dataBaseManager.getProduct(productName)) != null) {
+                                        product = dataBaseManager.verifyStock(product, amount);
+                                        client.addToShoppingCart(product, amount);
+                                    }
+                                    
+    
+                                }
+    
+                                // Remove products from the shopping cart
+                                if (buyMenuOption == 2) {
+                                    Product product = new Product();
+                                    String productName;
+                                    int amount;
+                                    sc.nextLine();
+                                    System.out.print("Enter the name of the product you want to remove: ");
+                                    productName = sc.nextLine();
+                                    sc.nextLine();
+                                    System.out.print("Enter the amount you want to remove: ");
+                                    amount = sc.nextInt();
+    
+                                    if((product = client.getProductFromShoppingCart(productName)) == null) {
+                                        System.out.println("This product isn´t in your shopping cart.\nPlease try again.");
+                                    }
+                                    
+                                    if((product = client.getProductFromShoppingCart(productName)) != null) {
+                                        product = client.verifyStock(product, amount);
+                                        client.removeProductFromShoppingCart(product);                                        
+                                    }
+    
+                                }
+                                
+                                // Clear shopping cart
+                                if (buyMenuOption == 5) {
+                                    client.clearShoppingCart();
                                 }
 
-                                product = dataBaseManager.verifyStock(product, amount);
+                                // Checkout and pay the items in the shopping cart
+                                if (buyMenuOption == 4) {
+                                    if (!dataBaseManager.buyProducts(client)) {
+                                        System.out.println("Error concluding purchase. Please try again.");
+                                        System.out.println();
+                                    }
+                                    else {
+                                        System.out.println(formatText.alignCenterText("Thank you for choosing us!"));
+                                        System.out.println();
+                                        client.clearShoppingCart();
+                                    }
 
-                                client.addToShoppingCart(product, amount);
+                                }
+
+                                // Go back
+                                if (buyMenuOption == 5) {
+                                    break;
+                                }
 
                             }
-
-                            // Checkout and pay the items in the shopping cart
-
 
 
                         }
@@ -358,7 +422,7 @@ public class OnlineShoppingManager {
                         }
     
                         // 3. Go Back
-                        if (subMenuOption == 2) {
+                        if (subMenuOption == 3) {
                             break;
                         }
 
@@ -366,8 +430,14 @@ public class OnlineShoppingManager {
 
                 }
 
-                // 3. Quit
+                // 3. Log out
                 if (menuOption == 3) {
+                    break;
+                }
+
+
+                // 4. Quit
+                if (menuOption == 4) {
                     sc.close();
                     readFiles.exportToObjectFile(dataBaseManager, objFile);
                     return;
