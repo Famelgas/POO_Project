@@ -17,17 +17,18 @@ public class ReadFiles {
                 FileReader fileRead = new FileReader(file);
                 BufferedReader buffRead = new BufferedReader(fileRead);
                 
-                String line = "";
-                if (fileName.equals("Clients.txt")) {
+                String line = null;
+                if (fileName.equals("src/Clients.txt")) {
                     while ((line = buffRead.readLine()) != null) {
                         // If it's the clients file then every line is a client so
                         // we can add a new client to de ArrayList for every line
+                        System.out.println(line);
                         dataBaseManager.addToClientList(line);
                         
                         
                     }
                 }
-                if (fileName.equals("Products.txt")) {
+                if (fileName.equals("src/Products.txt")) {
                     while ((line = buffRead.readLine()) != null) {
                         // If it's the clients file then every line is a client so
                         // we can add a new client to de ArrayList for every line

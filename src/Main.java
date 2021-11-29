@@ -11,7 +11,6 @@ public class Main {
         Client client = new Client();
         DataBaseManager dataBaseManager = new DataBaseManager();
         ReadFiles readFiles = new ReadFiles();
-        FormatText formatText = new FormatText();
 
 
         
@@ -24,15 +23,15 @@ public class Main {
         // Every time we close the program a .obj file is updated or created if there isn´t one, so the only
         // time the program is going to read a .txt file is the first time it's oppened 
         if ((dataBaseManager = readFiles.importFromObjectFile(dataBaseManager, objFile)) == null) {
-            String clientsFile = "Clients.txt";
-            String productsFile = "Products.txt";
+            String clientsFile = "src/Clients.txt";
+            String productsFile = "src/Products.txt";
             Scanner sc = new Scanner(System.in);
             
             // Verify if the Clients.txt file exists, if it doesn´t asks the user for another file
             while ((dataBaseManager = readFiles.importFromTextFile(dataBaseManager, clientsFile)) == null) {
                 int option = 0; 
-                System.out.println(formatText.alignCenterText("Error - Client.txt file not found, please enter a valid Client file."));
-                System.out.println("Do you want to open another file?\n1. Enter new file\nQuit");
+                System.out.println("Error - Client.txt file not found, please enter a valid Client file");
+                System.out.println("Do you want to open another file?\n1. Enter new file\n2. Quit");
                 option = sc.nextInt();
                 if (option == 1) {
                     sc.nextLine();
@@ -51,7 +50,7 @@ public class Main {
             // Verify if the Products.txt file exists, if it doesn´t asks the user for another file
             while ((dataBaseManager = readFiles.importFromTextFile(dataBaseManager, productsFile)) == null) {
                 int option = 0;
-                System.out.println(formatText.alignCenterText("Error - Products.txt file not found, please enter a valid Client file."));
+                System.out.println("Error - Products.txt file not found, please enter a valid Client file");
                 System.out.println("Do you want to open another file?\n1. Enter new file\nQuit");
                 option = sc.nextInt();
                 if (option == 1) {
@@ -75,7 +74,7 @@ public class Main {
         
         // inventar um nome pra loja
         
-        System.out.println(formatText.alignCenterText("Welcome to the Online Shopping"));
+        System.out.println(FormatText.alignCenterText("Welcome to the Online Shopping"));
         System.out.println("\n");
         Scanner sc = new Scanner(System.in);
         
@@ -85,13 +84,13 @@ public class Main {
             
             // Login menu
             while (true) {
-                formatText.separationLine();
+                FormatText.separationLine();
                 System.out.println("\n");
 
                 int preMenuOption = 0;
-                System.out.println(formatText.alignCenterText("1. Sign in"));
-                System.out.println(formatText.alignCenterText("2. Sing up"));
-                System.out.println(formatText.alignCenterText("3.  Quit"));
+                System.out.println(FormatText.alignCenterText("1. Sign in"));
+                System.out.println(FormatText.alignCenterText("2. Sing up"));
+                System.out.println(FormatText.alignCenterText("3.  Quit"));
 
                 System.out.println("\n");
                 System.out.print("Enter option you desire: ");
@@ -101,7 +100,7 @@ public class Main {
                 
                 if(preMenuOption == 1){
                     sc.nextLine();
-                    System.out.println(formatText.alignCenterText("Please enter you email:"));
+                    System.out.println(FormatText.alignCenterText("Please enter you email:"));
                     String email = sc.nextLine();
                     client = dataBaseManager.login(email);
                     sc.nextLine();
@@ -112,14 +111,14 @@ public class Main {
                     }  
 
                     if (client != null) {
-                        System.out.println(formatText.alignCenterText("Login successful!\n"));
+                        System.out.println(FormatText.alignCenterText("Login successful!\n"));
                         break;
                     }
                 }
                 
                 if (preMenuOption == 2) {
                     client = dataBaseManager.createAccount();
-                    System.out.println(formatText.alignCenterText("Account created successfuly!\n"));
+                    System.out.println(FormatText.alignCenterText("Account created successfuly!\n"));
                     break;
                 }
 
@@ -134,13 +133,13 @@ public class Main {
             // Shop menu
             while (true) {
                 int menuOption = 0;
-                formatText.separationLine();
+                FormatText.separationLine();
                 System.out.println("\n");
 
-                System.out.println(formatText.alignCenterText("1. View Profile"));
-                System.out.println(formatText.alignCenterText("2.     Shop    "));
-                System.out.println(formatText.alignCenterText("3.   Log out   "));
-                System.out.println(formatText.alignCenterText("4.     Quit    "));
+                System.out.println(FormatText.alignCenterText("1. View Profile"));
+                System.out.println(FormatText.alignCenterText("2.     Shop    "));
+                System.out.println(FormatText.alignCenterText("3.   Log out   "));
+                System.out.println(FormatText.alignCenterText("4.     Quit    "));
                 
                 System.out.println("\n");
                 System.out.print("Enter option you desire: ");
@@ -150,12 +149,12 @@ public class Main {
                 // 1. View Profile
                 if (menuOption == 1) {
                     while (true) {
-                        formatText.separationLine();
+                        FormatText.separationLine();
                         System.out.println("\n");
     
-                        System.out.println(formatText.alignCenterText("1.    Edit profile     "));
-                        System.out.println(formatText.alignCenterText("2. See purchase history"));
-                        System.out.println(formatText.alignCenterText("2.      Go back        "));
+                        System.out.println(FormatText.alignCenterText("1.    Edit profile     "));
+                        System.out.println(FormatText.alignCenterText("2. See purchase history"));
+                        System.out.println(FormatText.alignCenterText("2.      Go back        "));
                         
                         int subMenuOption;
                         System.out.println("\n");
@@ -165,21 +164,21 @@ public class Main {
     
                         // 1. Edit profile
                         if (subMenuOption == 1) {
-                            formatText.separationLine();
+                            FormatText.separationLine();
                             System.out.println("\n");
                             
                             // Shows the client info
                             System.out.println(client);
                             
-                            System.out.println(formatText.alignCenterText("1. Change name"));
-                            System.out.println(formatText.alignCenterText("2. Change address"));
-                            System.out.println(formatText.alignCenterText("3. Change email"));
-                            System.out.println(formatText.alignCenterText("4. Change phoneNumber"));
-                            System.out.println(formatText.alignCenterText("5. Change birthday"));
-                            System.out.println(formatText.alignCenterText("6. Change MBWay pin"));
-                            System.out.println(formatText.alignCenterText("7. Change credit card number"));
-                            System.out.println(formatText.alignCenterText("8. Change credit card expiration date"));
-                            System.out.println(formatText.alignCenterText("9. Change credit card CVV"));
+                            System.out.println(FormatText.alignCenterText("1. Change name"));
+                            System.out.println(FormatText.alignCenterText("2. Change address"));
+                            System.out.println(FormatText.alignCenterText("3. Change email"));
+                            System.out.println(FormatText.alignCenterText("4. Change phoneNumber"));
+                            System.out.println(FormatText.alignCenterText("5. Change birthday"));
+                            System.out.println(FormatText.alignCenterText("6. Change MBWay pin"));
+                            System.out.println(FormatText.alignCenterText("7. Change credit card number"));
+                            System.out.println(FormatText.alignCenterText("8. Change credit card expiration date"));
+                            System.out.println(FormatText.alignCenterText("9. Change credit card CVV"));
                             
                             int profileOption;
                             System.out.println("\n");
@@ -283,12 +282,12 @@ public class Main {
     
                         // 2. See purchase history
                         if (subMenuOption == 2) {
-                            formatText.separationLine();
+                            FormatText.separationLine();
                             System.out.println("\n");
                             
                             client.showPurchaseHistory();
                             
-                            formatText.separationLine();
+                            FormatText.separationLine();
                             System.out.println("\n");
                         }
     
@@ -304,12 +303,12 @@ public class Main {
                 // 2. Shop
                 if (menuOption == 2) {
                     while (true) {
-                        formatText.separationLine();
+                        FormatText.separationLine();
                         System.out.println("\n");
                         
-                        System.out.println(formatText.alignCenterText("1.          Buy           "));
-                        System.out.println(formatText.alignCenterText("2. Show available products"));
-                        System.out.println(formatText.alignCenterText("3.         Go back        "));
+                        System.out.println(FormatText.alignCenterText("1.          Buy           "));
+                        System.out.println(FormatText.alignCenterText("2. Show available products"));
+                        System.out.println(FormatText.alignCenterText("3.         Go back        "));
                         
                         int subMenuOption;
                         System.out.println("\n");
@@ -320,14 +319,14 @@ public class Main {
                         // 1. Buy
                         if (subMenuOption == 1) {
                             while (true) {
-                                formatText.separationLine();
+                                FormatText.separationLine();
                                 System.out.println();
 
-                                System.out.println(formatText.alignCenterText("1.   Add to shopping cart  "));
-                                System.out.println(formatText.alignCenterText("2. Remove fromshopping cart"));
-                                System.out.println(formatText.alignCenterText("3.   Clear shopping cart   "));
-                                System.out.println(formatText.alignCenterText("4.    Check out and pay    "));
-                                System.out.println(formatText.alignCenterText("5.         Go back         "));
+                                System.out.println(FormatText.alignCenterText("1.   Add to shopping cart  "));
+                                System.out.println(FormatText.alignCenterText("2. Remove fromshopping cart"));
+                                System.out.println(FormatText.alignCenterText("3.   Clear shopping cart   "));
+                                System.out.println(FormatText.alignCenterText("4.    Check out and pay    "));
+                                System.out.println(FormatText.alignCenterText("5.         Go back         "));
                                 
                                 
                                 int buyMenuOption;
@@ -397,7 +396,7 @@ public class Main {
                                         System.out.println();
                                     }
                                     else {
-                                        System.out.println(formatText.alignCenterText("Thank you for choosing us!"));
+                                        System.out.println(FormatText.alignCenterText("Thank you for choosing us!"));
                                         System.out.println();
                                         client.clearShoppingCart();
                                     }
@@ -416,7 +415,7 @@ public class Main {
                         
                         // 2. Show available products
                         if (subMenuOption == 2) {
-                            formatText.separationLine();
+                            FormatText.separationLine();
                             System.out.println("\n");
                             dataBaseManager.showAvailableProducts();
                         }

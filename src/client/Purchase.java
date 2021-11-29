@@ -72,12 +72,11 @@ public class Purchase{
     }
 
     public void showPurchase() {
-        FormatText formatText = new FormatText();
         System.out.println("Purchase date: " + date + "\nReference: " + reference + "\nTotal payed: " + purchasePrice);
-        formatText.intermidietLine();
+        FormatText.intermidietLine();
         for (Product product : purchasedProducts) {
             System.out.println(product);
-            formatText.intermidietLine();
+            FormatText.intermidietLine();
         } 
     }
  

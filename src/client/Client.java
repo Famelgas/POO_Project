@@ -231,7 +231,7 @@ public class Client {
     // Separates the string so we can create a new client
     public static Client separateClientInfo(String line) {
         Client newClient = new Client();
-        String[] clientAtributes = {"name", "address", "email", "phoneNumber", "birthday", "frequent"};
+        String[] clientAtributes = {"name", "address", "email", "phoneNumber", "birthday", "frequent", "mbwaypin", "ccnumber", "ccdate", "cvv"};
         int atrib = 0;
         String words = "";
         for (int i = 0; i < line.length(); ++i) {
@@ -266,7 +266,46 @@ public class Client {
                     else if (words.equals("false")) {
                         newClient.setFrequent(false);
                     }
-                } 
+                }
+                
+                if (clientAtributes[atrib].equals("mbwaypin")) {
+                    int mbwaypin;
+                    try {
+                        mbwaypin = Integer.parseInt(words);
+                    }
+                    catch (NumberFormatException nfe) {
+                        mbwaypin = -1;
+                    }
+                    newClient.setPhoneNumber(mbwaypin);
+                }
+
+                if (clientAtributes[atrib].equals("ccnumber")) {
+                    int ccnumber;
+                    try {
+                        ccnumber = Integer.parseInt(words);
+                    }
+                    catch (NumberFormatException nfe) {
+                        ccnumber = -1;
+                    }
+                    newClient.setPhoneNumber(ccnumber);
+                }
+                
+                if (clientAtributes[atrib].equals("ccdate")) {
+                    Date date = Date.convertStringToDate(words);
+                    newClient.setExpirationDate(date);
+                }
+                
+                if (clientAtributes[atrib].equals("cvv")) {
+                    int cvv;
+                    try {
+                        cvv = Integer.parseInt(words);
+                    }
+                    catch (NumberFormatException nfe) {
+                        cvv = -1;
+                    }
+                    newClient.setPhoneNumber(cvv);
+                }
+                
                 
                 ++atrib; 
                 words = "";
@@ -284,10 +323,9 @@ public class Client {
     // returns false if not
     public boolean acceptPayment() {
         Scanner sc = new Scanner(System.in);
-        FormatText formatText = new FormatText();
-        System.out.println(formatText.alignCenterText("Select your desired payment method:"));
-        System.out.println(formatText.alignCenterText("1.    MbWay   ")); 
-        System.out.println(formatText.alignCenterText("2. Credit Card"));  
+        System.out.println(FormatText.alignCenterText("Select your desired payment method:"));
+        System.out.println(FormatText.alignCenterText("1.    MbWay   ")); 
+        System.out.println(FormatText.alignCenterText("2. Credit Card"));  
         int paymentOption= sc.nextInt();
 
         
@@ -312,10 +350,10 @@ public class Client {
                     }
                 }
                 else {
-                    System.out.println(formatText.alignCenterText("Wrong phone number."));
-                    System.out.println(formatText.alignCenterText("Do you want to try again?"));
-                    System.out.println(formatText.alignCenterText("1. Try again"));
-                    System.out.println(formatText.alignCenterText("2.  Go back "));
+                    System.out.println(FormatText.alignCenterText("Wrong phone number."));
+                    System.out.println(FormatText.alignCenterText("Do you want to try again?"));
+                    System.out.println(FormatText.alignCenterText("1. Try again"));
+                    System.out.println(FormatText.alignCenterText("2.  Go back "));
                     System.out.println();
                     int option = sc.nextInt();
                     System.out.print("\nEnter the option you disire: ");
@@ -358,7 +396,7 @@ public class Client {
                 return true;
             }
             else {
-                System.out.println(formatText.alignCenterText("The credit card isn´t valid. Please register a valid card in your profile and try again."));
+                System.out.println(FormatText.alignCenterText("The credit card isn´t valid. Please register a valid card in your profile and try again."));
                 System.out.println();
                 sc.close();
                 return false;

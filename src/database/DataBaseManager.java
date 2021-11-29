@@ -42,7 +42,7 @@ public class DataBaseManager {
 
 
 
-    /** -----------------------------------------class methods------------------------------------------------- */ 
+    /** -----------------------------------------Class Methods------------------------------------------------- */ 
 
 
     /** ---------------------------------------Client associated----------------------------------------------- */
@@ -122,7 +122,6 @@ public class DataBaseManager {
         Date date = new Date();
         date = date.getUsersDate();
         Purchase newPurchase = new Purchase(date);
-        FormatText formatText = new FormatText();
         
         // Serching through the client's shopping cart
         for (Product productToBuy : shoppingCart) {
@@ -156,12 +155,12 @@ public class DataBaseManager {
             } 
             
         }
-        formatText.intermidietLine();
+        FormatText.intermidietLine();
         System.out.println();
         System.out.print("Your total is: " + newPurchase.getPurchasePrice());
         while (true) {
             if (client.acceptPayment()) {
-                System.out.println(formatText.alignCenterText("Payment accepted."));
+                System.out.println(FormatText.alignCenterText("Payment accepted."));
                 System.out.println();
                 client.addToPurchaseHistory(newPurchase);
                 
@@ -169,9 +168,9 @@ public class DataBaseManager {
             }
             else {
                 Scanner sc = new Scanner(System.in);
-                System.out.println(formatText.alignCenterText("Payment not accepted."));
-                System.out.println(formatText.alignCenterText("1. Try again"));
-                System.out.println(formatText.alignCenterText("2.  Go back "));
+                System.out.println(FormatText.alignCenterText("Payment not accepted."));
+                System.out.println(FormatText.alignCenterText("1. Try again"));
+                System.out.println(FormatText.alignCenterText("2.  Go back "));
                 System.out.println();
                 System.out.print("\nEnter the option you disire: ");
                 int option = sc.nextInt();
