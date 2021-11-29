@@ -129,7 +129,7 @@ public class DataBaseManager {
         
         
         Date date = new Date();
-        date = date.getUsersDate(sc);
+        date = date.getActualDate();
         Purchase newPurchase = new Purchase(date);
         
         // Serching through the client's shopping cart

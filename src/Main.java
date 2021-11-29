@@ -7,6 +7,16 @@ import date.Date;
 import product.*;
 
 
+
+
+// Perguntar a prof se temos que ler sempre o ficheiro de texto dos produtos pra podermos
+// adicionar manualmente mais produtos ao stock do supermercado!!!!!!
+
+
+
+
+
+
 public class Main {
     public static void main(String[] args) {
         Client client = new Client();
