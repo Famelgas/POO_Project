@@ -6,7 +6,7 @@ import client.Client;
 import date.Date;
 import product.*;
 
-public class OnlineShoppingManager {
+public class Main {
     public static void main(String[] args) {
         Client client = new Client();
         DataBaseManager dataBaseManager = new DataBaseManager();
