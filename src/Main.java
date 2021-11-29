@@ -8,10 +8,11 @@ import product.*;
 
 
 
-
+// !!!!!!!!!!!!!!
 // Perguntar a prof se temos que ler sempre o ficheiro de texto dos produtos pra podermos
-// adicionar manualmente mais produtos ao stock do supermercado!!!!!!
-
+// adicionar manualmente mais produtos ao stock do supermercado ou se fazemos uma funçao 
+// para o utilizador poder adicionar manualmente produtos ao stock, o que nao faz sentido
+// !!!!!!!!!!!!!!
 
 
 

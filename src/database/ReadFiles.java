@@ -35,56 +35,39 @@ public class ReadFiles {
         String fileName = "Clients.txt";
         File file = new File(fileName);
 
-        while (true) {
-            if (file.exists() && file.isFile()) {
-                try {
-                    FileReader fileRead = new FileReader(file);
-                    BufferedReader buffRead = new BufferedReader(fileRead);
+        if (file.exists() && file.isFile()) {
+            try {
+                FileReader fileRead = new FileReader(file);
+                BufferedReader buffRead = new BufferedReader(fileRead);
+                
+                String line = null;
+                while ((line = buffRead.readLine()) != null) {
+                    // If it's the clients file then every line is a client so
+                    // we can add a new client to de ArrayList for every line
+                    dataBaseManager.addToClientList(line);
                     
-                    String line = null;
-                    while ((line = buffRead.readLine()) != null) {
-                        // If it's the clients file then every line is a client so
-                        // we can add a new client to de ArrayList for every line
-                        dataBaseManager.addToClientList(line);
-                        
-                        
-                    }
                     
-                    buffRead.close();
-                    break;
-                    
-                } 
-                catch (FileNotFoundException fnf) {
-                    System.out.println("Error opening specified file");
-                    return null;
-                } 
-                catch (IOException ioe) {
-                    System.out.println("Error reading specified file");
-                    return null;
                 }
                 
+                buffRead.close();
                 
             } 
-            else {
-                int option = 0; 
-                System.out.println("Error - Client.txt file not found, please enter a valid Client file");
-                System.out.println("Do you want to open another file?\n1. Enter new file\n2. Quit");
-                option = sc.nextInt();
-                if (option == 1) {
-                    sc.nextLine();
-                    System.out.print("Please enter the file name:");
-                    fileName = sc.nextLine();
-                    sc.nextLine();
-                    option = 0;
-                }
-                
-                if (option == 2) {
-                    return null;
-                }
+            catch (FileNotFoundException fnf) {
+                System.out.println("Error opening specified file");
+                return null;
+            } 
+            catch (IOException ioe) {
+                System.out.println("Error reading specified file");
+                return null;
             }
+            
+            
+        } 
+        else {
+        System.out.println("Error - Products.txt file not found\nPlease try again.");
+        return null;
         }
-
-
+        
         return dataBaseManager;
     }
     
@@ -94,52 +77,36 @@ public class ReadFiles {
         String fileName = "Products.txt";
         File file = new File(fileName);
 
-        while (true) {
-            if (file.exists() && file.isFile()) {
-                try {
-                    FileReader fileRead = new FileReader(file);
-                    BufferedReader buffRead = new BufferedReader(fileRead);
-                    
-                    String line = null;
-                    while ((line = buffRead.readLine()) != null) {
-                        // If it's the clients file then every line is a client so
-                        // we can add a new client to de ArrayList for every line
-                        dataBaseManager.addToProductList(line);
-                        
-                    }
-    
-                    buffRead.close();
-                    break;
-    
-                } 
-                catch (FileNotFoundException fnf) {
-                    System.out.println("Error opening specified file");
-                    return null;
-                } 
-                catch (IOException ioe) {
-                    System.out.println("Error reading specified file");
-                    return null;
-                }
-    
-    
-            } 
-            else {
-                int option = 0; 
-                System.out.println("Error - Products.txt file not found, please enter a valid Product file");
-                System.out.println("Do you want to open another file?\n1. Enter new file\n2. Quit");
-                option = sc.nextInt();
-                if (option == 1) {
-                    sc.nextLine();
-                    System.out.print("Please enter the file name:");
-                    fileName = sc.nextLine();
-                    sc.nextLine();
-                    option = 0;
-                }
+        if (file.exists() && file.isFile()) {
+            try {
+                FileReader fileRead = new FileReader(file);
+                BufferedReader buffRead = new BufferedReader(fileRead);
                 
-                if (option == 2) {
-                    return null;
-                }   
+                String line = null;
+                while ((line = buffRead.readLine()) != null) {
+                    // If it's the clients file then every line is a client so
+                    // we can add a new client to de ArrayList for every line
+                    dataBaseManager.addToProductList(line);
+                    
+                }
+
+                buffRead.close();
+
+            } 
+            catch (FileNotFoundException fnf) {
+                System.out.println("Error opening specified file");
+                return null;
+            } 
+            catch (IOException ioe) {
+                System.out.println("Error reading specified file");
+                return null;
             }
+
+
+        } 
+        else {
+            System.out.println("Error - Products.txt file not found\nPlease try again.");
+            return null;
         }
 
         return dataBaseManager;
