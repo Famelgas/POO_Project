@@ -32,7 +32,7 @@ public class ReadFiles {
     }
 
     private static DataBaseManager importClientsFromTextFile(DataBaseManager dataBaseManager, Scanner sc) {
-        String fileName = "src/Clients.txt";
+        String fileName = "Clients.txt";
         File file = new File(fileName);
 
         while (true) {
@@ -91,7 +91,7 @@ public class ReadFiles {
 
 
     private static DataBaseManager importProductsFromTextFile(DataBaseManager dataBaseManager, Scanner sc) {
-        String fileName = "src/Products.txt";
+        String fileName = "Products.txt";
         File file = new File(fileName);
 
         while (true) {
