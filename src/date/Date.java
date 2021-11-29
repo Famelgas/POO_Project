@@ -84,10 +84,8 @@ public class Date {
         return date;
     }
 
-    public Date getUsersDate() {
+    public Date getUsersDate(Scanner sc) {
         System.out.println("Enter the pretended date:");
-        Scanner sc = new Scanner(System.in);
-        int day;
         int month;
         int year;
         
@@ -100,7 +98,6 @@ public class Date {
         System.out.println("Enter the year:");
         year = sc.nextInt();
         
-        sc.close();
         
         return new Date(day, month, year);
     }

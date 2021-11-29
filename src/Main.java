@@ -6,11 +6,12 @@ import client.Client;
 import date.Date;
 import product.*;
 
+
 public class Main {
     public static void main(String[] args) {
         Client client = new Client();
         DataBaseManager dataBaseManager = new DataBaseManager();
-        ReadFiles readFiles = new ReadFiles();
+        Scanner sc = new Scanner(System.in);
 
 
         
@@ -22,61 +23,29 @@ public class Main {
         // If there is no .obj file then the program has to read the clients and products from .txt files
         // Every time we close the program a .obj file is updated or created if there isn´t one, so the only
         // time the program is going to read a .txt file is the first time it's oppened 
-        if ((dataBaseManager = readFiles.importFromObjectFile(dataBaseManager, objFile)) == null) {
-            String clientsFile = "src/Clients.txt";
-            String productsFile = "src/Products.txt";
-            Scanner sc = new Scanner(System.in);
-            
-            // Verify if the Clients.txt file exists, if it doesn´t asks the user for another file
-            while ((dataBaseManager = readFiles.importFromTextFile(dataBaseManager, clientsFile)) == null) {
-                int option = 0; 
-                System.out.println("Error - Client.txt file not found, please enter a valid Client file");
-                System.out.println("Do you want to open another file?\n1. Enter new file\n2. Quit");
-                option = sc.nextInt();
-                if (option == 1) {
-                    sc.nextLine();
-                    System.out.print("Please enter the file name:");
-                    clientsFile = sc.nextLine();
-                    sc.nextLine();
-                    option = 0;
-                }
-                
-                if (option == 2) {
-                    sc.close();
-                    return;
-                }
+        if (ReadFiles.importFromObjectFile(dataBaseManager, objFile) == null) {
+            if (ReadFiles.importFromTextFile(sc) == null) {
+                sc.close();
+                return;
             }
-            
-            // Verify if the Products.txt file exists, if it doesn´t asks the user for another file
-            while ((dataBaseManager = readFiles.importFromTextFile(dataBaseManager, productsFile)) == null) {
-                int option = 0;
-                System.out.println("Error - Products.txt file not found, please enter a valid Client file");
-                System.out.println("Do you want to open another file?\n1. Enter new file\nQuit");
-                option = sc.nextInt();
-                if (option == 1) {
-                    sc.nextLine();
-                    System.out.print("Please enter the file name:");
-                    clientsFile = sc.nextLine();
-                    sc.nextLine();
-                    option = 0;
-                }
-                
-                if (option == 2) {
-                    sc.close();
-                    return;
-                }
+            else {
+                dataBaseManager = ReadFiles.importFromTextFile(sc);
             }
-
-            sc.close();
         } 
+
+        else {
+            dataBaseManager = ReadFiles.importFromObjectFile(dataBaseManager, objFile);
+        }
 
 
         
         // inventar um nome pra loja
         
+        System.out.println("\n");
+        FormatText.separationLine();
+        System.out.println("\n");
         System.out.println(FormatText.alignCenterText("Welcome to the Online Shopping"));
         System.out.println("\n");
-        Scanner sc = new Scanner(System.in);
         
         
         // App menus, first the login menu comes up and once the client has entered the shop menu apears
@@ -90,7 +59,7 @@ public class Main {
                 int preMenuOption = 0;
                 System.out.println(FormatText.alignCenterText("1. Sign in"));
                 System.out.println(FormatText.alignCenterText("2. Sing up"));
-                System.out.println(FormatText.alignCenterText("3.  Quit"));
+                System.out.println(FormatText.alignCenterText("3.  Quit  "));
 
                 System.out.println("\n");
                 System.out.print("Enter option you desire: ");
@@ -117,14 +86,14 @@ public class Main {
                 }
                 
                 if (preMenuOption == 2) {
-                    client = dataBaseManager.createAccount();
+                    client = dataBaseManager.createAccount(sc);
                     System.out.println(FormatText.alignCenterText("Account created successfuly!\n"));
                     break;
                 }
 
                 if (preMenuOption == 3) {
                     sc.close();
-                    readFiles.exportToObjectFile(dataBaseManager, objFile);
+                    ReadFiles.exportToObjectFile(dataBaseManager, objFile);
                     return;
                 }
             }
@@ -391,7 +360,7 @@ public class Main {
 
                                 // Checkout and pay the items in the shopping cart
                                 if (buyMenuOption == 4) {
-                                    if (!dataBaseManager.buyProducts(client)) {
+                                    if (!dataBaseManager.buyProducts(client, sc)) {
                                         System.out.println("Error concluding purchase. Please try again.");
                                         System.out.println();
                                     }
@@ -438,7 +407,7 @@ public class Main {
                 // 4. Quit
                 if (menuOption == 4) {
                     sc.close();
-                    readFiles.exportToObjectFile(dataBaseManager, objFile);
+                    ReadFiles.exportToObjectFile(dataBaseManager, objFile);
                     return;
                 }
             }

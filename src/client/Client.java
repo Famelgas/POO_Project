@@ -321,8 +321,7 @@ public class Client {
 
     // Verifies that the payment is accepted 
     // returns false if not
-    public boolean acceptPayment() {
-        Scanner sc = new Scanner(System.in);
+    public boolean acceptPayment(Scanner sc) {
         System.out.println(FormatText.alignCenterText("Select your desired payment method:"));
         System.out.println(FormatText.alignCenterText("1.    MbWay   ")); 
         System.out.println(FormatText.alignCenterText("2. Credit Card"));  
@@ -341,11 +340,9 @@ public class Client {
                     System.out.println();
                     
                     if (this.mbWayPin == pin) {
-                        sc.close();
                         return true;
                     }
                     else {
-                        sc.close();
                         return false;
                     }
                 }
@@ -359,7 +356,6 @@ public class Client {
                     System.out.print("\nEnter the option you disire: ");
 
                     if (option == 2) {
-                        sc.close();
                         return false;
                     }
                 }   
@@ -392,18 +388,15 @@ public class Client {
             // clients registered credit card information than 
             // the payment is acceped
             if (this.creditCardNumber == ccNumber && this.expirationDate == expDate && this.creditCardCVV == cvv) {
-                sc.close();
                 return true;
             }
             else {
                 System.out.println(FormatText.alignCenterText("The credit card isn´t valid. Please register a valid card in your profile and try again."));
                 System.out.println();
-                sc.close();
                 return false;
             }
         }
         
-        sc.close();
         return false;
     }         
     

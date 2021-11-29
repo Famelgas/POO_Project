@@ -66,15 +66,14 @@ public class DataBaseManager {
      * Creates a new client and adds the client to the clientList where it can be 
      * managed or written into an object file
      */
-    public Client createAccount() {
-        Scanner sc = new Scanner(System.in);        
+    public Client createAccount(Scanner sc) {
         String name; 
         String address;
         String email; 
         int phoneNumber; 
-        String strDate;
         Date birthday;
         
+        sc.nextLine();
         System.out.print("Enter your name:");
         name = sc.nextLine();
         System.out.println();
@@ -91,13 +90,18 @@ public class DataBaseManager {
         phoneNumber = sc.nextInt();
         System.out.println();
         
-        System.out.print("Enter your birthday date:");
-        strDate = sc.nextLine();
+        System.out.println("Enter your birthday date:");
+        System.out.print("Day:");
+        int day = sc.nextInt();
+        System.out.print("Month:");
+        int month = sc.nextInt();
+        System.out.print("Year:");
+        int year = sc.nextInt();
         System.out.println();
+
+        birthday = new Date(day, month, year);
         
-        birthday = Date.convertStringToDate(strDate);
-        
-        sc.close();
+        sc.nextLine();
         
         Client newClient = new Client(name, address, email, phoneNumber, birthday, false);
         clientList.add(newClient);
@@ -117,10 +121,15 @@ public class DataBaseManager {
      * @return - returns true if the purchase is succesful 
      *           returns false if theres is a problem
      */
-    public boolean buyProducts(Client client) {
+    public boolean buyProducts(Client client, Scanner sc) {
         ArrayList<Product> shoppingCart = client.getShoppingCart();
+
+        // mudar para data local do pc!!!!!!!!!!
+        
+        
+        
         Date date = new Date();
-        date = date.getUsersDate();
+        date = date.getUsersDate(sc);
         Purchase newPurchase = new Purchase(date);
         
         // Serching through the client's shopping cart
@@ -159,7 +168,7 @@ public class DataBaseManager {
         System.out.println();
         System.out.print("Your total is: " + newPurchase.getPurchasePrice());
         while (true) {
-            if (client.acceptPayment()) {
+            if (client.acceptPayment(sc)) {
                 System.out.println(FormatText.alignCenterText("Payment accepted."));
                 System.out.println();
                 client.addToPurchaseHistory(newPurchase);
@@ -167,7 +176,6 @@ public class DataBaseManager {
                 return true;
             }
             else {
-                Scanner sc = new Scanner(System.in);
                 System.out.println(FormatText.alignCenterText("Payment not accepted."));
                 System.out.println(FormatText.alignCenterText("1. Try again"));
                 System.out.println(FormatText.alignCenterText("2.  Go back "));
@@ -175,7 +183,6 @@ public class DataBaseManager {
                 System.out.print("\nEnter the option you disire: ");
                 int option = sc.nextInt();
                 System.out.println();
-                sc.close();
                 if (option == 2) {
                     return false;
                 }
