@@ -1,6 +1,5 @@
 package database;
 import java.io.*;
-import java.util.Scanner;
 
 
 public class ReadFiles {
@@ -11,27 +10,27 @@ public class ReadFiles {
      * 
      * @param fileName - .txt file to import from
      */
-    public static DataBaseManager importFromTextFile(Scanner sc) {
+    public static DataBaseManager importFromTextFile() {
         DataBaseManager dataBaseManager = new DataBaseManager();
         
-        if (importClientsFromTextFile(dataBaseManager, sc) == null) {
+        if (importClientsFromTextFile(dataBaseManager) == null) {
             return null;
         }
         else {
-            dataBaseManager = importClientsFromTextFile(dataBaseManager, sc);
+            dataBaseManager = importClientsFromTextFile(dataBaseManager);
         }
 
-        if (importProductsFromTextFile(dataBaseManager, sc) == null) {
+        if (importProductsFromTextFile(dataBaseManager) == null) {
             return null;
         }
         else {
-            dataBaseManager = importProductsFromTextFile(dataBaseManager, sc);
+            dataBaseManager = importProductsFromTextFile(dataBaseManager);
         }
 
         return dataBaseManager;
     }
 
-    private static DataBaseManager importClientsFromTextFile(DataBaseManager dataBaseManager, Scanner sc) {
+    private static DataBaseManager importClientsFromTextFile(DataBaseManager dataBaseManager) {
         String fileName = "Clients.txt";
         File file = new File(fileName);
 
@@ -73,7 +72,7 @@ public class ReadFiles {
     
 
 
-    private static DataBaseManager importProductsFromTextFile(DataBaseManager dataBaseManager, Scanner sc) {
+    private static DataBaseManager importProductsFromTextFile(DataBaseManager dataBaseManager) {
         String fileName = "Products.txt";
         File file = new File(fileName);
 
@@ -160,7 +159,7 @@ public class ReadFiles {
      * @param clientFileName  - .obj client file
      * @param productFileName - .obj product file
      */
-    public static void exportToObjectFile(DataBaseManager dataBaseManager, String fileName) {
+    public static boolean exportToObjectFile(DataBaseManager dataBaseManager, String fileName) {
         // Write every client in the ArrayList in the Clients.obj file
         File clientFile = new File(fileName);
 
@@ -168,6 +167,7 @@ public class ReadFiles {
             clientFile.createNewFile();
         } catch (IOException ioe) {
             System.out.println("Error creating new .obj file");
+            return false;
         }
 
         if (clientFile.exists() && clientFile.isFile()) {
@@ -178,10 +178,13 @@ public class ReadFiles {
                 objectOutputStream.close();
             } catch (FileNotFoundException fnf) {
                 System.out.println("Error opening specified file");
+                return false;
             } catch (IOException ioe) {
                 System.out.println("Error writing specified file");
+                return false;
             }
         }
+        return true;
     }
 
 }
