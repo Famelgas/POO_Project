@@ -2,7 +2,7 @@ package userinterface;
 import java.util.Scanner;
 import database.DataBaseManager;
 import database.FormatText;
-import client.Client;
+import client.*;
 import date.Date;
 import product.*;
 
@@ -60,7 +60,45 @@ public class UserInterface {
                 }
                 
                 if (preMenuOption == 2) {
-                    client = dataBaseManager.createAccount(sc);
+
+                    String name; 
+                    String address;
+                    String email; 
+                    int phoneNumber; 
+                    Date birthday;
+                    
+                    sc.nextLine();
+                    System.out.print("Enter your name:");
+                    name = sc.nextLine();
+                    System.out.println();
+                    
+                    System.out.print("Enter your address:");
+                    address = sc.nextLine();
+                    System.out.println();
+                    
+                    System.out.print("Enter your email:");
+                    email = sc.nextLine();
+                    System.out.println();
+                    
+                    System.out.print("Enter your phone number:");
+                    phoneNumber = sc.nextInt();
+                    System.out.println();
+                    
+                    System.out.println("Enter your birthday date:");
+                    System.out.print("Day:");
+                    int day = sc.nextInt();
+                    System.out.print("Month:");
+                    int month = sc.nextInt();
+                    System.out.print("Year:");
+                    int year = sc.nextInt();
+                    System.out.println();
+
+                    birthday = new Date(day, month, year);
+                    
+                    sc.nextLine();
+
+
+                    client = dataBaseManager.createAccount(name, address, email, phoneNumber, birthday);
                     System.out.println(FormatText.alignCenterText("Account created successfuly!\n"));
                     break;
                 }
@@ -333,14 +371,102 @@ public class UserInterface {
 
                                 // Checkout and pay the items in the shopping cart
                                 if (buyMenuOption == 4) {
-                                    if (!dataBaseManager.buyProducts(client, sc)) {
-                                        System.out.println("Error concluding purchase. Please try again.");
+                                    Purchase newPurchase = new Purchase();
+
+                                    if (dataBaseManager.createNewPurchase(client) != null) {
+                                        FormatText.intermidietLine();
                                         System.out.println();
-                                    }
-                                    else {
+                                        System.out.print("Your total is: " + newPurchase.getPurchasePrice());
+                                        while (true) {
+                                            System.out.println(FormatText.alignCenterText("Select your desired payment method:"));
+                                            System.out.println(FormatText.alignCenterText("1.    MbWay   ")); 
+                                            System.out.println(FormatText.alignCenterText("2. Credit Card"));  
+                                            int paymentOption= sc.nextInt();
+                                            
+                                            // If is payment by MBWay
+                                            if (paymentOption == 1) {
+                                                System.out.print("Phone number: ");
+                                                System.out.println();
+                                                int phoneNumber = sc.nextInt();
+                                                System.out.print("Pin: ");
+                                                System.out.println();
+                                                int pin = sc.nextInt();
+
+                                                
+                                                if (client.acceptMbWayPayment(phoneNumber, pin)) {
+                                                    System.out.println(FormatText.alignCenterText("Payment accepted."));
+                                                    System.out.println();
+                                                    client.addToPurchaseHistory(newPurchase);
+                                                    break;
+                                                }
+                                                else {
+                                                    System.out.println(FormatText.alignCenterText("Payment not accepted."));
+                                                    System.out.println(FormatText.alignCenterText("1. Try again"));
+                                                    System.out.println(FormatText.alignCenterText("2.  Go back "));
+                                                    System.out.println();
+                                                    System.out.print("\nEnter the option you disire: ");
+                                                    int option = sc.nextInt();
+                                                    System.out.println();
+                                                    if (option == 2) {
+                                                        break;
+                                                    }
+                                                }
+                                                
+                                            }
+
+                                            // If is payment by credit card
+                                            if (paymentOption == 2) {
+
+                                                // Verify credit card information
+                                                if (paymentOption == 2) {
+                                                    System.out.print("Credit card number: ");
+                                                    int ccNumber = sc.nextInt();
+                                                    System.out.println();
+
+                                                    System.out.println("Expiration date:");
+                                                    System.out.print("Day -> ");
+                                                    int day = sc.nextInt();
+                                                    System.out.print("\nMonth -> ");
+                                                    int month = sc.nextInt();
+                                                    System.out.print("\nYear -> ");
+                                                    int year = sc.nextInt();
+                                                    System.out.println();
+                                                    
+                                                    Date expDate = new Date(day, month, year);
+                                                    
+                                                    System.out.print("CVV: ");
+                                                    int cvv = sc.nextInt();
+                                                    System.out.println(); 
+                                                    
+                                                    if (client.acceptCreditCardPayment(ccNumber, expDate, cvv)) {
+                                                        System.out.println(FormatText.alignCenterText("Payment accepted."));
+                                                        System.out.println();
+                                                        client.addToPurchaseHistory(newPurchase);
+                                                        break;
+                                                    }
+                                                    else {
+                                                        System.out.println(FormatText.alignCenterText("Payment not accepted."));
+                                                        System.out.println(FormatText.alignCenterText("1. Try again"));
+                                                        System.out.println(FormatText.alignCenterText("2.  Go back "));
+                                                        System.out.println();
+                                                        System.out.print("\nEnter the option you disire: ");
+                                                        int option = sc.nextInt();
+                                                        System.out.println();
+                                                        if (option == 2) {
+                                                            break;
+                                                        }
+                                                    }
+                                                }    
+                                            }
+                                        }
+                                    
                                         System.out.println(FormatText.alignCenterText("Thank you for choosing us!"));
                                         System.out.println();
                                         client.clearShoppingCart();
+                                    }
+                                    else {
+                                        System.out.println("Error concluding purchase. Please try again.");
+                                        System.out.println();
                                     }
 
                                 }

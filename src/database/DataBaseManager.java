@@ -1,6 +1,5 @@
 package database;
 import java.util.ArrayList;
-import java.util.Scanner;
 import client.Client;
 import client.Purchase;
 import product.*;
@@ -66,43 +65,7 @@ public class DataBaseManager {
      * Creates a new client and adds the client to the clientList where it can be 
      * managed or written into an object file
      */
-    public Client createAccount(Scanner sc) {
-        String name; 
-        String address;
-        String email; 
-        int phoneNumber; 
-        Date birthday;
-        
-        sc.nextLine();
-        System.out.print("Enter your name:");
-        name = sc.nextLine();
-        System.out.println();
-        
-        System.out.print("Enter your address:");
-        address = sc.nextLine();
-        System.out.println();
-        
-        System.out.print("Enter your email:");
-        email = sc.nextLine();
-        System.out.println();
-        
-        System.out.print("Enter your phone number:");
-        phoneNumber = sc.nextInt();
-        System.out.println();
-        
-        System.out.println("Enter your birthday date:");
-        System.out.print("Day:");
-        int day = sc.nextInt();
-        System.out.print("Month:");
-        int month = sc.nextInt();
-        System.out.print("Year:");
-        int year = sc.nextInt();
-        System.out.println();
-
-        birthday = new Date(day, month, year);
-        
-        sc.nextLine();
-        
+    public Client createAccount(String name, String address, String email, int phoneNumber, Date birthday) {
         Client newClient = new Client(name, address, email, phoneNumber, birthday, false);
         clientList.add(newClient);
         
@@ -121,7 +84,7 @@ public class DataBaseManager {
      * @return - returns true if the purchase is succesful 
      *           returns false if theres is a problem
      */
-    public boolean buyProducts(Client client, Scanner sc) {
+    public Purchase createNewPurchase(Client client) {
         ArrayList<Product> shoppingCart = client.getShoppingCart();
 
         // mudar para data local do pc!!!!!!!!!!
@@ -159,36 +122,14 @@ public class DataBaseManager {
                 
                 else {
                     System.out.println("Product out of stock.");
+                    return null;
                 }
                 
             } 
             
         }
-        FormatText.intermidietLine();
-        System.out.println();
-        System.out.print("Your total is: " + newPurchase.getPurchasePrice());
-        while (true) {
-            if (client.acceptPayment(sc)) {
-                System.out.println(FormatText.alignCenterText("Payment accepted."));
-                System.out.println();
-                client.addToPurchaseHistory(newPurchase);
-                
-                return true;
-            }
-            else {
-                System.out.println(FormatText.alignCenterText("Payment not accepted."));
-                System.out.println(FormatText.alignCenterText("1. Try again"));
-                System.out.println(FormatText.alignCenterText("2.  Go back "));
-                System.out.println();
-                System.out.print("\nEnter the option you disire: ");
-                int option = sc.nextInt();
-                System.out.println();
-                if (option == 2) {
-                    return false;
-                }
-            }
-
-        }
+        
+        return newPurchase;
     }
 
 

@@ -2,10 +2,8 @@ package client;
 import java.lang.NumberFormatException;
 import java.lang.String;
 import java.util.ArrayList;
-import java.util.Scanner;
 import date.Date;
 import product.*;
-import database.FormatText;
 
 
 public class Client {
@@ -321,84 +319,14 @@ public class Client {
 
     // Verifies that the payment is accepted 
     // returns false if not
-    public boolean acceptPayment(Scanner sc) {
-        System.out.println(FormatText.alignCenterText("Select your desired payment method:"));
-        System.out.println(FormatText.alignCenterText("1.    MbWay   ")); 
-        System.out.println(FormatText.alignCenterText("2. Credit Card"));  
-        int paymentOption= sc.nextInt();
-
-        
-        // Verify MBWay information 
-        if (paymentOption == 1) {
-            while (true) {
-                System.out.print("Phone number: ");
-                int phoneNumber = sc.nextInt();
-                System.out.println();
-                if (this.phoneNumber == phoneNumber) {
-                    System.out.print("PIN: ");
-                    int pin = sc.nextInt(); 
-                    System.out.println();
-                    
-                    if (this.mbWayPin == pin) {
-                        return true;
-                    }
-                    else {
-                        return false;
-                    }
-                }
-                else {
-                    System.out.println(FormatText.alignCenterText("Wrong phone number."));
-                    System.out.println(FormatText.alignCenterText("Do you want to try again?"));
-                    System.out.println(FormatText.alignCenterText("1. Try again"));
-                    System.out.println(FormatText.alignCenterText("2.  Go back "));
-                    System.out.println();
-                    int option = sc.nextInt();
-                    System.out.print("\nEnter the option you disire: ");
-
-                    if (option == 2) {
-                        return false;
-                    }
-                }   
-            }
-        }
-
-        // Verify credit card information
-        if (paymentOption == 2) {
-            System.out.print("Credit card number: ");
-            int ccNumber = sc.nextInt();
-            System.out.println();
-
-            System.out.println("Expiration date:");
-            System.out.print("Day -> ");
-            int day = sc.nextInt();
-            System.out.print("\nMonth -> ");
-            int month = sc.nextInt();
-            System.out.print("\nYear -> ");
-            int year = sc.nextInt();
-            System.out.println();
-            
-            Date expDate = new Date(day, month, year);
-            
-            System.out.print("CVV: ");
-            int cvv = sc.nextInt();
-            System.out.println(); 
-            
-            
-            // If all the credit card information introduced matches the
-            // clients registered credit card information than 
-            // the payment is acceped
-            if (this.creditCardNumber == ccNumber && this.expirationDate == expDate && this.creditCardCVV == cvv) {
-                return true;
-            }
-            else {
-                System.out.println(FormatText.alignCenterText("The credit card isn´t valid. Please register a valid card in your profile and try again."));
-                System.out.println();
-                return false;
-            }
-        }
-        
-        return false;
+    public boolean acceptMbWayPayment(int phoneNumber, int pin) {
+        return this.phoneNumber == phoneNumber && this.mbWayPin == pin;
     }         
+
+
+    public boolean acceptCreditCardPayment(int creditCardNumber, Date expirationDate, int cvv) {
+        return this.creditCardNumber == creditCardNumber && this.expirationDate.equals(expirationDate) && this.creditCardCVV == cvv;
+    }
     
 
 

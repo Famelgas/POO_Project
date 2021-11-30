@@ -93,4 +93,9 @@ public class Date {
     public String toString() {
         return day + "/" + month + "/" + year; 
     }
+
+    public boolean equals(Date dateToVerify) {
+        return this.day == dateToVerify.getDay() && this.month == dateToVerify.getMonth() && this.year == dateToVerify.getYear();
+    } 
+
 }
