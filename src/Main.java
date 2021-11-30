@@ -29,19 +29,43 @@ public class Main {
         // If there is no .obj file then the program has to read the clients and products from .txt files
         // Every time we close the program a .obj file is updated or created if there isn´t one, so the only
         // time the program is going to read a .txt file is the first time it's oppened 
-        if (ReadFiles.importFromObjectFile(dataBaseManager, objFile) == null) {
+
+
+
+    
+        // If any produdcts were added to the supermarket stock (Products.txt) the program need to 
+        // reload files 
+        // boolean reload - false: no reload; true: reload files
+        boolean reloadTextFiles = false;
+        if (reloadTextFiles) {
             if (ReadFiles.importFromTextFile() == null) {
                 System.out.println("Error importing from text file");
                 return;
             }
             else {
                 dataBaseManager = ReadFiles.importFromTextFile();
+                if (!ReadFiles.reloadFiles(objFile)) {
+                    System.out.println("Error deleting .obj file");
+                }
             }
-        } 
-
-        else {
-            dataBaseManager = ReadFiles.importFromObjectFile(dataBaseManager, objFile);
+            reloadTextFiles = false;
         }
+        else {
+            if (ReadFiles.importFromObjectFile(dataBaseManager, objFile) == null) {
+                if (ReadFiles.importFromTextFile() == null) {
+                    System.out.println("Error importing from text file");
+                    return;
+                }
+                else {
+                    dataBaseManager = ReadFiles.importFromTextFile();
+                }
+            } 
+    
+            else {
+                dataBaseManager = ReadFiles.importFromObjectFile(dataBaseManager, objFile);
+            }
+        }
+
 
 
         
@@ -56,6 +80,5 @@ public class Main {
             return;
         }
         
-
     }   
 }

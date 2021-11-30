@@ -41,6 +41,7 @@ public class DataBaseManager {
 
 
 
+
     /** -----------------------------------------Class Methods------------------------------------------------- */ 
 
 
@@ -84,15 +85,13 @@ public class DataBaseManager {
      * @return - returns true if the purchase is succesful 
      *           returns false if theres is a problem
      */
-    public Purchase createNewPurchase(Client client) {
+    public Purchase createNewPurchase(Client client, Date date) {
         ArrayList<Product> shoppingCart = client.getShoppingCart();
 
         // mudar para data local do pc!!!!!!!!!!
         
         
         
-        Date date = new Date();
-        date = date.getActualDate();
         Purchase newPurchase = new Purchase(date);
         
         // Serching through the client's shopping cart

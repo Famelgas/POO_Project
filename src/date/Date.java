@@ -81,7 +81,7 @@ public class Date {
     }
     
     
-    public Date getActualDate() {
+    public static Date getLocalDate() {
         LocalDate localDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String formattedDate = localDate.format(formatter);

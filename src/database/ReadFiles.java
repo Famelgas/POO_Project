@@ -1,5 +1,6 @@
 package database;
 import java.io.*;
+import java.lang.SecurityException;
 
 
 public class ReadFiles {
@@ -186,5 +187,20 @@ public class ReadFiles {
         }
         return true;
     }
+
+
+    public static boolean reloadFiles(String objFile) {
+        File file = new File(objFile);
+        try {
+            if (!file.delete()) {
+                return false;
+            }
+            return true;
+        }
+        catch (SecurityException se) {
+            return false;
+        }
+    }
+
 
 }

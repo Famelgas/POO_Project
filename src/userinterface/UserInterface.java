@@ -13,6 +13,45 @@ public class UserInterface {
         Client client = new Client();
         Scanner sc = new Scanner(System.in);
 
+        // Date and time options
+        System.out.println(FormatText.alignCenterText("1. Enter date manualy"));
+        System.out.println(FormatText.alignCenterText("2.   Use local date  "));
+        System.out.print("Enter option: ");
+        int dateOption = sc.nextInt();
+        System.out.println();
+
+        Date date;
+
+        switch (dateOption) {
+            case 1 -> {
+                System.out.println("Enter date:");
+                System.out.print("Day:");
+                int day = sc.nextInt();
+                System.out.print("Month:");
+                int month = sc.nextInt();
+                System.out.print("Year:");
+                int year = sc.nextInt();
+                System.out.println();
+                date = new Date(day, month, year);
+            }
+            case 2 -> {
+                date = Date.getLocalDate();
+            }
+                
+            default -> date = new Date();
+        }
+
+
+        if (dateOption == 1) {
+           
+
+        }
+        if (dateOption == 2) {
+        }
+
+
+
+
         // inventar um nome pra loja
         
         System.out.println("\n");
@@ -36,7 +75,7 @@ public class UserInterface {
                 System.out.println(FormatText.alignCenterText("3.  Quit  "));
 
                 System.out.println("\n");
-                System.out.print("Enter option you desire: ");
+                System.out.print("Enter option: ");
                 preMenuOption = sc.nextInt();
                 System.out.println("\n");
                 
@@ -122,7 +161,7 @@ public class UserInterface {
                 System.out.println(FormatText.alignCenterText("4.     Quit    "));
                 
                 System.out.println("\n");
-                System.out.print("Enter option you desire: ");
+                System.out.print("Enter option: ");
                 menuOption = sc.nextInt();
                 System.out.println("\n");
 
@@ -138,7 +177,7 @@ public class UserInterface {
                         
                         int subMenuOption;
                         System.out.println("\n");
-                        System.out.print("Enter option you desire: ");
+                        System.out.print("Enter option: ");
                         subMenuOption = sc.nextInt();
                         System.out.println("\n");
     
@@ -162,7 +201,7 @@ public class UserInterface {
                             
                             int profileOption;
                             System.out.println("\n");
-                            System.out.print("Enter option you desire: ");
+                            System.out.print("Enter option: ");
                             profileOption = sc.nextInt();
                             System.out.println("\n");
     
@@ -213,9 +252,9 @@ public class UserInterface {
                                 System.out.print("\nEnter year: ");
                                 int year = sc.nextInt();
     
-                                Date newDate = new Date(day, month, year);
+                                Date newBirthday = new Date(day, month, year);
                                 
-                                client.setBirthday(newDate);
+                                client.setBirthday(newBirthday);
                                 System.out.println("\n");
                             }
                             
@@ -244,9 +283,9 @@ public class UserInterface {
                                 System.out.print("\nEnter year: ");
                                 int year = sc.nextInt();
         
-                                Date newDate = new Date(day, month, year);
+                                Date newExprirationDate = new Date(day, month, year);
                                 
-                                client.setExpirationDate(newDate);
+                                client.setExpirationDate(newExprirationDate);
                                 System.out.println("\n");
     
                             }
@@ -292,7 +331,7 @@ public class UserInterface {
                         
                         int subMenuOption;
                         System.out.println("\n");
-                        System.out.print("Enter option you desire: ");
+                        System.out.print("Enter option: ");
                         subMenuOption = sc.nextInt();
                         System.out.println("\n");
                         
@@ -311,7 +350,7 @@ public class UserInterface {
                                 
                                 int buyMenuOption;
                                 System.out.println("\n");
-                                System.out.print("Enter option you desire: ");
+                                System.out.print("Enter option: ");
                                 buyMenuOption = sc.nextInt();
                                 System.out.println("\n");
     
@@ -373,7 +412,7 @@ public class UserInterface {
                                 if (buyMenuOption == 4) {
                                     Purchase newPurchase = new Purchase();
 
-                                    if (dataBaseManager.createNewPurchase(client) != null) {
+                                    if (dataBaseManager.createNewPurchase(client, date) != null) {
                                         FormatText.intermidietLine();
                                         System.out.println();
                                         System.out.print("Your total is: " + newPurchase.getPurchasePrice());
@@ -432,13 +471,13 @@ public class UserInterface {
                                                     int year = sc.nextInt();
                                                     System.out.println();
                                                     
-                                                    Date expDate = new Date(day, month, year);
+                                                    Date expirationDate = new Date(day, month, year);
                                                     
                                                     System.out.print("CVV: ");
                                                     int cvv = sc.nextInt();
                                                     System.out.println(); 
                                                     
-                                                    if (client.acceptCreditCardPayment(ccNumber, expDate, cvv)) {
+                                                    if (client.acceptCreditCardPayment(ccNumber, expirationDate, cvv)) {
                                                         System.out.println(FormatText.alignCenterText("Payment accepted."));
                                                         System.out.println();
                                                         client.addToPurchaseHistory(newPurchase);
