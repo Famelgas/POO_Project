@@ -36,20 +36,11 @@ public class UserInterface {
             }
             case 2 -> {
                 date = Date.getLocalDate();
+                System.out.println(date);
             }
                 
             default -> date = new Date();
         }
-
-
-        if (dateOption == 1) {
-           
-
-        }
-        if (dateOption == 2) {
-        }
-
-
 
 
         // inventar um nome pra loja

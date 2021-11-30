@@ -1,6 +1,10 @@
 package date;
+
 import java.time.format.DateTimeFormatter;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+
+import date.Date;
 
 public class Date {
     private int day;
@@ -82,10 +86,10 @@ public class Date {
     
     
     public static Date getLocalDate() {
-        LocalDate localDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String formattedDate = localDate.format(formatter);
-        return convertStringToDate(formattedDate);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime now = LocalDateTime.now();
+        String strDate = dtf.format(now);
+        return convertStringToDate(strDate);
     }
     
     
