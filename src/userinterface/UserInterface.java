@@ -25,18 +25,17 @@ public class UserInterface {
         switch (dateOption) {
             case 1 -> {
                 System.out.println("Enter date:");
-                System.out.print("Day:");
+                System.out.print("Day (dd):");
                 int day = sc.nextInt();
-                System.out.print("Month:");
+                System.out.print("Month (MM):");
                 int month = sc.nextInt();
-                System.out.print("Year:");
+                System.out.print("Year (yyyy):");
                 int year = sc.nextInt();
                 System.out.println();
                 date = new Date(day, month, year);
             }
             case 2 -> {
                 date = Date.getLocalDate();
-                System.out.println(date);
             }
                 
             default -> date = new Date();

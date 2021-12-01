@@ -43,26 +43,6 @@ public class Date {
         this.year = year;
     }
     
-    private void setDateAtributes(String numStr, int atrib) {
-        int num;
-        try {
-            num = Integer.parseInt(numStr);
-        }
-        catch (NumberFormatException nfe) {
-            num = -1;
-        }  
-        switch (atrib) {
-            case 1 -> setDay(num);
-            case 2 -> setMonth(num);
-            case 3 -> setYear(num);
-            default -> { setDay(-1);    
-                setMonth(-1);
-                setYear(-1);
-            }
-        }
-    }
-    
-    
     
     public static Date convertStringToDate(String strDate) {
         Date date = new Date();
@@ -71,14 +51,38 @@ public class Date {
         
         for (int i = 0; i < strDate.length(); ++i) {
             if (!Character.isDigit(strDate.charAt(i))) {
-                date.setDateAtributes(numStr, atrib);
+                int num;
+                try {
+                    num = Integer.parseInt(numStr);
+                } catch (NumberFormatException nfe) {
+                    num = -1;
+                }
+                switch (atrib) {
+                    case 1 -> date.setDay(num);
+                    case 2 -> date.setMonth(num);
+                    case 3 -> date.setYear(num);
+                    default -> {
+                        date.setDay(-1);
+                        date.setMonth(-1);
+                        date.setYear(-1);
+                    }
+                }
                 ++atrib;
-            }
-            if (i + 1 == strDate.length()) {
+                numStr = "";
+            }   
+            else if (i + 1 == strDate.length()) {
                 numStr += strDate.charAt(i);
-                date.setDateAtributes(numStr, atrib);
+                int num;
+                try {
+                    num = Integer.parseInt(numStr);
+                } catch (NumberFormatException nfe) {
+                    num = -1;
+                }
+                date.setYear(num);
             }
-            numStr += strDate.charAt(i);
+            else {
+                numStr += strDate.charAt(i);
+            }
         }
         
         return date;
