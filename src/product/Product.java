@@ -83,7 +83,7 @@ public class Product {
         int type = 0;
 
         for (int i = 0; i < line.length(); ++i) {
-            if (line.charAt(i) == '/' || line.charAt(i) == '\n') {
+            if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
                 if (productType[type].equals(words)) {
                     return Cleaning.separateCleaningInfo(line);                    
                 }    

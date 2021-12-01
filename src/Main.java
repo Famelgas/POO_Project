@@ -48,7 +48,6 @@ public class Main {
                     System.out.println("Error deleting .obj file");
                 }
             }
-            reloadTextFiles = false;
         }
         else {
             if (ReadFiles.importFromObjectFile(dataBaseManager, objFile) == null) {

@@ -167,6 +167,19 @@ public class Client {
         return shoppingCart;
     }
 
+    public void setShoppingCart(ArrayList<Product> shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
+
+    public ArrayList<Purchase> getPurchaseHistory() {
+        return purchaseHistory;
+    }
+
+    public void setPurchaseHistory(ArrayList<Purchase> purchaseHistory) {
+        this.purchaseHistory = purchaseHistory;
+    }
+
+
     public void addToShoppingCart(Product product, int amount) {
         product.setStock(amount);
         this.shoppingCart.add(product);
@@ -229,11 +242,11 @@ public class Client {
     // Separates the string so we can create a new client
     public static Client separateClientInfo(String line) {
         Client newClient = new Client();
-        String[] clientAtributes = {"name", "address", "email", "phoneNumber", "birthday", "frequent", "mbwaypin", "ccnumber", "ccdate", "cvv"};
+        String[] clientAtributes = {"name", "address", "email", "phoneNumber", "birthday", "frequent", "mbwaypin", "ccnumber", "ccdate", "cvv", "pHist"};
         int atrib = 0;
         String words = "";
         for (int i = 0; i < line.length(); ++i) {
-            if (line.charAt(i) == '/' || line.charAt(i) == '\n') {
+            if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
                 if (clientAtributes[atrib].equals("name")) {
                     newClient.setName(words);
                 }
@@ -302,6 +315,10 @@ public class Client {
                         cvv = -1;
                     }
                     newClient.setPhoneNumber(cvv);
+                }
+                if (clientAtributes[atrib].equals("pHist")) {
+                    newClient.addToPurchaseHistory(Purchase.serparatePurchaseInfo(words));
+                    --atrib;
                 }
                 
                 
