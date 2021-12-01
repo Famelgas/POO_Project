@@ -1,5 +1,7 @@
 package database;
 import java.io.*;
+import java.lang.SecurityException;
+
 
 public class ReadFiles {
     public ReadFiles() {}
@@ -9,7 +11,28 @@ public class ReadFiles {
      * 
      * @param fileName - .txt file to import from
      */
-    public DataBaseManager importFromTextFile(DataBaseManager dataBaseManager, String fileName) {
+    public static DataBaseManager importFromTextFile() {
+        DataBaseManager dataBaseManager = new DataBaseManager();
+        
+        if (importClientsFromTextFile(dataBaseManager) == null) {
+            return null;
+        }
+        else {
+            dataBaseManager = importClientsFromTextFile(dataBaseManager);
+        }
+
+        if (importProductsFromTextFile(dataBaseManager) == null) {
+            return null;
+        }
+        else {
+            dataBaseManager = importProductsFromTextFile(dataBaseManager);
+        }
+
+        return dataBaseManager;
+    }
+
+    private static DataBaseManager importClientsFromTextFile(DataBaseManager dataBaseManager) {
+        String fileName = "Clients.txt";
         File file = new File(fileName);
 
         if (file.exists() && file.isFile()) {
@@ -17,49 +40,86 @@ public class ReadFiles {
                 FileReader fileRead = new FileReader(file);
                 BufferedReader buffRead = new BufferedReader(fileRead);
                 
-                String line = "";
-                if (fileName.equals("Clients.txt")) {
-                    while ((line = buffRead.readLine()) != null) {
-                        // If it's the clients file then every line is a client so
-                        // we can add a new client to de ArrayList for every line
-                        dataBaseManager.addToClientList(line);
-                        
-                        
-                    }
+                String line = null;
+                while ((line = buffRead.readLine()) != null) {
+                    // If it's the clients file then every line is a client so
+                    // we can add a new client to de ArrayList for every line
+                    dataBaseManager.addToClientList(line);
+                    
+                    
                 }
-                if (fileName.equals("Products.txt")) {
-                    while ((line = buffRead.readLine()) != null) {
-                        // If it's the clients file then every line is a client so
-                        // we can add a new client to de ArrayList for every line
-                        dataBaseManager.addToProductList(line);
-                        
-                    }
+                
+                buffRead.close();
+                
+            } 
+            catch (FileNotFoundException fnf) {
+                System.out.println("Error opening specified file");
+                return null;
+            } 
+            catch (IOException ioe) {
+                System.out.println("Error reading specified file");
+                return null;
+            }
+            
+            
+        } 
+        else {
+        System.out.println("Error - Products.txt file not found\nPlease try again.");
+        return null;
+        }
+        
+        return dataBaseManager;
+    }
+    
+
+
+    private static DataBaseManager importProductsFromTextFile(DataBaseManager dataBaseManager) {
+        String fileName = "Products.txt";
+        File file = new File(fileName);
+
+        if (file.exists() && file.isFile()) {
+            try {
+                FileReader fileRead = new FileReader(file);
+                BufferedReader buffRead = new BufferedReader(fileRead);
+                
+                String line = null;
+                while ((line = buffRead.readLine()) != null) {
+                    // If it's the clients file then every line is a client so
+                    // we can add a new client to de ArrayList for every line
+                    dataBaseManager.addToProductList(line);
+                    
                 }
 
                 buffRead.close();
-                return dataBaseManager;        
 
-            } catch (FileNotFoundException fnf) {
+            } 
+            catch (FileNotFoundException fnf) {
                 System.out.println("Error opening specified file");
                 return null;
-            } catch (IOException ioe) {
+            } 
+            catch (IOException ioe) {
                 System.out.println("Error reading specified file");
                 return null;
             }
 
 
-        } else {
-            System.out.println("File doesn't exist");
+        } 
+        else {
+            System.out.println("Error - Products.txt file not found\nPlease try again.");
             return null;
         }
+
+        return dataBaseManager;
     }
 
-    /**
+
+
+        /**
      * Imports every client or object from .obj file to the corresponding ArrayList
      * 
      * @param fileName - .obj file to import from
      */
-    public DataBaseManager importFromObjectFile(DataBaseManager dataBaseManager, String fileName) {
+    public static DataBaseManager importFromObjectFile(DataBaseManager dataBaseManager, String fileName) {
         File file = new File(fileName);
 
         if (file.exists() && file.isFile()) {
@@ -100,7 +160,7 @@ public class ReadFiles {
      * @param clientFileName  - .obj client file
      * @param productFileName - .obj product file
      */
-    public void exportToObjectFile(DataBaseManager dataBaseManager, String fileName) {
+    public static boolean exportToObjectFile(DataBaseManager dataBaseManager, String fileName) {
         // Write every client in the ArrayList in the Clients.obj file
         File clientFile = new File(fileName);
 
@@ -108,6 +168,7 @@ public class ReadFiles {
             clientFile.createNewFile();
         } catch (IOException ioe) {
             System.out.println("Error creating new .obj file");
+            return false;
         }
 
         if (clientFile.exists() && clientFile.isFile()) {
@@ -118,10 +179,28 @@ public class ReadFiles {
                 objectOutputStream.close();
             } catch (FileNotFoundException fnf) {
                 System.out.println("Error opening specified file");
+                return false;
             } catch (IOException ioe) {
                 System.out.println("Error writing specified file");
+                return false;
             }
         }
+        return true;
     }
+
+
+    public static boolean reloadFiles(String objFile) {
+        File file = new File(objFile);
+        try {
+            if (!file.delete()) {
+                return false;
+            }
+            return true;
+        }
+        catch (SecurityException se) {
+            return false;
+        }
+    }
+
 
 }

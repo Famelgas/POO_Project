@@ -1,6 +1,5 @@
 package database;
 import java.util.ArrayList;
-import java.util.Scanner;
 import client.Client;
 import client.Purchase;
 import product.*;
@@ -42,7 +41,8 @@ public class DataBaseManager {
 
 
 
-    /** -----------------------------------------class methods------------------------------------------------- */ 
+
+    /** -----------------------------------------Class Methods------------------------------------------------- */ 
 
 
     /** ---------------------------------------Client associated----------------------------------------------- */
@@ -66,39 +66,7 @@ public class DataBaseManager {
      * Creates a new client and adds the client to the clientList where it can be 
      * managed or written into an object file
      */
-    public Client createAccount() {
-        Scanner sc = new Scanner(System.in);        
-        String name; 
-        String address;
-        String email; 
-        int phoneNumber; 
-        String strDate;
-        Date birthday;
-        
-        System.out.print("Enter your name:");
-        name = sc.nextLine();
-        System.out.println();
-        
-        System.out.print("Enter your address:");
-        address = sc.nextLine();
-        System.out.println();
-        
-        System.out.print("Enter your email:");
-        email = sc.nextLine();
-        System.out.println();
-        
-        System.out.print("Enter your phone number:");
-        phoneNumber = sc.nextInt();
-        System.out.println();
-        
-        System.out.print("Enter your birthday date:");
-        strDate = sc.nextLine();
-        System.out.println();
-        
-        birthday = Date.convertStringToDate(strDate);
-        
-        sc.close();
-        
+    public Client createAccount(String name, String address, String email, int phoneNumber, Date birthday) {
         Client newClient = new Client(name, address, email, phoneNumber, birthday, false);
         clientList.add(newClient);
         
@@ -117,12 +85,14 @@ public class DataBaseManager {
      * @return - returns true if the purchase is succesful 
      *           returns false if theres is a problem
      */
-    public boolean buyProducts(Client client) {
+    public Purchase createNewPurchase(Client client, Date date) {
         ArrayList<Product> shoppingCart = client.getShoppingCart();
-        Date date = new Date();
-        date = date.getUsersDate();
+
+        // mudar para data local do pc!!!!!!!!!!
+        
+        
+        
         Purchase newPurchase = new Purchase(date);
-        FormatText formatText = new FormatText();
         
         // Serching through the client's shopping cart
         for (Product productToBuy : shoppingCart) {
@@ -151,38 +121,14 @@ public class DataBaseManager {
                 
                 else {
                     System.out.println("Product out of stock.");
+                    return null;
                 }
                 
             } 
             
         }
-        formatText.intermidietLine();
-        System.out.println();
-        System.out.print("Your total is: " + newPurchase.getPurchasePrice());
-        while (true) {
-            if (client.acceptPayment()) {
-                System.out.println(formatText.alignCenterText("Payment accepted."));
-                System.out.println();
-                client.addToPurchaseHistory(newPurchase);
-                
-                return true;
-            }
-            else {
-                Scanner sc = new Scanner(System.in);
-                System.out.println(formatText.alignCenterText("Payment not accepted."));
-                System.out.println(formatText.alignCenterText("1. Try again"));
-                System.out.println(formatText.alignCenterText("2.  Go back "));
-                System.out.println();
-                System.out.print("\nEnter the option you disire: ");
-                int option = sc.nextInt();
-                System.out.println();
-                sc.close();
-                if (option == 2) {
-                    return false;
-                }
-            }
-
-        }
+        
+        return newPurchase;
     }
 
 

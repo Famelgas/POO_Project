@@ -1,7 +1,10 @@
 package date;
-import java.util.Scanner;
+
 import java.time.format.DateTimeFormatter;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+
+import date.Date;
 
 public class Date {
     private int day;
@@ -40,75 +43,67 @@ public class Date {
         this.year = year;
     }
     
-    private void setDateAtributes(String numStr, int atrib) {
-        int num;
-        try {
-            num = Integer.parseInt(numStr);
-        }
-        catch (NumberFormatException nfe) {
-            num = -1;
-        }  
-        switch (atrib) {
-            case 1 -> setDay(num);
-            case 2 -> setMonth(num);
-            case 3 -> setYear(num);
-            default -> { setDay(-1);    
-                         setMonth(-1);
-                         setYear(-1);
-            }
-        }
-    }
-
-    public String toString() {
-        return day + "/" + month + "/" + year; 
-    }
-
-
+    
     public static Date convertStringToDate(String strDate) {
         Date date = new Date();
         String numStr = "";
         int atrib = 1;        
-
+        
         for (int i = 0; i < strDate.length(); ++i) {
             if (!Character.isDigit(strDate.charAt(i))) {
-                date.setDateAtributes(numStr, atrib);
+                int num;
+                try {
+                    num = Integer.parseInt(numStr);
+                } catch (NumberFormatException nfe) {
+                    num = -1;
+                }
+                switch (atrib) {
+                    case 1 -> date.setDay(num);
+                    case 2 -> date.setMonth(num);
+                    case 3 -> date.setYear(num);
+                    default -> {
+                        date.setDay(-1);
+                        date.setMonth(-1);
+                        date.setYear(-1);
+                    }
+                }
                 ++atrib;
-            }
-            if (i + 1 == strDate.length()) {
+                numStr = "";
+            }   
+            else if (i + 1 == strDate.length()) {
                 numStr += strDate.charAt(i);
-                date.setDateAtributes(numStr, atrib);
+                int num;
+                try {
+                    num = Integer.parseInt(numStr);
+                } catch (NumberFormatException nfe) {
+                    num = -1;
+                }
+                date.setYear(num);
             }
-            numStr += strDate.charAt(i);
+            else {
+                numStr += strDate.charAt(i);
+            }
         }
-
+        
         return date;
     }
-
-    public Date getUsersDate() {
-        System.out.println("Enter the pretended date:");
-        Scanner sc = new Scanner(System.in);
-        int day;
-        int month;
-        int year;
-        
-        System.out.println("Enter the day:");
-        day = sc.nextInt();
-        
-        System.out.println("Enter the month:");
-        month = sc.nextInt();
-        
-        System.out.println("Enter the year:");
-        year = sc.nextInt();
-        
-        sc.close();
-        
-        return new Date(day, month, year);
+    
+    
+    public static Date getLocalDate() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime now = LocalDateTime.now();
+        String strDate = dtf.format(now);
+        return convertStringToDate(strDate);
+    }
+    
+    
+    
+    public String toString() {
+        return day + "/" + month + "/" + year; 
     }
 
-    public Date getActualDate() {
-        LocalDate localDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String formattedDate = localDate.format(formatter);
-        return convertStringToDate(formattedDate);
-    }
+    public boolean equals(Date dateToVerify) {
+        return this.day == dateToVerify.getDay() && this.month == dateToVerify.getMonth() && this.year == dateToVerify.getYear();
+    } 
+
 }

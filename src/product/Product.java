@@ -78,12 +78,12 @@ public class Product {
 
     // Separates the string so we can create a new product
     public static Product separateProductInfo(String line) {
-        String[] productType = {"cleaning" , "food", "furniture"};
+        String[] productType = {"Cleaning" , "Food", "Furniture"};
         String words = "";
         int type = 0;
 
         for (int i = 0; i < line.length(); ++i) {
-            if (line.charAt(i) == '/' || line.charAt(i) == '\n') {
+            if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
                 if (productType[type].equals(words)) {
                     return Cleaning.separateCleaningInfo(line);                    
                 }    

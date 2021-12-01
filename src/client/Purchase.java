@@ -63,6 +63,14 @@ public class Purchase{
         this.purchasePrice = purchasePrice;
     }
 
+    public ArrayList<Product> getPurchadeProducts() {
+        return purchasedProducts;
+    }
+
+    public void setPurchasedProducts(ArrayList<Product> purchasedProducts) {
+        this.purchasedProducts = purchasedProducts;
+    }
+
     public void addToPurchasedProducts(Product product) {
         purchasedProducts.add(product);
     }
@@ -72,13 +80,56 @@ public class Purchase{
     }
 
     public void showPurchase() {
-        FormatText formatText = new FormatText();
         System.out.println("Purchase date: " + date + "\nReference: " + reference + "\nTotal payed: " + purchasePrice);
-        formatText.intermidietLine();
+        FormatText.intermidietLine();
         for (Product product : purchasedProducts) {
             System.out.println(product);
-            formatText.intermidietLine();
+            FormatText.intermidietLine();
         } 
+    }
+
+
+    public static Purchase serparatePurchaseInfo(String line) {
+        Purchase newPurchase = new Purchase();
+        String[] purchaseAtributes = {"date", "reference", "price", "products"};
+        int atrib = 0;
+        String words = "";
+
+        for (int i = 0; i < line.length(); ++i) {
+            if (line.charAt(i) == '/' || line.charAt(i) == '\n') {
+                if (purchaseAtributes[atrib].equals("date")) {
+                    newPurchase.setPurchaseDate(Date.convertStringToDate(words));
+                }
+                if (purchaseAtributes[atrib].equals("reference")) {
+                    int reference;
+                    try {
+                        reference = Integer.parseInt(words);
+                    }
+                    catch (NumberFormatException nfe) {
+                        reference = -1;
+                    }
+                    newPurchase.setPurchaseReference(reference);
+                }
+                if (purchaseAtributes[atrib].equals("products")) {
+                    Product newProduct = Product.separateProductInfo(words);
+                    newPurchase.addToPurchasedProducts(newProduct);
+                    --atrib;
+                }
+                
+                words = "";
+                ++atrib;
+            }
+
+            else {
+                words += line.charAt(i);
+            }
+        }
+
+
+
+
+
+        return newPurchase;
     }
  
     

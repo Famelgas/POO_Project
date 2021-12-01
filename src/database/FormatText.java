@@ -3,7 +3,7 @@ package database;
 public class FormatText {
     public FormatText() {}
 
-    public String alignCenterText(String string) {
+    public static String alignCenterText(String string) {
         String newString = "";
         for (int i = 0; i < ((80 - string.length()) / 2); ++i) {
             newString += " ";
@@ -11,7 +11,7 @@ public class FormatText {
         return newString + string;
     }
 
-    public String  alignRightText(String string) {
+    public static String  alignRightText(String string) {
         String newString = "";
         for (int i = 0; i < (80 - string.length()); ++i) {
             newString += " ";
@@ -19,7 +19,7 @@ public class FormatText {
         return newString + string;
     }
 
-    public void separationLine() {
+    public static void separationLine() {
         System.out.print("x");
         for (int i = 0; i < 79; ++i) {
             System.out.print("-");
@@ -27,7 +27,7 @@ public class FormatText {
         System.out.println("x");
     }
 
-    public void intermidietLine() {
+    public static void intermidietLine() {
         for (int i = 0; i < 79; ++i) {
             System.out.print("-");
         }

@@ -45,7 +45,7 @@ public class Food extends Product {
         int atrib = 0;
         
         for (int i = 0; i < line.length(); ++i) {
-            if (line.charAt(i) == '/' || line.charAt(i) == '\n') {
+            if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
                 if (atributes[atrib].equals("type")) {
                     newProduct.setProductType(words);
                 }                 

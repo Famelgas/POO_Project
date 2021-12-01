@@ -2,10 +2,8 @@ package client;
 import java.lang.NumberFormatException;
 import java.lang.String;
 import java.util.ArrayList;
-import java.util.Scanner;
 import date.Date;
 import product.*;
-import database.FormatText;
 
 
 public class Client {
@@ -169,6 +167,19 @@ public class Client {
         return shoppingCart;
     }
 
+    public void setShoppingCart(ArrayList<Product> shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
+
+    public ArrayList<Purchase> getPurchaseHistory() {
+        return purchaseHistory;
+    }
+
+    public void setPurchaseHistory(ArrayList<Purchase> purchaseHistory) {
+        this.purchaseHistory = purchaseHistory;
+    }
+
+
     public void addToShoppingCart(Product product, int amount) {
         product.setStock(amount);
         this.shoppingCart.add(product);
@@ -231,11 +242,11 @@ public class Client {
     // Separates the string so we can create a new client
     public static Client separateClientInfo(String line) {
         Client newClient = new Client();
-        String[] clientAtributes = {"name", "address", "email", "phoneNumber", "birthday", "frequent"};
+        String[] clientAtributes = {"name", "address", "email", "phoneNumber", "birthday", "frequent", "mbwaypin", "ccnumber", "ccdate", "cvv", "pHist"};
         int atrib = 0;
         String words = "";
         for (int i = 0; i < line.length(); ++i) {
-            if (line.charAt(i) == '/' || line.charAt(i) == '\n') {
+            if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
                 if (clientAtributes[atrib].equals("name")) {
                     newClient.setName(words);
                 }
@@ -266,7 +277,50 @@ public class Client {
                     else if (words.equals("false")) {
                         newClient.setFrequent(false);
                     }
-                } 
+                }
+                
+                if (clientAtributes[atrib].equals("mbwaypin")) {
+                    int mbwaypin;
+                    try {
+                        mbwaypin = Integer.parseInt(words);
+                    }
+                    catch (NumberFormatException nfe) {
+                        mbwaypin = -1;
+                    }
+                    newClient.setPhoneNumber(mbwaypin);
+                }
+
+                if (clientAtributes[atrib].equals("ccnumber")) {
+                    int ccnumber;
+                    try {
+                        ccnumber = Integer.parseInt(words);
+                    }
+                    catch (NumberFormatException nfe) {
+                        ccnumber = -1;
+                    }
+                    newClient.setPhoneNumber(ccnumber);
+                }
+                
+                if (clientAtributes[atrib].equals("ccdate")) {
+                    Date date = Date.convertStringToDate(words);
+                    newClient.setExpirationDate(date);
+                }
+                
+                if (clientAtributes[atrib].equals("cvv")) {
+                    int cvv;
+                    try {
+                        cvv = Integer.parseInt(words);
+                    }
+                    catch (NumberFormatException nfe) {
+                        cvv = -1;
+                    }
+                    newClient.setPhoneNumber(cvv);
+                }
+                if (clientAtributes[atrib].equals("pHist")) {
+                    newClient.addToPurchaseHistory(Purchase.serparatePurchaseInfo(words));
+                    --atrib;
+                }
+                
                 
                 ++atrib; 
                 words = "";
@@ -280,86 +334,16 @@ public class Client {
         return newClient;
     }
 
-    public boolean acceptPayment() {
-        Scanner sc = new Scanner(System.in);
-        FormatText formatText = new FormatText();
-        System.out.println(formatText.alignCenterText("Select your desired payment method:"));
-        System.out.println(formatText.alignCenterText("1.    MbWay   ")); 
-        System.out.println(formatText.alignCenterText("2. Credit Card"));  
-        int paymentOption= sc.nextInt();
-
-        
-        if (paymentOption == 1) {
-            while (true) {
-                System.out.print("Phone number: ");
-                int phoneNumber = sc.nextInt();
-                System.out.println();
-                if (this.phoneNumber == phoneNumber) {
-                    System.out.print("PIN: ");
-                    int pin = sc.nextInt(); 
-                    System.out.println();
-                    
-                    if (this.mbWayPin == pin) {
-                        sc.close();
-                        return true;
-                    }
-                    else {
-                        sc.close();
-                        return false;
-                    }
-                }
-                else {
-                    System.out.println(formatText.alignCenterText("Wrong phone number."));
-                    System.out.println(formatText.alignCenterText("Do you want to try again?"));
-                    System.out.println(formatText.alignCenterText("1. Try again"));
-                    System.out.println(formatText.alignCenterText("2.  Go back "));
-                    System.out.println();
-                    int option = sc.nextInt();
-                    System.out.print("\nEnter the option you disire: ");
-
-                    if (option == 2) {
-                        sc.close();
-                        return false;
-                    }
-                }   
-            }
-        }
-        if (paymentOption == 2) {
-            System.out.print("Credit card number: ");
-            int ccNumber = sc.nextInt();
-            System.out.println();
-
-            System.out.println("Expiration date:");
-            System.out.print("Day -> ");
-            int day = sc.nextInt();
-            System.out.print("\nMonth -> ");
-            int month = sc.nextInt();
-            System.out.print("\nYear -> ");
-            int year = sc.nextInt();
-            System.out.println();
-            
-            Date expDate = new Date(day, month, year);
-            
-            System.out.print("CVV: ");
-            int cvv = sc.nextInt();
-            System.out.println(); 
-            
-            
-            if (this.creditCardNumber == ccNumber && this.expirationDate == expDate && this.creditCardCVV == cvv) {
-                sc.close();
-                return true;
-            }
-            else {
-                System.out.println(formatText.alignCenterText("The credit card isn´t valid. Please register a valid card in your profile and try again."));
-                System.out.println();
-                sc.close();
-                return false;
-            }
-        }
-        
-        sc.close();
-        return false;
+    // Verifies that the payment is accepted 
+    // returns false if not
+    public boolean acceptMbWayPayment(int phoneNumber, int pin) {
+        return this.phoneNumber == phoneNumber && this.mbWayPin == pin;
     }         
+
+
+    public boolean acceptCreditCardPayment(int creditCardNumber, Date expirationDate, int cvv) {
+        return this.creditCardNumber == creditCardNumber && this.expirationDate.equals(expirationDate) && this.creditCardCVV == cvv;
+    }
     
 
 
