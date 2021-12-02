@@ -190,7 +190,7 @@ public class Client {
     }
 
     public String toString() {
-        return "Name: " + name + "\nAddress: " + address + "\n Email: " + email + "\n Phone number: " + phoneNumber + "\nBirthday: " + birthday + "\nFrequent: " + frequent + "\nMBWay pin: " + mbWayPin + "\nCredit card number: " + creditCardNumber + "\nExpiration date: " + expirationDate.toString() + "\nCVV: " + creditCardCVV;
+        return "Name: " + name + "\nAddress: " + address + "\nEmail: " + email + "\nPhone number: " + phoneNumber + "\nBirthday: " + birthday + "\nFrequent: " + frequent + "\nMBWay pin: " + mbWayPin + "\nCredit card number: " + creditCardNumber + "\nExpiration date: " + expirationDate.toString() + "\nCVV: " + creditCardCVV;
     }
 
     public void showPurchaseHistory() {

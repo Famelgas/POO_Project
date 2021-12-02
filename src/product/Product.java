@@ -80,21 +80,18 @@ public class Product {
     public static Product separateProductInfo(String line) {
         String[] productType = {"Cleaning" , "Food", "Furniture"};
         String words = "";
-        int type = 0;
 
         for (int i = 0; i < line.length(); ++i) {
             if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
-                if (productType[type].equals(words)) {
+                if (productType[0].equals(words)) {
                     return Cleaning.separateCleaningInfo(line);                    
                 }    
-                if (productType[type].equals(words)) {
+                if (productType[1].equals(words)) {
                     return Food.separateFoodInfo(line);
                 }
-                if (productType[type].equals(words)) {
+                if (productType[2].equals(words)) {
                     return Furniture.separateFurnitureInfo(line);
                 }
-
-                ++type;
             }
 
             else {

@@ -36,7 +36,7 @@ public class Main {
         // If any produdcts were added to the supermarket stock (Products.txt) the program need to 
         // reload files 
         // boolean reload - false: no reload; true: reload files
-        boolean reloadTextFiles = false;
+        boolean reloadTextFiles = true;
         if (reloadTextFiles) {
             if (ReadFiles.importFromTextFile() == null) {
                 System.out.println("Error importing from text file");

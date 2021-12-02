@@ -14,6 +14,22 @@ public class DataBaseManager {
     private ArrayList<Client> clientList;
     // Imported supermarket protuct stock form text file 
     private ArrayList<Product> productList;
+    
+    public ArrayList<Client> getClientList() {
+        return clientList;
+    }
+
+    public void setClientList(ArrayList<Client> clientList) {
+        this.clientList = clientList;
+    }    
+
+    public ArrayList<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(ArrayList<Product> productList) {
+        this.productList = productList;
+    }    
 
     /**
      * DataBaseManager constuctor
@@ -28,15 +44,25 @@ public class DataBaseManager {
      * @param line - Line read from the .txt file
      */
     public void addToClientList(String line) {
-        clientList.add(Client.separateClientInfo(line));
+        if (Client.separateClientInfo(line) == null) {
+            System.out.println("Error client object is null");
+        }
+        else {
+            clientList.add(Client.separateClientInfo(line));
+        }
     }
-    
+
     /**
      * Adds a new Product to the shop's stock 
      * @param line - Line read from the .txt file
      */
     public void addToProductList(String line) {
-        productList.add(Product.separateProductInfo(line));
+        if (Product.separateProductInfo(line) == null) {
+            System.out.println("Error product object is null");
+        }
+        else {
+            productList.add(Product.separateProductInfo(line));
+        }
     }
 
 
@@ -54,7 +80,7 @@ public class DataBaseManager {
      * @return - returns the client, if found, if not returns null
      */
     public Client login(String email) {
-        for (Client client : clientList) {
+        for (Client client : this.clientList) {
             if (client.getEmail().equals(email)) {
                 return client;
             }

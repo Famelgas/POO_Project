@@ -42,9 +42,9 @@ public class ReadFiles {
                 
                 String line = null;
                 while ((line = buffRead.readLine()) != null) {
-                    // If it's the clients file then every line is a client so
-                    // we can add a new client to de ArrayList for every line
-                    dataBaseManager.addToClientList(line);
+                    if (line.charAt(0) != '#') {
+                        dataBaseManager.addToClientList(line);
+                    }
                     
                     
                 }
@@ -64,19 +64,19 @@ public class ReadFiles {
             
         } 
         else {
-        System.out.println("Error - Products.txt file not found\nPlease try again.");
-        return null;
+            System.out.println("Error - Products.txt file not found\nPlease try again.");
+            return null;
         }
         
         return dataBaseManager;
     }
     
-
-
+    
+    
     private static DataBaseManager importProductsFromTextFile(DataBaseManager dataBaseManager) {
         String fileName = "Products.txt";
         File file = new File(fileName);
-
+        
         if (file.exists() && file.isFile()) {
             try {
                 FileReader fileRead = new FileReader(file);
@@ -84,12 +84,12 @@ public class ReadFiles {
                 
                 String line = null;
                 while ((line = buffRead.readLine()) != null) {
-                    // If it's the clients file then every line is a client so
-                    // we can add a new client to de ArrayList for every line
-                    dataBaseManager.addToProductList(line);
+                    if (line.charAt(0) != '#') {
+                        dataBaseManager.addToProductList(line);
+                    }
                     
                 }
-
+                
                 buffRead.close();
 
             } 

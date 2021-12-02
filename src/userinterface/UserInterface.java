@@ -14,7 +14,7 @@ public class UserInterface {
         Scanner sc = new Scanner(System.in);
 
         // Date and time options
-        System.out.println(FormatText.alignCenterText("1. Enter date manualy"));
+        System.out.println(FormatText.alignCenterText("1. Enter date manually"));
         System.out.println(FormatText.alignCenterText("2.   Use local date  "));
         System.out.print("Enter option: ");
         int dateOption = sc.nextInt();
@@ -179,15 +179,17 @@ public class UserInterface {
                             // Shows the client info
                             System.out.println(client);
                             
-                            System.out.println(FormatText.alignCenterText("1. Change name"));
-                            System.out.println(FormatText.alignCenterText("2. Change address"));
-                            System.out.println(FormatText.alignCenterText("3. Change email"));
-                            System.out.println(FormatText.alignCenterText("4. Change phoneNumber"));
-                            System.out.println(FormatText.alignCenterText("5. Change birthday"));
-                            System.out.println(FormatText.alignCenterText("6. Change MBWay pin"));
-                            System.out.println(FormatText.alignCenterText("7. Change credit card number"));
+                            System.out.println(FormatText.alignCenterText("1.            Change name            "));
+                            System.out.println(FormatText.alignCenterText("2.           Change address          "));
+                            System.out.println(FormatText.alignCenterText("3.            Change email           "));
+                            System.out.println(FormatText.alignCenterText("4.         Change phoneNumber        "));
+                            System.out.println(FormatText.alignCenterText("5.          Change birthday          "));
+                            System.out.println(FormatText.alignCenterText("6.          Change MBWay pin         "));
+                            System.out.println(FormatText.alignCenterText("7.      Change credit card number    "));
                             System.out.println(FormatText.alignCenterText("8. Change credit card expiration date"));
-                            System.out.println(FormatText.alignCenterText("9. Change credit card CVV"));
+                            System.out.println(FormatText.alignCenterText("9.      Change credit card CVV       "));
+                            System.out.println(FormatText.alignCenterText("10.             Go back              "));
+
                             
                             int profileOption;
                             System.out.println("\n");
@@ -219,7 +221,7 @@ public class UserInterface {
                             if (profileOption == 3) {
                                 sc.nextLine();
                                 String newEmail;
-                                System.out.print("Enter new name: ");
+                                System.out.print("Enter new email: ");
                                 newEmail = sc.nextLine();
                                 client.setEmail(newEmail);
                                 System.out.println("\n");
@@ -286,6 +288,9 @@ public class UserInterface {
                                 cvv = sc.nextInt();
                                 client.setCreditCardCVV(cvv);
                                 System.out.println("\n");
+                            }
+                            if (profileOption == 10) {
+                                break;
                             }
                         }
     
