@@ -88,7 +88,11 @@ public class Purchase{
         } 
     }
 
-
+    /**
+     * Separates purchase information for a client given by a .txt file
+     * @param line - purchase information
+     * @return - return a new Purchase;
+     */
     public static Purchase serparatePurchaseInfo(String line) {
         Purchase newPurchase = new Purchase();
         String[] purchaseAtributes = {"date", "reference", "price", "products"};
@@ -96,7 +100,7 @@ public class Purchase{
         String words = "";
 
         for (int i = 0; i < line.length(); ++i) {
-            if (line.charAt(i) == '/' || line.charAt(i) == '\n') {
+            if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
                 if (purchaseAtributes[atrib].equals("date")) {
                     newPurchase.setPurchaseDate(Date.convertStringToDate(words));
                 }
@@ -124,11 +128,7 @@ public class Purchase{
                 words += line.charAt(i);
             }
         }
-
-
-
-
-
+        
         return newPurchase;
     }
  

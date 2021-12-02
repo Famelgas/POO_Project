@@ -239,12 +239,19 @@ public class Client {
     }
 
    
-    // Separates the string so we can create a new client
+     /**
+      * Separates the string so we can create a new client
+      * @param line - all the information of one client
+      * @return - returns a new Client
+      */
     public static Client separateClientInfo(String line) {
         Client newClient = new Client();
         String[] clientAtributes = {"name", "address", "email", "phoneNumber", "birthday", "frequent", "mbwaypin", "ccnumber", "ccdate", "cvv", "pHist"};
-        int atrib = 0;
+        
         String words = "";
+        int atrib = 0;
+        int index = 0;
+        // client info
         for (int i = 0; i < line.length(); ++i) {
             if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
                 if (clientAtributes[atrib].equals("name")) {
@@ -289,7 +296,7 @@ public class Client {
                     }
                     newClient.setPhoneNumber(mbwaypin);
                 }
-
+                
                 if (clientAtributes[atrib].equals("ccnumber")) {
                     int ccnumber;
                     try {
@@ -321,19 +328,38 @@ public class Client {
                     --atrib;
                 }
                 
+                if (line.charAt(i) == ':') {
+                    index = i;
+                    break;
+                }
+                
                 
                 ++atrib; 
                 words = "";
             }
-
+            
             else {
                 words += line.charAt(i);
             }
         } 
+
+        words = "";
+        // purchase history
+        for (int i = index + 1; i < line.length(); ++i) {
+            // more than one purchase
+            if (line.charAt(i) == ':' || line.charAt(i) == '\n') {
+                newClient.addToPurchaseHistory(Purchase.serparatePurchaseInfo(words));
+                words = "";
+            }
+            else {
+                words += line.charAt(i);
+            }
+            
+        }
         
         return newClient;
     }
-
+    
     // Verifies that the payment is accepted 
     // returns false if not
     public boolean acceptMbWayPayment(int phoneNumber, int pin) {
