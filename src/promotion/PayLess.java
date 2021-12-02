@@ -1,12 +1,13 @@
 package promotion;
 import java.util.ArrayList;
 import product.*;
+import date.Date;
 
 public class PayLess extends Promotion {
     public PayLess() {}
 
-    public PayLess(String promotionType) {
-        super(promotionType);
+    public PayLess(Date startDate, Date endDate, String promotionType) {
+        super(startDate, endDate, promotionType);
     }
 
     public float priceCalculator(Product product){
@@ -29,7 +30,7 @@ public class PayLess extends Promotion {
     }
 
     public String toString() {
-        return "First item 100% than 5% off for every item";
+        return "\nStarting date: " + startDate + "\nEnding date: " + endDate + "\nPromotion type: " + "Pay less";
     }
 
 }

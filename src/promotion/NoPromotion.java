@@ -1,11 +1,12 @@
 package promotion;
 import product.*;
+import date.Date;
 
 public class NoPromotion extends Promotion{
     public NoPromotion() {}
 
-    public NoPromotion(String promotionType) {
-        super(promotionType);
+    public NoPromotion(Date startDate, Date endDate, String promotionType) {
+        super(startDate, endDate, promotionType);
     }
 
     public float priceCalculator(Product product) {
@@ -15,6 +16,6 @@ public class NoPromotion extends Promotion{
     }
 
     public String toString() {
-        return "No promotion available";
+        return "\nStarting date: " + startDate + "\nEnding date: " + endDate + "\nPromotion type: " + "No promotion available";
     }
 }

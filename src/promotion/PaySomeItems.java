@@ -1,11 +1,12 @@
 package promotion;
 import product.*;
+import date.Date;
 
 public class PaySomeItems extends Promotion {
     public PaySomeItems() {}
     
-    public PaySomeItems(String promotionType) {
-        super(promotionType);
+    public PaySomeItems(Date startDate, Date endDate, String promotionType) {
+        super(startDate, endDate, promotionType);
     }
 
     // Pague 3 leve 4
@@ -26,6 +27,6 @@ public class PaySomeItems extends Promotion {
     }
 
     public String toString() {
-        return "Pay 3 take 4";
+        return "\nStarting date: " + startDate + "\nEnding date: " + endDate + "\nPromotion type: " + "Pay 3 take 4";
     }
 }
