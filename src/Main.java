@@ -62,6 +62,7 @@ public class Main {
     
             else {
                 dataBaseManager = ReadFiles.importFromObjectFile(dataBaseManager, objFile);
+                System.out.println(dataBaseManager.getClientList());
             }
         }
 

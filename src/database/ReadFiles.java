@@ -127,12 +127,10 @@ public class ReadFiles {
                 FileInputStream inputStream = new FileInputStream(file);
                 ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
 
-                if (fileName.equals("Clients.obj")) {
-                    try {
-                        dataBaseManager = (DataBaseManager) objectInputStream.readObject();
-                    } catch (ClassNotFoundException cnf) {
-                        System.out.println("Error reading client list from .obj file");
-                    }
+                try {
+                    dataBaseManager = (DataBaseManager) objectInputStream.readObject();
+                } catch (ClassNotFoundException cnf) {
+                    System.out.println("Error reading client list from .obj file");
                 }
 
                 objectInputStream.close();

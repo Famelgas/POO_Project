@@ -19,7 +19,7 @@ public class DataBaseManager implements Serializable {
     public ArrayList<Client> getClientList() {
         return clientList;
     }
-
+    
     public void setClientList(ArrayList<Client> clientList) {
         this.clientList = clientList;
     }    
