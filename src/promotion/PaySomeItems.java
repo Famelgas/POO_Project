@@ -1,5 +1,7 @@
 package promotion;
 import product.*;
+
+
 import date.Date;
 
 public class PaySomeItems extends Promotion {

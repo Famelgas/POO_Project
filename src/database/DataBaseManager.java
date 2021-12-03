@@ -1,4 +1,5 @@
 package database;
+import java.io.Serializable;
 import java.util.ArrayList;
 import client.Client;
 import client.Purchase;
@@ -9,7 +10,7 @@ import promotion.*;
 /**
  * Manages data related to files, clients and products from the supermarket
  */
-public class DataBaseManager {
+public class DataBaseManager implements Serializable {
     // Imported client list from text file
     private ArrayList<Client> clientList;
     // Imported supermarket protuct stock form text file 

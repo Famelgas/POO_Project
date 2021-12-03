@@ -1,8 +1,11 @@
 package promotion;
 import product.Product;
+
+import java.io.Serializable;
+
 import date.Date;
 
-public class Promotion {
+public class Promotion implements Serializable {
     protected Date startDate;
     protected Date endDate;
     protected String promotionType;

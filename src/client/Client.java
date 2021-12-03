@@ -1,4 +1,5 @@
 package client;
+import java.io.Serializable;
 import java.lang.NumberFormatException;
 import java.lang.String;
 import java.util.ArrayList;
@@ -6,7 +7,7 @@ import date.Date;
 import product.*;
 
 
-public class Client {
+public class Client implements Serializable {
     private String name;
     private String address;
     private String email;

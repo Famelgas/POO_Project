@@ -1,8 +1,9 @@
 package promotion;
 import product.*;
+
 import date.Date;
 
-public class NoPromotion extends Promotion{
+public class NoPromotion extends Promotion {
     public NoPromotion() {}
 
     public NoPromotion(Date startDate, Date endDate, String promotionType) {

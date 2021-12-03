@@ -75,7 +75,6 @@ public class UserInterface {
                     System.out.println(FormatText.alignCenterText("Please enter you email:"));
                     String email = sc.nextLine();
                     client = dataBaseManager.login(email);
-                    sc.nextLine();
                     
                     if (client == null) {
                         System.out.println("Email not found, please create a new acount.");

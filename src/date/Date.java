@@ -1,12 +1,10 @@
 package date;
-
 import java.time.format.DateTimeFormatter;
+import java.io.Serializable;
 import java.time.LocalDateTime;
-
-
 import date.Date;
 
-public class Date {
+public class Date implements Serializable{
     private int day;
     private int month;
     private int year;

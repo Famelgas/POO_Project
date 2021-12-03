@@ -1,8 +1,10 @@
 package product;
 import promotion.*;
+
+import java.io.Serializable;
 import java.lang.String;
 
-public class Product {
+public class Product implements Serializable {
     protected String productType; 
     protected int identifier;
     protected String name;

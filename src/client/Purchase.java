@@ -1,4 +1,5 @@
 package client;
+import java.io.Serializable;
 import java.util.ArrayList;
 import product.*;
 import date.*;
@@ -23,7 +24,7 @@ import database.FormatText;
 // produto nenhum previamente tenho sempre que ser capaz de adicionar mais a frente se eu quiser
 
 
-public class Purchase{
+public class Purchase implements Serializable {
     private Date date;
     private int reference;
     private float purchasePrice;
