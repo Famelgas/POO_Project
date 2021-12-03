@@ -1,7 +1,8 @@
 package product;
 import java.lang.NumberFormatException;
 import java.lang.String;
-
+import promotion.*;
+import date.Date;
 
 public class Furniture extends Product {
     private float height;
@@ -58,8 +59,14 @@ public class Furniture extends Product {
     public static Furniture separateFurnitureInfo(String line) {
         Furniture newProduct = new Furniture();
         String[] atributes = {"identifier", "name", "unitPrice", "stock", "height", "width", "depth", "weight"};
+        String[] promoAtributes = { "startDate", "endDate", "promoType" };
+        // by default the product has no promotion
+        Promotion promotion = new NoPromotion();
+        Date startDate = new Date();
+        Date endDate = new Date();
         String words = "";
         int atrib = 0;
+        int index = 0;
         
         for (int i = 0; i < line.length(); ++i) {
             if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
@@ -148,6 +155,35 @@ public class Furniture extends Product {
                 words += line.charAt(i);
             }
         }
+
+        atrib = 0;
+
+        // if it has a promotion
+        for (int i = index + 1; i < line.length(); ++i) {
+            // more than one purchase
+            if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
+                if (promoAtributes[atrib].equals("startDate")) {
+                    startDate = Date.convertStringToDate(words);
+                }
+                if (promoAtributes[atrib].equals("endDate")) {
+                    endDate = Date.convertStringToDate(words);
+                }
+                if (promoAtributes[atrib].equals("promoType")) {
+                    if (words.equals("Pay less")) {
+                        promotion = new PayLess(startDate, endDate);
+                    }
+                    if (words.equals("Pay some items")) {
+                        promotion = new PaySomeItems(startDate, endDate);
+                    }
+                }
+                words = "";
+            } else {
+                words += line.charAt(i);
+            }
+
+        }
+
+        newProduct.setPromotion(promotion);
         return newProduct;
     }
 }

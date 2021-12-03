@@ -247,7 +247,7 @@ public class Client implements Serializable {
       */
     public static Client separateClientInfo(String line) {
         Client newClient = new Client();
-        String[] clientAtributes = {"name", "address", "email", "phoneNumber", "birthday", "frequent", "mbwaypin", "ccnumber", "ccdate", "cvv", "pHist"};
+        String[] clientAtributes = {"name", "address", "email", "phoneNumber", "birthday", "frequent", "mbwaypin", "ccnumber", "ccdate", "cvv"};
         
         String words = "";
         int atrib = 0;
@@ -323,10 +323,6 @@ public class Client implements Serializable {
                         cvv = -1;
                     }
                     newClient.setPhoneNumber(cvv);
-                }
-                if (clientAtributes[atrib].equals("pHist")) {
-                    newClient.addToPurchaseHistory(Purchase.serparatePurchaseInfo(words));
-                    --atrib;
                 }
                 
                 if (line.charAt(i) == ':') {

@@ -7,8 +7,9 @@ import date.Date;
 public class PaySomeItems extends Promotion {
     public PaySomeItems() {}
     
-    public PaySomeItems(Date startDate, Date endDate, String promotionType) {
-        super(startDate, endDate, promotionType);
+    public PaySomeItems(Date startDate, Date endDate) {
+        super(startDate, endDate);
+        this.promotionType = "Pay some items";
     }
 
     // Pague 3 leve 4
@@ -29,6 +30,6 @@ public class PaySomeItems extends Promotion {
     }
 
     public String toString() {
-        return "\nStarting date: " + startDate + "\nEnding date: " + endDate + "\nPromotion type: " + "Pay 3 take 4";
+        return "\nStarting date: " + startDate + "\nEnding date: " + endDate + "\nPromotion type: " + "Pague 3 leve 4";
     }
 }

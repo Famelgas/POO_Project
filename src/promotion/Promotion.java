@@ -1,9 +1,9 @@
 package promotion;
-import product.Product;
-
 import java.io.Serializable;
-
+import product.Product;
 import date.Date;
+
+
 
 public class Promotion implements Serializable {
     protected Date startDate;
@@ -12,10 +12,10 @@ public class Promotion implements Serializable {
 
     public Promotion() {}
 
-    public Promotion(Date startDate, Date endDate, String promotionType) {
+    public Promotion(Date startDate, Date endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
-        this.promotionType = promotionType;
+        this.promotionType = "No promotion";
     }
     
     public Date getStartDate() {

@@ -1,6 +1,8 @@
 package product;
 import java.lang.NumberFormatException;
 import java.lang.String;
+import promotion.*;
+import date.Date;
 
 
 // tirei a parte das promoçoes, falta implementar isso 
@@ -41,8 +43,14 @@ public class Food extends Product {
     public static Food separateFoodInfo(String line) {
         Food newProduct = new Food();
         String[] atributes = {"identifier", "name", "unitPrice", "stock", "caloriesPer100G", "fatPercent"};
+        String[] promoAtributes = { "startDate", "endDate", "promoType" };
+        // by default the product has no promotion
+        Promotion promotion = new NoPromotion();
+        Date startDate = new Date();
+        Date endDate = new Date();
         String words = "";
         int atrib = 0;
+        int index = 0;
         
         for (int i = 0; i < line.length(); ++i) {
             if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
@@ -111,6 +119,35 @@ public class Food extends Product {
                 words += line.charAt(i);
             }
         }
+
+        atrib = 0;
+
+        // if it has a promotion
+        for (int i = index + 1; i < line.length(); ++i) {
+            // more than one purchase
+            if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
+                if (promoAtributes[atrib].equals("startDate")) {
+                    startDate = Date.convertStringToDate(words);
+                }
+                if (promoAtributes[atrib].equals("endDate")) {
+                    endDate = Date.convertStringToDate(words);
+                }
+                if (promoAtributes[atrib].equals("promoType")) {
+                    if (words.equals("Pay less")) {
+                        promotion = new PayLess(startDate, endDate);
+                    }
+                    if (words.equals("Pay some items")) {
+                        promotion = new PaySomeItems(startDate, endDate);
+                    }
+                }
+                words = "";
+            } else {
+                words += line.charAt(i);
+            }
+
+        }
+
+        newProduct.setPromotion(promotion);
 
         return newProduct;
     }

@@ -6,8 +6,9 @@ import date.Date;
 public class PayLess extends Promotion {
     public PayLess() {}
 
-    public PayLess(Date startDate, Date endDate, String promotionType) {
-        super(startDate, endDate, promotionType);
+    public PayLess(Date startDate, Date endDate) {
+        super(startDate, endDate);
+        this.promotionType = "Pay less";
     }
 
     public float priceCalculator(Product product){
@@ -30,7 +31,7 @@ public class PayLess extends Promotion {
     }
 
     public String toString() {
-        return "\nStarting date: " + startDate + "\nEnding date: " + endDate + "\nPromotion type: " + "Pay less";
+        return "\nStarting date: " + startDate + "\nEnding date: " + endDate + "\nPromotion type: " + "Pague menos";
     }
 
 }
