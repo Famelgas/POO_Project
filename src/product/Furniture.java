@@ -145,6 +145,7 @@ public class Furniture extends Product {
                        weight = -1;
                     }
                     newProduct.setWeight(weight);
+                    --atrib;
                 }
 
                 ++atrib; 

@@ -323,6 +323,7 @@ public class Client implements Serializable {
                         cvv = -1;
                     }
                     newClient.setPhoneNumber(cvv);
+                    --atrib;
                 }
                 
                 if (line.charAt(i) == ':') {

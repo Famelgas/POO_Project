@@ -13,6 +13,6 @@ public class NoPromotion extends Promotion {
     }
 
     public String toString() {
-        return "\nStarting date: " + startDate + "\nEnding date: " + endDate + "\nPromotion type: " + "Nenhuma promoção disponível";
+        return "Nenhuma promoção disponível";
     }
 }

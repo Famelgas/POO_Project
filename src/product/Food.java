@@ -109,6 +109,7 @@ public class Food extends Product {
                        fat = -1;
                     }
                     newProduct.setFatPercent(fat);
+                    --atrib;
                 }
                 
                 ++atrib; 

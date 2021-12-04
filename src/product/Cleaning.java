@@ -90,6 +90,7 @@ public class Cleaning extends Product {
                         level = -1;
                     }
                     newProduct.setToxicityLevel(level);
+                    --atrib;
                 }
                 if (line.charAt(i) == ':') {
                     index = i;
