@@ -2,7 +2,7 @@ package client;
 import java.io.Serializable;
 import java.util.ArrayList;
 import product.*;
-import date.*;
+import date.Date;
 import database.FormatText;
 
 // revise class Purchase: pra mantermos um historico de compras do cliente
@@ -94,7 +94,7 @@ public class Purchase implements Serializable {
      * @param line - purchase information
      * @return - return a new Purchase;
      */
-    public static Purchase serparatePurchaseInfo(String line) {
+    public static Purchase serparatePurchaseInfo(String line, Date date) {
         Purchase newPurchase = new Purchase();
         String[] purchaseAtributes = {"date", "reference", "price", "products"};
         int atrib = 0;
@@ -116,7 +116,7 @@ public class Purchase implements Serializable {
                     newPurchase.setPurchaseReference(reference);
                 }
                 if (purchaseAtributes[atrib].equals("products")) {
-                    Product newProduct = Product.separateProductInfo(words);
+                    Product newProduct = Product.separateProductInfo(words, date);
                     newPurchase.addToPurchasedProducts(newProduct);
                     --atrib;
                 }

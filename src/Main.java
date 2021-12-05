@@ -1,7 +1,8 @@
 import database.DataBaseManager;
 import database.ReadFiles;
 import userinterface.UserInterface;
-
+import date.Date;
+import database.FormatText;
 
 
 // !!!!!!!!!!!!!!
@@ -19,7 +20,7 @@ public class Main {
         DataBaseManager dataBaseManager = new DataBaseManager();
         UserInterface ui = new UserInterface();
 
-
+        Date date = ui.getAppDate();
         
         
         // fazer parte da leitura dos ficheiros 
@@ -38,12 +39,12 @@ public class Main {
         // boolean reload - false: no reload; true: reload files
         boolean reloadTextFiles = false;
         if (reloadTextFiles) {
-            if (ReadFiles.importFromTextFile() == null) {
+            if (ReadFiles.importFromTextFile(date) == null) {
                 System.out.println("Error importing from text file");
                 return;
             }
             else {
-                dataBaseManager = ReadFiles.importFromTextFile();
+                dataBaseManager = ReadFiles.importFromTextFile(date);
                 if (!ReadFiles.reloadFiles(objFile)) {
                     System.out.println("Error deleting .obj file");
                 }
@@ -51,25 +52,26 @@ public class Main {
         }
         else {
             if (ReadFiles.importFromObjectFile(dataBaseManager, objFile) == null) {
-                if (ReadFiles.importFromTextFile() == null) {
+                if (ReadFiles.importFromTextFile(date) == null) {
                     System.out.println("Error importing from text file");
                     return;
                 }
                 else {
-                    dataBaseManager = ReadFiles.importFromTextFile();
+                    dataBaseManager = ReadFiles.importFromTextFile(date);
                 }
             } 
     
             else {
                 dataBaseManager = ReadFiles.importFromObjectFile(dataBaseManager, objFile);
-                System.out.println(dataBaseManager.getClientList());
             }
         }
 
 
-
+        FormatText.separationLine();
+        System.out.println("\n");
+        dataBaseManager.showAvailableProducts();
         
-        ui.menu(dataBaseManager);
+        ui.menu(dataBaseManager, date);
 
         
         if (!ReadFiles.exportToObjectFile(dataBaseManager, objFile)) {

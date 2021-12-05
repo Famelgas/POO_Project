@@ -30,24 +30,22 @@ public class Cleaning extends Product {
     }
     
     
-    public static Cleaning separateCleaningInfo(String line) {
+    public static Cleaning separateCleaningInfo(String line, Date date) {
         Cleaning newProduct = new Cleaning();
         String[] atributes = {"type", "identifier", "name", "unitPrice", "stock", "toxicityLevel"};
-        String[] promoAtributes = {"startDate", "endDate", "promoType"};
-        // by default the product has no promotion
-        Promotion promotion = new NoPromotion();
-        Date startDate = new Date(); 
-        Date endDate = new Date();
+        Promotion promotion = new Promotion();
         String words = "";
         int atrib = 0;
-        int index = 0;
+        int i;
         
         
-        for (int i = 0; i < line.length(); ++i) {
-            if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
+        for (i = 0; i < line.length(); ++i) {
+            if (line.charAt(i) == ';' || line.charAt(i) == '\n' || line.charAt(i) == ':') {
                 if (atributes[atrib].equals("type")) {
                     newProduct.setProductType(words);
-                }                 
+                    ++atrib;
+                }
+                                 
                 if (atributes[atrib].equals("identifier")) {
                     int ident;
                     try {
@@ -57,10 +55,14 @@ public class Cleaning extends Product {
                         ident = -1;
                     }
                     newProduct.setIdentifier(ident);
+                    ++atrib;
                 }
+
                 if (atributes[atrib].equals("name")) {
                     newProduct.setName(words);
+                    ++atrib;
                 }
+
                 if (atributes[atrib].equals("unitPrice")) {
                     int price;
                     try {
@@ -70,7 +72,9 @@ public class Cleaning extends Product {
                         price = -1;
                     }
                     newProduct.setUnitPrice(price);
+                    ++atrib;
                 }
+
                 if (atributes[atrib].equals("stock")) {
                     int stock;
                     try {
@@ -80,7 +84,9 @@ public class Cleaning extends Product {
                         stock = -1;
                     }
                     newProduct.setStock(stock);
+                    ++atrib;
                 }
+                
                 if (atributes[atrib].equals("toxicityLevel")) {
                     int level;
                     try {
@@ -90,14 +96,8 @@ public class Cleaning extends Product {
                         level = -1;
                     }
                     newProduct.setToxicityLevel(level);
-                    --atrib;
-                }
-                if (line.charAt(i) == ':') {
-                    index = i;
-                    break;
                 }
                 
-                ++atrib; 
                 words = "";
             }
             
@@ -109,32 +109,10 @@ public class Cleaning extends Product {
         
         
         atrib = 0;
-        
-        // if it has a promotion
-        for (int i = index + 1; i < line.length(); ++i) {
-            // more than one purchase
-            if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
-                if (promoAtributes[atrib].equals("startDate")) {
-                    startDate = Date.convertStringToDate(words);
-                }
-                if (promoAtributes[atrib].equals("endDate")) {
-                    endDate = Date.convertStringToDate(words);
-                }
-                if (promoAtributes[atrib].equals("promoType")) {
-                    if (words.equals("Pay less")) {
-                        promotion = new PayLess(startDate, endDate);
-                    }
-                    if (words.equals("Pay some items")) {
-                        promotion = new PaySomeItems(startDate, endDate);
-                    }
-                }
-                words = "";
-            } else {
-                words += line.charAt(i);
-            }
-            
-        }
+        words = "";
 
+        promotion = promotion.getProductPromotion(line, i, date);
+        
         newProduct.setPromotion(promotion);
 
         return newProduct;

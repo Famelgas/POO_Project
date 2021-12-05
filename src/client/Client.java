@@ -245,7 +245,7 @@ public class Client implements Serializable {
       * @param line - all the information of one client
       * @return - returns a new Client
       */
-    public static Client separateClientInfo(String line) {
+    public static Client separateClientInfo(String line, Date date) {
         Client newClient = new Client();
         String[] clientAtributes = {"name", "address", "email", "phoneNumber", "birthday", "frequent", "mbwaypin", "ccnumber", "ccdate", "cvv"};
         
@@ -275,8 +275,8 @@ public class Client implements Serializable {
                     newClient.setPhoneNumber(phNum);
                 }
                 if (clientAtributes[atrib].equals("birthday")) {
-                    Date date = Date.convertStringToDate(words);
-                    newClient.setBirthday(date);
+                    Date birthday = Date.convertStringToDate(words);
+                    newClient.setBirthday(birthday);
                 }
                 if (clientAtributes[atrib].equals("frequent")){
                     if (words.equals("true")) {
@@ -310,8 +310,8 @@ public class Client implements Serializable {
                 }
                 
                 if (clientAtributes[atrib].equals("ccdate")) {
-                    Date date = Date.convertStringToDate(words);
-                    newClient.setExpirationDate(date);
+                    Date expirationDate = Date.convertStringToDate(words);
+                    newClient.setExpirationDate(expirationDate);
                 }
                 
                 if (clientAtributes[atrib].equals("cvv")) {
@@ -346,7 +346,7 @@ public class Client implements Serializable {
         for (int i = index + 1; i < line.length(); ++i) {
             // more than one purchase
             if (line.charAt(i) == ':' || line.charAt(i) == '\n') {
-                newClient.addToPurchaseHistory(Purchase.serparatePurchaseInfo(words));
+                newClient.addToPurchaseHistory(Purchase.serparatePurchaseInfo(words, date));
                 words = "";
             }
             else {

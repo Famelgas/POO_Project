@@ -44,12 +44,12 @@ public class DataBaseManager implements Serializable {
      * Adds a new client account to the shop's database
      * @param line - Line read from the .txt file
      */
-    public void addToClientList(String line) {
-        if (Client.separateClientInfo(line) == null) {
+    public void addToClientList(String line, Date date) {
+        if (Client.separateClientInfo(line, date) == null) {
             System.out.println("Error client object is null");
         }
         else {
-            clientList.add(Client.separateClientInfo(line));
+            clientList.add(Client.separateClientInfo(line, date));
         }
     }
 
@@ -57,12 +57,12 @@ public class DataBaseManager implements Serializable {
      * Adds a new Product to the shop's stock 
      * @param line - Line read from the .txt file
      */
-    public void addToProductList(String line) {
-        if (Product.separateProductInfo(line) == null) {
+    public void addToProductList(String line, Date date) {
+        if (Product.separateProductInfo(line, date) == null) {
             System.out.println("Error product object is null");
         }
         else {
-            productList.add(Product.separateProductInfo(line));
+            productList.add(Product.separateProductInfo(line, date));
         }
     }
 
@@ -185,7 +185,10 @@ public class DataBaseManager implements Serializable {
 
     public void showAvailableProducts() {
         for (Product product : productList) {
+            System.out.println();
             System.out.println(product);
+            System.out.println();
+            FormatText.intermidietLine();
         }
     }
 

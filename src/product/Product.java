@@ -1,8 +1,8 @@
 package product;
-import promotion.*;
-
 import java.io.Serializable;
 import java.lang.String;
+import promotion.*;
+import date.Date;
 
 public class Product implements Serializable {
     protected String productType; 
@@ -79,20 +79,20 @@ public class Product implements Serializable {
 
 
     // Separates the string so we can create a new product
-    public static Product separateProductInfo(String line) {
+    public static Product separateProductInfo(String line, Date date) {
         String[] productType = {"Cleaning" , "Food", "Furniture"};
         String words = "";
 
         for (int i = 0; i < line.length(); ++i) {
             if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
                 if (productType[0].equals(words)) {
-                    return Cleaning.separateCleaningInfo(line);                    
+                    return Cleaning.separateCleaningInfo(line, date);                    
                 }    
                 if (productType[1].equals(words)) {
-                    return Food.separateFoodInfo(line);
+                    return Food.separateFoodInfo(line, date);
                 }
                 if (productType[2].equals(words)) {
-                    return Furniture.separateFurnitureInfo(line);
+                    return Furniture.separateFurnitureInfo(line, date);
                 }
             }
 

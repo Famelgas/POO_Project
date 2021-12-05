@@ -7,12 +7,12 @@ import date.Date;
 import product.*;
 
 public class UserInterface {
-    public UserInterface() {}
+    Scanner sc;
+    public UserInterface() {
+        this.sc = new Scanner(System.in);
+    }
 
-    public void menu(DataBaseManager dataBaseManager) {
-        Client client = new Client();
-        Scanner sc = new Scanner(System.in);
-
+    public Date getAppDate() {
         // Date and time options
         System.out.println(FormatText.alignCenterText("1. Enter date manually"));
         System.out.println(FormatText.alignCenterText("2.   Use local date  "));
@@ -37,9 +37,16 @@ public class UserInterface {
             case 2 -> {
                 date = Date.getLocalDate();
             }
-                
+
             default -> date = new Date();
         }
+        return date;
+    }
+
+
+    public void menu(DataBaseManager dataBaseManager, Date date) {
+        Client client = new Client();
+
 
 
         // inventar um nome pra loja
@@ -47,7 +54,7 @@ public class UserInterface {
         System.out.println("\n");
         FormatText.separationLine();
         System.out.println("\n");
-        System.out.println(FormatText.alignCenterText("Welcome to the Online Shopping"));
+        System.out.println(FormatText.alignCenterText("Welcome to the Online Shopping Center"));
         System.out.println("\n");
         
         

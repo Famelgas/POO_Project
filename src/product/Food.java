@@ -40,23 +40,21 @@ public class Food extends Product {
     }
 
 
-    public static Food separateFoodInfo(String line) {
+    public static Food separateFoodInfo(String line, Date date) {
         Food newProduct = new Food();
         String[] atributes = {"identifier", "name", "unitPrice", "stock", "caloriesPer100G", "fatPercent"};
-        String[] promoAtributes = { "startDate", "endDate", "promoType" };
-        // by default the product has no promotion
         Promotion promotion = new NoPromotion();
-        Date startDate = new Date();
-        Date endDate = new Date();
         String words = "";
         int atrib = 0;
-        int index = 0;
+        int i;
         
-        for (int i = 0; i < line.length(); ++i) {
-            if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
+        for (i = 0; i < line.length(); ++i) {
+            if (line.charAt(i) == ';' || line.charAt(i) == '\n' || line.charAt(i) == ':') {
                 if (atributes[atrib].equals("type")) {
                     newProduct.setProductType(words);
-                }                 
+                    ++atrib;
+                }           
+                      
                 if (atributes[atrib].equals("identifier")) {
                     int ident;
                     try {
@@ -66,10 +64,14 @@ public class Food extends Product {
                         ident = -1;
                     }
                     newProduct.setIdentifier(ident);
+                    ++atrib;
                 }
+                
                 if (atributes[atrib].equals("name")) {
                     newProduct.setName(words);
+                    ++atrib;
                 }
+                
                 if (atributes[atrib].equals("unitPrice")) {
                     int price;
                     try {
@@ -79,7 +81,9 @@ public class Food extends Product {
                         price = -1;
                     }
                     newProduct.setUnitPrice(price);
+                    ++atrib;
                 }
+                
                 if (atributes[atrib].equals("stock")) {
                     int stock;
                     try {
@@ -89,7 +93,9 @@ public class Food extends Product {
                         stock = -1;
                     }
                     newProduct.setStock(stock);
+                    ++atrib;
                 }
+                
                 if (atributes[atrib].equals("toxicityLevel")) {
                     int cal;
                     try {
@@ -99,7 +105,9 @@ public class Food extends Product {
                        cal = -1;
                     }
                     newProduct.setCaloriesPer100G(cal);
+                    ++atrib;
                 }
+                
                 if (atributes[atrib].equals("fatPercent")) {
                     float fat;
                     try {
@@ -109,10 +117,8 @@ public class Food extends Product {
                        fat = -1;
                     }
                     newProduct.setFatPercent(fat);
-                    --atrib;
                 }
                 
-                ++atrib; 
                 words = "";
             }
 
@@ -122,31 +128,9 @@ public class Food extends Product {
         }
 
         atrib = 0;
-
-        // if it has a promotion
-        for (int i = index + 1; i < line.length(); ++i) {
-            // more than one purchase
-            if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
-                if (promoAtributes[atrib].equals("startDate")) {
-                    startDate = Date.convertStringToDate(words);
-                }
-                if (promoAtributes[atrib].equals("endDate")) {
-                    endDate = Date.convertStringToDate(words);
-                }
-                if (promoAtributes[atrib].equals("promoType")) {
-                    if (words.equals("Pay less")) {
-                        promotion = new PayLess(startDate, endDate);
-                    }
-                    if (words.equals("Pay some items")) {
-                        promotion = new PaySomeItems(startDate, endDate);
-                    }
-                }
-                words = "";
-            } else {
-                words += line.charAt(i);
-            }
-
-        }
+        words = "";
+        
+        promotion = promotion.getProductPromotion(line, i, date);
 
         newProduct.setPromotion(promotion);
 

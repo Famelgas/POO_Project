@@ -1,6 +1,7 @@
 package database;
 import java.io.*;
 import java.lang.SecurityException;
+import date.Date;
 
 
 public class ReadFiles {
@@ -11,27 +12,27 @@ public class ReadFiles {
      * 
      * @param fileName - .txt file to import from
      */
-    public static DataBaseManager importFromTextFile() {
+    public static DataBaseManager importFromTextFile(Date date) {
         DataBaseManager dataBaseManager = new DataBaseManager();
         
-        if (importClientsFromTextFile(dataBaseManager) == null) {
+        if (importClientsFromTextFile(dataBaseManager, date) == null) {
             return null;
         }
         else {
-            dataBaseManager = importClientsFromTextFile(dataBaseManager);
+            dataBaseManager = importClientsFromTextFile(dataBaseManager, date);
         }
 
-        if (importProductsFromTextFile(dataBaseManager) == null) {
+        if (importProductsFromTextFile(dataBaseManager, date) == null) {
             return null;
         }
         else {
-            dataBaseManager = importProductsFromTextFile(dataBaseManager);
+            dataBaseManager = importProductsFromTextFile(dataBaseManager, date);
         }
 
         return dataBaseManager;
     }
 
-    private static DataBaseManager importClientsFromTextFile(DataBaseManager dataBaseManager) {
+    private static DataBaseManager importClientsFromTextFile(DataBaseManager dataBaseManager, Date date) {
         String fileName = "Clients.txt";
         File file = new File(fileName);
 
@@ -43,7 +44,7 @@ public class ReadFiles {
                 String line = null;
                 while ((line = buffRead.readLine()) != null) {
                     if (line.charAt(0) != '#') {
-                        dataBaseManager.addToClientList(line);
+                        dataBaseManager.addToClientList(line, date);
                     }
                     
                     
@@ -73,7 +74,7 @@ public class ReadFiles {
     
     
     
-    private static DataBaseManager importProductsFromTextFile(DataBaseManager dataBaseManager) {
+    private static DataBaseManager importProductsFromTextFile(DataBaseManager dataBaseManager, Date date) {
         String fileName = "Products.txt";
         File file = new File(fileName);
         
@@ -85,7 +86,7 @@ public class ReadFiles {
                 String line = null;
                 while ((line = buffRead.readLine()) != null) {
                     if (line.charAt(0) != '#') {
-                        dataBaseManager.addToProductList(line);
+                        dataBaseManager.addToProductList(line, date);
                     }
                     
                 }
