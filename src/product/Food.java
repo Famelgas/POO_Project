@@ -40,7 +40,7 @@ public class Food extends Product {
     }
 
 
-    public static Food separateFoodInfo(String line, Date date) {
+    public Food separateFoodInfo(String line, Date date) {
         Food newProduct = new Food();
         String[] atributes = {"identifier", "name", "unitPrice", "stock", "caloriesPer100G", "fatPercent"};
         Promotion promotion = new NoPromotion();
@@ -96,7 +96,7 @@ public class Food extends Product {
                     ++atrib;
                 }
                 
-                if (atributes[atrib].equals("toxicityLevel")) {
+                if (atributes[atrib].equals("caloriesPer100G")) {
                     int cal;
                     try {
                        cal = Integer.parseInt(words);
@@ -130,7 +130,7 @@ public class Food extends Product {
         atrib = 0;
         words = "";
         
-        promotion = promotion.getProductPromotion(line, i, date);
+        promotion = Promotion.getProductPromotion(line, i, date);
 
         newProduct.setPromotion(promotion);
 

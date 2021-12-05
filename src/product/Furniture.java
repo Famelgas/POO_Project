@@ -56,7 +56,7 @@ public class Furniture extends Product {
     }
 
 
-    public static Furniture separateFurnitureInfo(String line, Date date) {
+    public Furniture separateFurnitureInfo(String line, Date date) {
         Furniture newProduct = new Furniture();
         String[] atributes = {"identifier", "name", "unitPrice", "stock", "height", "width", "depth", "weight"};
         Promotion promotion = new NoPromotion();
@@ -169,7 +169,7 @@ public class Furniture extends Product {
         atrib = 0;
         words = "";
 
-        promotion = promotion.getProductPromotion(line, i, date);
+        promotion = Promotion.getProductPromotion(line, i, date);
 
         newProduct.setPromotion(promotion);
         return newProduct;

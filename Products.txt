@@ -1,7 +1,7 @@
 # ';' separates all the product information, ":" separates the product information and the promotion
 # if there is no promotion description in the product, the product has no promotion, if it's pass the ending date of the promotion, the product doesn´t has a promotion anymore
 Cleaning;0291123;Detergente para louça;4,53;105;4:Pay less;19/11/2021;19/12/2021
-Cleaning;7281234;Pano;0,25;250;25/12/2021;30/11/2021;0:Pay some items
+Cleaning;7281234;Pano;0,25;250;0:Pay some items;25/12/2021;30/11/2021
 Cleaning;7281234;Detergente para roupa;7,3;231;4:Pay some items;01/12/2021;10/12/2021
 Cleaning;7281234;Ajax;6,25;35;7:No pomotion
 Cleaning;7281234;Detergente para madeiras;6,30;134;6:Pay less;02/12/2021;30/12/2021

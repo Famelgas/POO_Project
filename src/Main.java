@@ -69,7 +69,7 @@ public class Main {
 
         FormatText.separationLine();
         System.out.println("\n");
-        dataBaseManager.showAvailableProducts();
+        //dataBaseManager.showAvailableProducts();
         
         ui.menu(dataBaseManager, date);
 

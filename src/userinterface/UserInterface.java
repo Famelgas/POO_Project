@@ -52,7 +52,6 @@ public class UserInterface {
         // inventar um nome pra loja
         
         System.out.println("\n");
-        FormatText.separationLine();
         System.out.println("\n");
         System.out.println(FormatText.alignCenterText("Welcome to the Online Shopping Center"));
         System.out.println("\n");

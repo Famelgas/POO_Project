@@ -77,22 +77,20 @@ public class Product implements Serializable {
         return "Type: " + productType + "\nIdentifier: " + identifier + "\nName: " + name + "\nPrice per unit: " + unitPrice + "\nStock: " + stock + "\nPromotion: " + promotion.toString();
     }
 
-
-    // Separates the string so we can create a new product
-    public static Product separateProductInfo(String line, Date date) {
-        String[] productType = {"Cleaning" , "Food", "Furniture"};
+    public static Product getProductType(String line) {
+        String[] productType = { "Cleaning", "Food", "Furniture" };
         String words = "";
 
         for (int i = 0; i < line.length(); ++i) {
             if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
                 if (productType[0].equals(words)) {
-                    return Cleaning.separateCleaningInfo(line, date);                    
-                }    
+                    return new Cleaning();
+                }
                 if (productType[1].equals(words)) {
-                    return Food.separateFoodInfo(line, date);
+                    return new Food();
                 }
                 if (productType[2].equals(words)) {
-                    return Furniture.separateFurnitureInfo(line, date);
+                    return new Furniture();
                 }
             }
 
@@ -101,6 +99,72 @@ public class Product implements Serializable {
             }
         }
 
+        return null;
+    }
+
+    // Separates the string so we can create a new product
+    public Product separateProductInfo(String line, Date date) {
+        Product newProduct = new Product();
+        String[] atributes = {"type", "identifier", "name", "unitPrice", "stock"};
+        String words = "";
+        int atrib = 0;
+     
+        
+        for (int i = 0; i < line.length(); ++i) {
+            if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
+                if (atributes[atrib].equals("type")) {
+                    newProduct.setProductType(words);
+                    ++atrib;
+                }           
+                      
+                if (atributes[atrib].equals("identifier")) {
+                    int ident;
+                    try {
+                        ident = Integer.parseInt(words);
+                    }
+                    catch (NumberFormatException nfe) {
+                        ident = -1;
+                    }
+                    newProduct.setIdentifier(ident);
+                    ++atrib;
+                }
+                
+                if (atributes[atrib].equals("name")) {
+                    newProduct.setName(words);
+                    ++atrib;
+                }
+                
+                if (atributes[atrib].equals("unitPrice")) {
+                    int price;
+                    try {
+                        price = Integer.parseInt(words);
+                    }
+                    catch (NumberFormatException nfe) {
+                        price = -1;
+                    }
+                    newProduct.setUnitPrice(price);
+                    ++atrib;
+                }
+                
+                if (atributes[atrib].equals("stock")) {
+                    int stock;
+                    try {
+                        stock = Integer.parseInt(words);
+                    }
+                    catch (NumberFormatException nfe) {
+                        stock = -1;
+                    }
+                    newProduct.setStock(stock);
+                    ++atrib;
+                }
+                
+            }
+
+            else {
+                words += line.charAt(i);
+            }
+        }
+          
         return new Product();
     }
 }

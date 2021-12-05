@@ -30,7 +30,7 @@ public class Cleaning extends Product {
     }
     
     
-    public static Cleaning separateCleaningInfo(String line, Date date) {
+    public Cleaning separateCleaningInfo(String line, Date date) {
         Cleaning newProduct = new Cleaning();
         String[] atributes = {"type", "identifier", "name", "unitPrice", "stock", "toxicityLevel"};
         Promotion promotion = new Promotion();
@@ -41,6 +41,11 @@ public class Cleaning extends Product {
         
         for (i = 0; i < line.length(); ++i) {
             if (line.charAt(i) == ';' || line.charAt(i) == '\n' || line.charAt(i) == ':') {
+                if (line.charAt(i) == ':') {
+                    promotion = Promotion.getProductPromotion(line, i + 1, date);
+                    break;
+                }
+                
                 if (atributes[atrib].equals("type")) {
                     newProduct.setProductType(words);
                     ++atrib;
@@ -97,7 +102,9 @@ public class Cleaning extends Product {
                     }
                     newProduct.setToxicityLevel(level);
                 }
-                
+
+                System.out.println(words);
+
                 words = "";
             }
             
@@ -111,7 +118,7 @@ public class Cleaning extends Product {
         atrib = 0;
         words = "";
 
-        promotion = promotion.getProductPromotion(line, i, date);
+        promotion = Promotion.getProductPromotion(line, i, date);
         
         newProduct.setPromotion(promotion);
 

@@ -58,11 +58,13 @@ public class DataBaseManager implements Serializable {
      * @param line - Line read from the .txt file
      */
     public void addToProductList(String line, Date date) {
-        if (Product.separateProductInfo(line, date) == null) {
+        Product newProduct = Product.getProductType(line);
+        
+        if (newProduct.separateProductInfo(line, date) == null) {
             System.out.println("Error product object is null");
         }
         else {
-            productList.add(Product.separateProductInfo(line, date));
+            productList.add(newProduct = newProduct.separateProductInfo(line, date));
         }
     }
 
