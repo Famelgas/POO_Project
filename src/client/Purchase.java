@@ -94,45 +94,60 @@ public class Purchase implements Serializable {
      * @param line - purchase information
      * @return - return a new Purchase;
      */
-    public static Purchase serparatePurchaseInfo(String line, Date date) {
-        Purchase newPurchase = new Purchase();
+    public static Purchase serparatePurchaseInfo(String line) {
+        Purchase purchase = new Purchase();
         String[] purchaseAtributes = {"date", "reference", "price", "products"};
         int atrib = 0;
-        String words = "";
+        String words[] = line.split("[;:]+");
 
-        for (int i = 0; i < line.length(); ++i) {
-            if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
-                if (purchaseAtributes[atrib].equals("date")) {
-                    newPurchase.setPurchaseDate(Date.convertStringToDate(words));
-                }
-                if (purchaseAtributes[atrib].equals("reference")) {
-                    int reference;
-                    try {
-                        reference = Integer.parseInt(words);
-                    }
-                    catch (NumberFormatException nfe) {
-                        reference = -1;
-                    }
-                    newPurchase.setPurchaseReference(reference);
-                }
-                if (purchaseAtributes[atrib].equals("products")) {
-                    Product newProduct = Product.getProductType(line);
-                    System.out.println(line);
-                    newProduct = newProduct.separateProductInfo(words, date);
-                    newPurchase.addToPurchasedProducts(newProduct);
-                    --atrib;
-                }
-                
-                words = "";
+        for (int i = 0; i < words.length; ++i) {
+            if (purchaseAtributes[atrib].equals("date")) {
+                Date date = Date.convertStringToDate(words[i]);
+                purchase.setPurchaseDate(date);
                 ++atrib;
             }
 
-            else {
-                words += line.charAt(i);
+            if (purchaseAtributes[atrib].equals("reference")) {
+                int ref;
+                try {
+                    ref = Integer.parseInt(words[i]);
+                } catch (NumberFormatException nfe) {
+                    ref = -1;
+                }
+                purchase.setPurchaseReference(ref);
+            }
+            
+            if (purchaseAtributes[atrib].equals("price")) {
+                float price;
+                try {
+                    price = Float.parseFloat(words[i]);
+                } catch (NumberFormatException nfe) {
+                    price = -1;
+                }
+                purchase.setPurchasePrice(price);
+            }
+
+            if (purchaseAtributes[atrib].equals("products")) {
+                if (words[i].equals("Cleaning") || words[i].equals("Food") || words[i].equals("Furniture")) {
+                    int infoNum = 1;
+                    while (!words[i + 1].equals("Cleaning") || !words[i + 1].equals("Food") || !words[i + 1].equals("Furniture") || (i + 1) != words.length) {
+                        ++infoNum;
+                    }
+                    String productInfo = "";
+                    for (int j = 0; j < infoNum; ++j) {
+                        productInfo = productInfo + words[i] + ";";
+                    }
+
+                    Product product = Product.getProductType(line);
+                    
+                    purchase.addToPurchasedProducts(product.separateProductInfo(productInfo));
+                }
+
             }
         }
         
-        return newPurchase;
+        
+        return purchase;
     }
  
     

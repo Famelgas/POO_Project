@@ -51,53 +51,6 @@ public class Promotion implements Serializable {
         return "\nStarting date: " + startDate + "\nEnding date: " + endDate + "\nPromotion type: " + promotionType;
     }
 
-    public static Promotion getProductPromotion(String line, Date date) {
-        Promotion promotion = new Promotion();
-        String[] promoAtributes = {"promoType", "startDate", "endDate"};
-        // by default the product has no promotion
-        Date startDate = new Date(); 
-        Date endDate = new Date();
-        String words = ""; 
-        int atrib = 0;
-
-        for (int i = 0; i < line.length(); ++i) {
-            if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
-                if (promoAtributes[atrib].equals("promoType")) {
-                    if (words.equals("No promotion")) {
-                        return new NoPromotion();
-                    }
-                    if (words.equals("Pay less")) {
-                        promotion = new PayLess();
-                        ++atrib;
-                    }
-                    if (words.equals("Pay some items")) {
-                        promotion = new PaySomeItems();
-                        ++atrib;
-                    }
-                }
-    
-                if (promoAtributes[atrib].equals("startDate")) {
-                    startDate = Date.convertStringToDate(words);
-                    promotion.setStartDate(startDate);
-                    ++atrib;
-                }
-    
-                if (promoAtributes[atrib].equals("endDate")) {
-                    endDate = Date.convertStringToDate(words);
-                    promotion.setEndDate(endDate);
-                }
-
-                words = "";
-            }
-
-            else {
-                words += line.charAt(i);
-            }
-
-        }
-
-        return promotion;
-    }
 
     public boolean verifyPromotion(Date date) {
         if (date.compareDates(startDate) < 0 || date.compareDates(endDate) > 0) {

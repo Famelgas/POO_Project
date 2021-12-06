@@ -2,7 +2,6 @@ package product;
 import java.lang.NumberFormatException;
 import java.lang.String;
 import promotion.*;
-import date.Date;
 
 public class Furniture extends Product {
     private float height;
@@ -56,124 +55,107 @@ public class Furniture extends Product {
     }
 
 
-    public Furniture separateProductInfo(String line, Date date) {
+    public Furniture separateProductInfo(String line) {
         Furniture newProduct = new Furniture();
-        String[] atributes = {"identifier", "name", "unitPrice", "stock", "height", "width", "depth", "weight"};
-        Promotion promotion = new NoPromotion();
-        String words = "";
-        String promoWords = "";
-        boolean promo = false;
+        String[] atributes = {"type", "identifier", "name", "unitPrice", "stock", "height", "width", "depth", "weight"};
         int atrib = 0;
-        int i;
-        
-        for (i = 0; i < line.length(); ++i) {
-            if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
-                if (line.charAt(i) == ':') {
-                    promo = true;
-                }          
-                      
-                if (atributes[atrib].equals("identifier")) {
-                    int ident;
-                    try {
-                        ident = Integer.parseInt(words);
-                    }
-                    catch (NumberFormatException nfe) {
-                        ident = -1;
-                    }
-                    newProduct.setIdentifier(ident);
-                    ++atrib;
-                }
+        String[] words = line.split("[;:]+");
 
-                if (atributes[atrib].equals("name")) {
-                    newProduct.setName(words);
-                    ++atrib;
-                }
-                if (atributes[atrib].equals("unitPrice")) {
-                    int price;
-                    try {
-                        price = Integer.parseInt(words);
-                    }
-                    catch (NumberFormatException nfe) {
-                        price = -1;
-                    }
-                    newProduct.setUnitPrice(price);
-                    ++atrib;
-                }
-                
-                if (atributes[atrib].equals("stock")) {
-                    int stock;
-                    try {
-                        stock = Integer.parseInt(words);
-                    }
-                    catch (NumberFormatException nfe) {
-                        stock = -1;
-                    }
-                    newProduct.setStock(stock);
-                    ++atrib;
-                }
+        for (int i = 0; i < words.length; ++i) {
 
-                if (atributes[atrib].equals("height")) {
-                    float height;
-                    try {
-                        height = Float.parseFloat(words);
-                    }
-                    catch (NumberFormatException nfe) {
-                       height = -1;
-                    }
-                    newProduct.setHeight(height);
-                    ++atrib;
-                }
-                
-                if (atributes[atrib].equals("width")) {
-                    float width;
-                    try {
-                        width = Float.parseFloat(words);
-                    }
-                    catch (NumberFormatException nfe) {
-                       width = -1;
-                    }
-                    newProduct.setWidth(width);
-                    ++atrib;
-                }
-                
-                if (atributes[atrib].equals("depth")) {
-                    float depth;
-                    try {
-                        depth = Float.parseFloat(words);
-                    }
-                    catch (NumberFormatException nfe) {
-                       depth = -1;
-                    }
-                    newProduct.setDepth(depth);
-                    ++atrib;
-                }
-                
-                if (atributes[atrib].equals("weight")) {
-                    float weight;
-                    try {
-                        weight = Float.parseFloat(words);
-                    }
-                    catch (NumberFormatException nfe) {
-                       weight = -1;
-                    }
-                    newProduct.setWeight(weight);
-                }
-
-                words = "";
+            if (atributes[atrib].equals("type")) {
+                newProduct.setProductType("Food");
+                ++atrib;
             }
 
-            else {
-                if (!promo) {
-                    words += line.charAt(i);
-                } else {
-                    promoWords += line.charAt(i);
+            if (atributes[atrib].equals("identifier")) {
+                int ident;
+                try {
+                    ident = Integer.parseInt(words[i]);
+                } catch (NumberFormatException nfe) {
+                    ident = -1;
                 }
+                newProduct.setIdentifier(ident);
+                ++atrib;
             }
+
+            if (atributes[atrib].equals("name")) {
+                newProduct.setName(words[i]);
+                ++atrib;
+            }
+
+            if (atributes[atrib].equals("unitPrice")) {
+                float price;
+                try {
+                    price = Float.parseFloat(words[i]);
+                } catch (NumberFormatException nfe) {
+                    price = -1;
+                }
+                newProduct.setUnitPrice(price);
+                ++atrib;
+            }
+
+            if (atributes[atrib].equals("stock")) {
+                int stock;
+                try {
+                    stock = Integer.parseInt(words[i]);
+                } catch (NumberFormatException nfe) {
+                    stock = -1;
+                }
+                newProduct.setStock(stock);
+                ++atrib;
+            }
+
+            if (atributes[atrib].equals("height")) {
+                float height;
+                try {
+                    height = Float.parseFloat(words[i]);
+                } catch (NumberFormatException nfe) {
+                    height = -1;
+                }
+                newProduct.setHeight(height);
+            }
+
+            if (atributes[atrib].equals("width")) {
+                float width;
+                try {
+                    width = Float.parseFloat(words[i]);
+                } catch (NumberFormatException nfe) {
+                    width = -1;
+                }
+                newProduct.setWidth(width);
+            }
+
+            if (atributes[atrib].equals("depth")) {
+                float depth;
+                try {
+                    depth = Float.parseFloat(words[i]);
+                } catch (NumberFormatException nfe) {
+                    depth = -1;
+                }
+                newProduct.setDepth(depth);
+            }
+
+            if (atributes[atrib].equals("weight")) {
+                float weight;
+                try {
+                    weight = Float.parseFloat(words[i]);
+                } catch (NumberFormatException nfe) {
+                    weight = -1;
+                }
+                newProduct.setWeight(weight);
+                ++atrib;
+            }
+
+
+            if (atributes[atrib].equals("promoType")) {
+                Promotion promotion = newProduct.getProductPromotion(words[i], words[i + 1], words[i + 2]);
+                newProduct.setPromotion(promotion);
+                break;
+            }
+
         }
-        
-        promotion = Promotion.getProductPromotion(promoWords, date);
 
-        newProduct.setPromotion(promotion);
         return newProduct;
     }
 }

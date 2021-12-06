@@ -2,7 +2,6 @@ package product;
 import java.lang.NumberFormatException;
 import java.lang.String;
 import promotion.*;
-import date.Date;
 
 
 // tirei a parte das promoçoes, falta implementar isso 
@@ -40,102 +39,85 @@ public class Food extends Product {
     }
 
 
-    public Food separateProductInfo(String line, Date date) {
+    public Food separateProductInfo(String line) {
         Food newProduct = new Food();
-        String[] atributes = {"identifier", "name", "unitPrice", "stock", "caloriesPer100G", "fatPercent"};
-        Promotion promotion = new NoPromotion();
-        String words = "";
-        String promoWords = "";
-        boolean promo = false;
+        String[] atributes = {"type", "identifier", "name", "unitPrice", "stock", "caloriesPer100G", "fatPercent"};
         int atrib = 0;
-        int i;
-        
-        for (i = 0; i < line.length(); ++i) {
-            if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
-                if (line.charAt(i) == ':') {
-                    promo = true;
-                }          
-                      
-                if (atributes[atrib].equals("identifier")) {
-                    int ident;
-                    try {
-                        ident = Integer.parseInt(words);
-                    }
-                    catch (NumberFormatException nfe) {
-                        ident = -1;
-                    }
-                    newProduct.setIdentifier(ident);
-                    ++atrib;
-                }
-                
-                if (atributes[atrib].equals("name")) {
-                    newProduct.setName(words);
-                    ++atrib;
-                }
-                
-                if (atributes[atrib].equals("unitPrice")) {
-                    int price;
-                    try {
-                        price = Integer.parseInt(words);
-                    }
-                    catch (NumberFormatException nfe) {
-                        price = -1;
-                    }
-                    newProduct.setUnitPrice(price);
-                    ++atrib;
-                }
-                
-                if (atributes[atrib].equals("stock")) {
-                    int stock;
-                    try {
-                        stock = Integer.parseInt(words);
-                    }
-                    catch (NumberFormatException nfe) {
-                        stock = -1;
-                    }
-                    newProduct.setStock(stock);
-                    ++atrib;
-                }
-                
-                if (atributes[atrib].equals("caloriesPer100G")) {
-                    int cal;
-                    try {
-                       cal = Integer.parseInt(words);
-                    }
-                    catch (NumberFormatException nfe) {
-                       cal = -1;
-                    }
-                    newProduct.setCaloriesPer100G(cal);
-                    ++atrib;
-                }
-                
-                if (atributes[atrib].equals("fatPercent")) {
-                    float fat;
-                    try {
-                       fat = Float.parseFloat(words);
-                    }
-                    catch (NumberFormatException nfe) {
-                       fat = -1;
-                    }
-                    newProduct.setFatPercent(fat);
-                }
-                
-                words = "";
+        String[] words = line.split("[;:]+");
+
+        for (int i = 0; i < words.length; ++i) {
+
+            if (atributes[atrib].equals("type")) {
+                newProduct.setProductType("Food");
+                ++atrib;
             }
 
-            else {
-                  if (!promo) {
-                    words += line.charAt(i);
+            if (atributes[atrib].equals("identifier")) {
+                int ident;
+                try {
+                    ident = Integer.parseInt(words[i]);
+                } catch (NumberFormatException nfe) {
+                    ident = -1;
                 }
-                else {
-                    promoWords += line.charAt(i);
-                }
+                newProduct.setIdentifier(ident);
+                ++atrib;
             }
+
+            if (atributes[atrib].equals("name")) {
+                newProduct.setName(words[i]);
+                ++atrib;
+            }
+
+            if (atributes[atrib].equals("unitPrice")) {
+                float price;
+                try {
+                    price = Float.parseFloat(words[i]);
+                } catch (NumberFormatException nfe) {
+                    price = -1;
+                }
+                newProduct.setUnitPrice(price);
+                ++atrib;
+            }
+
+            if (atributes[atrib].equals("stock")) {
+                int stock;
+                try {
+                    stock = Integer.parseInt(words[i]);
+                } catch (NumberFormatException nfe) {
+                    stock = -1;
+                }
+                newProduct.setStock(stock);
+                ++atrib;
+            }
+
+            if (atributes[atrib].equals("caloriesPer100G")) {
+                int calories;
+                try {
+                    calories = Integer.parseInt(words[i]);
+                } catch (NumberFormatException nfe) {
+                    calories = -1;
+                }
+                newProduct.setCaloriesPer100G(calories);
+            }
+
+            if (atributes[atrib].equals("fatPercent")) {
+                float fatPercent;
+                try {
+                    fatPercent = Float.parseFloat(words[i]);
+                } catch (NumberFormatException nfe) {
+                    fatPercent = -1;
+                }
+                newProduct.setFatPercent(fatPercent);
+                ++atrib;
+            }
+
+            if (atributes[atrib].equals("promoType")) {
+                Promotion promotion = newProduct.getProductPromotion(words[i], words[i + 1], words[i + 2]);
+                newProduct.setPromotion(promotion);
+                break;
+            }
+
         }
-
-        promotion = Promotion.getProductPromotion(promoWords, date);
-
-        newProduct.setPromotion(promotion);
 
         return newProduct;
     }

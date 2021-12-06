@@ -245,116 +245,87 @@ public class Client implements Serializable {
       * @param line - all the information of one client
       * @return - returns a new Client
       */
-    public static Client separateClientInfo(String line, Date date) {
+    public Client separateClientInfo(String line) {
         Client newClient = new Client();
-        String[] clientAtributes = {"name", "address", "email", "phoneNumber", "birthday", "frequent", "mbwaypin", "ccnumber", "ccdate", "cvv"};
+        String[] clientAtributes = {"name", "address", "email", "phoneNumber", "birthday", "frequent", "mbwaypin", "ccnumber", "ccdate", "cvv", "pHist"};
         
-        String words = "";
+        String[] words = line.split("[;:]+");
         int atrib = 0;
-        int index = 0;
         // client info
-        for (int i = 0; i < line.length(); ++i) {
-            if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
-                if (clientAtributes[atrib].equals("name")) {
-                    newClient.setName(words);
+        for (int i = 0; i < words.length; ++i) {
+            if (clientAtributes[atrib].equals("name")) {
+                newClient.setName(words[i]);
+            }
+            if (clientAtributes[atrib].equals("address")) {
+                newClient.setAddress(words[i]);
+            }
+            if (clientAtributes[atrib].equals("email")) {
+                newClient.setEmail(words[i]);
+            }
+            if (clientAtributes[atrib].equals("phoneNumber")) {
+                int phNum;
+                try {
+                    phNum = Integer.parseInt(words[i]);
                 }
-                if (clientAtributes[atrib].equals("address")) {
-                    newClient.setAddress(words);
+                catch (NumberFormatException nfe) {
+                    phNum = -1;
                 }
-                if (clientAtributes[atrib].equals("email")) {
-                    newClient.setEmail(words);
+                newClient.setPhoneNumber(phNum);
+            }
+            if (clientAtributes[atrib].equals("birthday")) {
+                Date birthday = Date.convertStringToDate(words[i]);
+                newClient.setBirthday(birthday);
+            }
+            if (clientAtributes[atrib].equals("frequent")){
+                if (words[i].equals("true")) {
+                    newClient.setFrequent(true);
                 }
-                if (clientAtributes[atrib].equals("phoneNumber")) {
-                    int phNum;
-                    try {
-                        phNum = Integer.parseInt(words);
-                    }
-                    catch (NumberFormatException nfe) {
-                        phNum = -1;
-                    }
-                    newClient.setPhoneNumber(phNum);
+                else if (words[i].equals("false")) {
+                    newClient.setFrequent(false);
                 }
-                if (clientAtributes[atrib].equals("birthday")) {
-                    Date birthday = Date.convertStringToDate(words);
-                    newClient.setBirthday(birthday);
-                }
-                if (clientAtributes[atrib].equals("frequent")){
-                    if (words.equals("true")) {
-                        newClient.setFrequent(true);
-                    }
-                    else if (words.equals("false")) {
-                        newClient.setFrequent(false);
-                    }
-                }
-                
-                if (clientAtributes[atrib].equals("mbwaypin")) {
-                    int mbwaypin;
-                    try {
-                        mbwaypin = Integer.parseInt(words);
-                    }
-                    catch (NumberFormatException nfe) {
-                        mbwaypin = -1;
-                    }
-                    newClient.setPhoneNumber(mbwaypin);
-                }
-                
-                if (clientAtributes[atrib].equals("ccnumber")) {
-                    int ccnumber;
-                    try {
-                        ccnumber = Integer.parseInt(words);
-                    }
-                    catch (NumberFormatException nfe) {
-                        ccnumber = -1;
-                    }
-                    newClient.setPhoneNumber(ccnumber);
-                }
-                
-                if (clientAtributes[atrib].equals("ccdate")) {
-                    Date expirationDate = Date.convertStringToDate(words);
-                    newClient.setExpirationDate(expirationDate);
-                }
-                
-                if (clientAtributes[atrib].equals("cvv")) {
-                    int cvv;
-                    try {
-                        cvv = Integer.parseInt(words);
-                    }
-                    catch (NumberFormatException nfe) {
-                        cvv = -1;
-                    }
-                    newClient.setPhoneNumber(cvv);
-                    --atrib;
-                }
-                
-                if (line.charAt(i) == ':') {
-                    index = i;
-                    break;
-                }
-                
-                
-                ++atrib; 
-                words = "";
             }
             
-            else {
-                words += line.charAt(i);
-            }
-        } 
-
-        words = "";
-        // purchase history
-        for (int i = index + 1; i < line.length(); ++i) {
-            // more than one purchase
-            if (line.charAt(i) == ':' || line.charAt(i) == '\n') {
-                newClient.addToPurchaseHistory(Purchase.serparatePurchaseInfo(words, date));
-                words = "";
-            }
-            else {
-                words += line.charAt(i);
+            if (clientAtributes[atrib].equals("mbwaypin")) {
+                int mbwaypin;
+                try {
+                    mbwaypin = Integer.parseInt(words[i]);
+                }
+                catch (NumberFormatException nfe) {
+                    mbwaypin = -1;
+                }
+                newClient.setPhoneNumber(mbwaypin);
             }
             
+            if (clientAtributes[atrib].equals("ccnumber")) {
+                int ccnumber;
+                try {
+                    ccnumber = Integer.parseInt(words[i]);
+                }
+                catch (NumberFormatException nfe) {
+                    ccnumber = -1;
+                }
+                newClient.setPhoneNumber(ccnumber);
+            }
+            
+            if (clientAtributes[atrib].equals("ccdate")) {
+                Date expirationDate = Date.convertStringToDate(words[i]);
+                newClient.setExpirationDate(expirationDate);
+            }
+            
+            if (clientAtributes[atrib].equals("cvv")) {
+                int cvv;
+                try {
+                    cvv = Integer.parseInt(words[i]);
+                }
+                catch (NumberFormatException nfe) {
+                    cvv = -1;
+                }
+                newClient.setPhoneNumber(cvv);
+            }
+            
+            ++atrib; 
         }
-        
+
         return newClient;
     }
     

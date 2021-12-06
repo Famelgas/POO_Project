@@ -15,24 +15,24 @@ public class ReadFiles {
     public static DataBaseManager importFromTextFile(Date date) {
         DataBaseManager dataBaseManager = new DataBaseManager();
         
-        if (importClientsFromTextFile(dataBaseManager, date) == null) {
+        if (importClientsFromTextFile(dataBaseManager) == null) {
             return null;
         }
         else {
-            dataBaseManager = importClientsFromTextFile(dataBaseManager, date);
+            dataBaseManager = importClientsFromTextFile(dataBaseManager);
         }
 
-        if (importProductsFromTextFile(dataBaseManager, date) == null) {
+        if (importProductsFromTextFile(dataBaseManager) == null) {
             return null;
         }
         else {
-            dataBaseManager = importProductsFromTextFile(dataBaseManager, date);
+            dataBaseManager = importProductsFromTextFile(dataBaseManager);
         }
 
         return dataBaseManager;
     }
 
-    private static DataBaseManager importClientsFromTextFile(DataBaseManager dataBaseManager, Date date) {
+    private static DataBaseManager importClientsFromTextFile(DataBaseManager dataBaseManager) {
         String fileName = "Clients.txt";
         File file = new File(fileName);
 
@@ -44,7 +44,7 @@ public class ReadFiles {
                 String line = null;
                 while ((line = buffRead.readLine()) != null) {
                     if (line.charAt(0) != '#') {
-                        dataBaseManager.addToClientList(line, date);
+                        dataBaseManager.addToClientList(line);
                     }
                     
                     
@@ -74,7 +74,7 @@ public class ReadFiles {
     
     
     
-    private static DataBaseManager importProductsFromTextFile(DataBaseManager dataBaseManager, Date date) {
+    private static DataBaseManager importProductsFromTextFile(DataBaseManager dataBaseManager) {
         String fileName = "Products.txt";
         File file = new File(fileName);
         
@@ -86,7 +86,7 @@ public class ReadFiles {
                 String line = null;
                 while ((line = buffRead.readLine()) != null) {
                     if (line.charAt(0) != '#') {
-                        dataBaseManager.addToProductList(line, date);
+                        dataBaseManager.addToProductList(line);
                     }
                     
                 }

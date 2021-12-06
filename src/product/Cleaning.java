@@ -2,7 +2,6 @@ package product;
 import java.lang.NumberFormatException;
 import java.lang.String;
 import promotion.*;
-import date.Date;
 
 // tirei a parte das promoçoes, falta implementar isso 
 
@@ -30,106 +29,80 @@ public class Cleaning extends Product {
     }
     
     
-    public Cleaning separateProductInfo(String line, Date date) {
+    public Cleaning separateProductInfo(String line) {
         Cleaning newProduct = new Cleaning();
-        String[] atributes = {"type", "identifier", "name", "unitPrice", "stock", "toxicityLevel"};
-        Promotion promotion = new Promotion();
-        boolean promo = false;
-        String words = "";
-        String promoWords = "";
+        String[] atributes = {"type", "identifier", "name", "unitPrice", "stock", "toxicityLevel", "promoType", "startDate", "endDate"};
         int atrib = 0;
-        int i;
+        String[] words = line.split("[;:]+");
         
-        
-        for (i = 0; i < line.length(); ++i) {
-            if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
-                if (line.charAt(i) == ':') {
-                    promo = true;
-                    words = "";
-                }
-                
-                if (atributes[atrib].equals("type")) {
-                    newProduct.setProductType(words);
-                    ++atrib;
-                    words = "";
-                }
-                
-                if (atributes[atrib].equals("identifier")) {
-                    int ident;
-                    try {
-                        ident = Integer.parseInt(words);
-                    }
-                    catch (NumberFormatException nfe) {
-                        ident = -1;
-                    }
-                    newProduct.setIdentifier(ident);
-                    ++atrib;
-                    words = "";
-                }
-                
-                if (atributes[atrib].equals("name")) {
-                    newProduct.setName(words);
-                    ++atrib;
-                    words = "";
-                }
-                
-                if (atributes[atrib].equals("unitPrice")) {
-                    int price;
-                    try {
-                        price = Integer.parseInt(words);
-                    }
-                    catch (NumberFormatException nfe) {
-                        price = -1;
-                    }
-                    newProduct.setUnitPrice(price);
-                    ++atrib;
-                    words = "";
-                }
-                
-                if (atributes[atrib].equals("stock")) {
-                    int stock;
-                    try {
-                        stock = Integer.parseInt(words);
-                    }
-                    catch (NumberFormatException nfe) {
-                        stock = -1;
-                    }
-                    newProduct.setStock(stock);
-                    ++atrib;
-                    words = "";
-                }
-                
-                if (atributes[atrib].equals("toxicityLevel")) {
-                    int level;
-                    try {
-                        level = Integer.parseInt(words);
-                    }
-                    catch (NumberFormatException nfe) {
-                        level = -1;
-                    }
-                    newProduct.setToxicityLevel(level);
-                    words = "";
-                }
-                
-                System.out.println(words);
-                
-                
+        for (int i = 0; i < words.length; ++i) {
+            
+            if (atributes[atrib].equals("type")) {
+                newProduct.setProductType("Cleaning");
+                ++atrib;
             }
             
-            
-            else {
-                if (!promo) {
-                    words += line.charAt(i);
+            if (atributes[atrib].equals("identifier")) {
+                int ident;
+                try {
+                    ident = Integer.parseInt(words[i]);
                 }
-                else {
-                    promoWords += line.charAt(i);
+                catch (NumberFormatException nfe) {
+                    ident = -1;
                 }
+                newProduct.setIdentifier(ident);
+                ++atrib;
             }
+            
+            if (atributes[atrib].equals("name")) {
+                newProduct.setName(words[i]);
+                ++atrib;
+            }
+            
+            if (atributes[atrib].equals("unitPrice")) {
+                float price;
+                try {
+                    price = Float.parseFloat(words[i]);
+                }
+                catch (NumberFormatException nfe) {
+                    price = -1;
+                }
+                newProduct.setUnitPrice(price);
+                ++atrib;
+            }
+            
+            if (atributes[atrib].equals("stock")) {
+                int stock;
+                try {
+                    stock = Integer.parseInt(words[i]);
+                }
+                catch (NumberFormatException nfe) {
+                    stock = -1;
+                }
+                newProduct.setStock(stock);
+                ++atrib;
+            }
+            
+            if (atributes[atrib].equals("toxicityLevel")) {
+                int level;
+                try {
+                    level = Integer.parseInt(words[i]);
+                }
+                catch (NumberFormatException nfe) {
+                    level = -1;
+                }
+                newProduct.setToxicityLevel(level);
+                ++atrib;
+            }
+
+            if (atributes[atrib].equals("promoType")) {
+                Promotion promotion = newProduct.getProductPromotion(words[i], words[i + 1], words[i + 2]);
+                newProduct.setPromotion(promotion);
+                break;
+            }
+            
         }
-        
-        promotion = Promotion.getProductPromotion(promoWords, date);
-        
-        newProduct.setPromotion(promotion);
+
         
         return newProduct;
     }
