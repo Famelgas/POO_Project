@@ -104,4 +104,14 @@ public class Date implements Serializable{
         return this.day == dateToVerify.getDay() && this.month == dateToVerify.getMonth() && this.year == dateToVerify.getYear();
     } 
 
+    public int compareDates(Date date) {
+        if (this.day < date.getDay() && this.month < date.getMonth() && this.year < date.getYear()) {
+            return -1;
+        }
+        if (this.day > date.getDay() && this.month > date.getMonth() && this.year > date.getYear()) {
+            return 1;
+        }
+        return 0;
+    }
+
 }

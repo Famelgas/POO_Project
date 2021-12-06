@@ -117,6 +117,7 @@ public class Purchase implements Serializable {
                 }
                 if (purchaseAtributes[atrib].equals("products")) {
                     Product newProduct = Product.getProductType(line);
+                    System.out.println(line);
                     newProduct = newProduct.separateProductInfo(words, date);
                     newPurchase.addToPurchasedProducts(newProduct);
                     --atrib;

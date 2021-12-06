@@ -40,20 +40,21 @@ public class Food extends Product {
     }
 
 
-    public Food separateFoodInfo(String line, Date date) {
+    public Food separateProductInfo(String line, Date date) {
         Food newProduct = new Food();
         String[] atributes = {"identifier", "name", "unitPrice", "stock", "caloriesPer100G", "fatPercent"};
         Promotion promotion = new NoPromotion();
         String words = "";
+        String promoWords = "";
+        boolean promo = false;
         int atrib = 0;
         int i;
         
         for (i = 0; i < line.length(); ++i) {
-            if (line.charAt(i) == ';' || line.charAt(i) == '\n' || line.charAt(i) == ':') {
-                if (atributes[atrib].equals("type")) {
-                    newProduct.setProductType(words);
-                    ++atrib;
-                }           
+            if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
+                if (line.charAt(i) == ':') {
+                    promo = true;
+                }          
                       
                 if (atributes[atrib].equals("identifier")) {
                     int ident;
@@ -123,14 +124,16 @@ public class Food extends Product {
             }
 
             else {
-                words += line.charAt(i);
+                  if (!promo) {
+                    words += line.charAt(i);
+                }
+                else {
+                    promoWords += line.charAt(i);
+                }
             }
         }
 
-        atrib = 0;
-        words = "";
-        
-        promotion = Promotion.getProductPromotion(line, i, date);
+        promotion = Promotion.getProductPromotion(promoWords, date);
 
         newProduct.setPromotion(promotion);
 

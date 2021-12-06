@@ -30,27 +30,30 @@ public class Cleaning extends Product {
     }
     
     
-    public Cleaning separateCleaningInfo(String line, Date date) {
+    public Cleaning separateProductInfo(String line, Date date) {
         Cleaning newProduct = new Cleaning();
         String[] atributes = {"type", "identifier", "name", "unitPrice", "stock", "toxicityLevel"};
         Promotion promotion = new Promotion();
+        boolean promo = false;
         String words = "";
+        String promoWords = "";
         int atrib = 0;
         int i;
         
         
         for (i = 0; i < line.length(); ++i) {
-            if (line.charAt(i) == ';' || line.charAt(i) == '\n' || line.charAt(i) == ':') {
+            if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
                 if (line.charAt(i) == ':') {
-                    promotion = Promotion.getProductPromotion(line, i + 1, date);
-                    break;
+                    promo = true;
+                    words = "";
                 }
                 
                 if (atributes[atrib].equals("type")) {
                     newProduct.setProductType(words);
                     ++atrib;
+                    words = "";
                 }
-                                 
+                
                 if (atributes[atrib].equals("identifier")) {
                     int ident;
                     try {
@@ -61,13 +64,15 @@ public class Cleaning extends Product {
                     }
                     newProduct.setIdentifier(ident);
                     ++atrib;
+                    words = "";
                 }
-
+                
                 if (atributes[atrib].equals("name")) {
                     newProduct.setName(words);
                     ++atrib;
+                    words = "";
                 }
-
+                
                 if (atributes[atrib].equals("unitPrice")) {
                     int price;
                     try {
@@ -78,8 +83,9 @@ public class Cleaning extends Product {
                     }
                     newProduct.setUnitPrice(price);
                     ++atrib;
+                    words = "";
                 }
-
+                
                 if (atributes[atrib].equals("stock")) {
                     int stock;
                     try {
@@ -90,6 +96,7 @@ public class Cleaning extends Product {
                     }
                     newProduct.setStock(stock);
                     ++atrib;
+                    words = "";
                 }
                 
                 if (atributes[atrib].equals("toxicityLevel")) {
@@ -101,27 +108,29 @@ public class Cleaning extends Product {
                         level = -1;
                     }
                     newProduct.setToxicityLevel(level);
+                    words = "";
                 }
-
+                
                 System.out.println(words);
-
-                words = "";
+                
+                
             }
             
             
             else {
-                words += line.charAt(i);
+                if (!promo) {
+                    words += line.charAt(i);
+                }
+                else {
+                    promoWords += line.charAt(i);
+                }
             }
         }
         
-        
-        atrib = 0;
-        words = "";
-
-        promotion = Promotion.getProductPromotion(line, i, date);
+        promotion = Promotion.getProductPromotion(promoWords, date);
         
         newProduct.setPromotion(promotion);
-
+        
         return newProduct;
     }
 }

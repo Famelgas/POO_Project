@@ -56,20 +56,21 @@ public class Furniture extends Product {
     }
 
 
-    public Furniture separateFurnitureInfo(String line, Date date) {
+    public Furniture separateProductInfo(String line, Date date) {
         Furniture newProduct = new Furniture();
         String[] atributes = {"identifier", "name", "unitPrice", "stock", "height", "width", "depth", "weight"};
         Promotion promotion = new NoPromotion();
         String words = "";
+        String promoWords = "";
+        boolean promo = false;
         int atrib = 0;
         int i;
         
         for (i = 0; i < line.length(); ++i) {
-            if (line.charAt(i) == ';' || line.charAt(i) == '\n' || line.charAt(i) == ':') {
-                if (atributes[atrib].equals("type")) {
-                    newProduct.setProductType(words);
-                    ++atrib;
-                }           
+            if (line.charAt(i) == ';' || line.charAt(i) == '\n') {
+                if (line.charAt(i) == ':') {
+                    promo = true;
+                }          
                       
                 if (atributes[atrib].equals("identifier")) {
                     int ident;
@@ -162,14 +163,15 @@ public class Furniture extends Product {
             }
 
             else {
-                words += line.charAt(i);
+                if (!promo) {
+                    words += line.charAt(i);
+                } else {
+                    promoWords += line.charAt(i);
+                }
             }
         }
-
-        atrib = 0;
-        words = "";
-
-        promotion = Promotion.getProductPromotion(line, i, date);
+        
+        promotion = Promotion.getProductPromotion(promoWords, date);
 
         newProduct.setPromotion(promotion);
         return newProduct;
