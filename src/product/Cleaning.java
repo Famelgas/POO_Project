@@ -30,9 +30,11 @@ public class Cleaning extends Product {
     
     
     public Cleaning separateProductInfo(String line) {
+        System.out.println(line);
         Cleaning newProduct = new Cleaning();
-        String[] atributes = {"type", "identifier", "name", "unitPrice", "stock", "toxicityLevel", "promoType", "startDate", "endDate"};
+        String[] atributes = {"type", "identifier", "name", "unitPrice", "stock", "toxicityLevel", "promoType"};
         int atrib = 0;
+        line = line.strip();
         String[] words = line.split("[;:]+");
         
         for (int i = 0; i < words.length; ++i) {

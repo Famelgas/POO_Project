@@ -119,6 +119,7 @@ public class Product implements Serializable {
         Product newProduct = new Product();
         String[] atributes = {"type", "identifier", "name", "unitPrice", "stock", "promoType", "startDate", "endDate"};
         int atrib = 0;
+        line = line.strip();
         String[] words = line.split("[;:]+");
 
         for (int i = 0; i < words.length; ++i) {

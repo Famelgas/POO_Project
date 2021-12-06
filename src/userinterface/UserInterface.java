@@ -304,7 +304,7 @@ public class UserInterface {
                             FormatText.separationLine();
                             System.out.println("\n");
                             
-                            client.showPurchaseHistory();
+                            client.showPurchaseHistory(dataBaseManager);
                             
                             FormatText.separationLine();
                             System.out.println("\n");
@@ -435,7 +435,8 @@ public class UserInterface {
                                                 if (client.acceptMbWayPayment(phoneNumber, pin)) {
                                                     System.out.println(FormatText.alignCenterText("Payment accepted."));
                                                     System.out.println();
-                                                    client.addToPurchaseHistory(newPurchase);
+                                                    dataBaseManager.addPurchase(newPurchase);
+                                                    client.addToPurchaseHistory(newPurchase.getPurchaseReference());
                                                     break;
                                                 }
                                                 else {
@@ -480,7 +481,8 @@ public class UserInterface {
                                                     if (client.acceptCreditCardPayment(ccNumber, expirationDate, cvv)) {
                                                         System.out.println(FormatText.alignCenterText("Payment accepted."));
                                                         System.out.println();
-                                                        client.addToPurchaseHistory(newPurchase);
+                                                        dataBaseManager.addPurchase(newPurchase);
+                                                        client.addToPurchaseHistory(newPurchase.getPurchaseReference());
                                                         break;
                                                     }
                                                     else {

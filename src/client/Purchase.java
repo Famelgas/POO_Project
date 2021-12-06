@@ -1,6 +1,7 @@
 package client;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
 import product.*;
 import date.Date;
 import database.FormatText;
@@ -98,6 +99,7 @@ public class Purchase implements Serializable {
         Purchase purchase = new Purchase();
         String[] purchaseAtributes = {"date", "reference", "price", "products"};
         int atrib = 0;
+        line = line.strip();
         String words[] = line.split("[;:]+");
 
         for (int i = 0; i < words.length; ++i) {
@@ -115,6 +117,7 @@ public class Purchase implements Serializable {
                     ref = -1;
                 }
                 purchase.setPurchaseReference(ref);
+                ++atrib;
             }
             
             if (purchaseAtributes[atrib].equals("price")) {
@@ -125,6 +128,7 @@ public class Purchase implements Serializable {
                     price = -1;
                 }
                 purchase.setPurchasePrice(price);
+                ++atrib;
             }
 
             if (purchaseAtributes[atrib].equals("products")) {
@@ -150,6 +154,12 @@ public class Purchase implements Serializable {
         return purchase;
     }
  
+
+    public static int createReference() {
+        Random rand = new Random();
+        int ref = 10000000 + rand.nextInt(999999999);
+        return ref;
+    }
     
 
 }

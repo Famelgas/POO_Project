@@ -40,9 +40,11 @@ public class Food extends Product {
 
 
     public Food separateProductInfo(String line) {
+        System.out.println(line);
         Food newProduct = new Food();
-        String[] atributes = {"type", "identifier", "name", "unitPrice", "stock", "caloriesPer100G", "fatPercent"};
+        String[] atributes = {"type", "identifier", "name", "unitPrice", "stock", "caloriesPer100G", "fatPercent", "promoType"};
         int atrib = 0;
+        line = line.strip();
         String[] words = line.split("[;:]+");
 
         for (int i = 0; i < words.length; ++i) {

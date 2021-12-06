@@ -2,6 +2,7 @@ package database;
 import java.io.*;
 import java.lang.SecurityException;
 import date.Date;
+import java.util.Scanner;
 
 
 public class ReadFiles {
@@ -15,26 +16,21 @@ public class ReadFiles {
     public static DataBaseManager importFromTextFile(Date date) {
         DataBaseManager dataBaseManager = new DataBaseManager();
         
-        if (importClientsFromTextFile(dataBaseManager) == null) {
+        dataBaseManager = importClientsFromTextFile(dataBaseManager);
+        if (dataBaseManager == null) {
             return null;
         }
-        else {
-            dataBaseManager = importClientsFromTextFile(dataBaseManager);
-        }
-
-        if (importProductsFromTextFile(dataBaseManager) == null) {
+        
+        dataBaseManager = importProductsFromTextFile(dataBaseManager);
+        if (dataBaseManager == null) {
             return null;
-        }
-        else {
-            dataBaseManager = importProductsFromTextFile(dataBaseManager);
         }
 
         return dataBaseManager;
     }
 
     private static DataBaseManager importClientsFromTextFile(DataBaseManager dataBaseManager) {
-        String fileName = "Clients.txt";
-        File file = new File(fileName);
+        File file = new File("Clients.txt");
 
         if (file.exists() && file.isFile()) {
             try {
@@ -42,9 +38,11 @@ public class ReadFiles {
                 BufferedReader buffRead = new BufferedReader(fileRead);
                 
                 String line = null;
+                Scanner lineSc;
                 while ((line = buffRead.readLine()) != null) {
+                    lineSc = new Scanner(line);
                     if (line.charAt(0) != '#') {
-                        dataBaseManager.addToClientList(line);
+                        dataBaseManager.addToClientList(lineSc);
                     }
                     
                     
@@ -75,8 +73,7 @@ public class ReadFiles {
     
     
     private static DataBaseManager importProductsFromTextFile(DataBaseManager dataBaseManager) {
-        String fileName = "Products.txt";
-        File file = new File(fileName);
+        File file = new File("Products.txt");
         
         if (file.exists() && file.isFile()) {
             try {
@@ -84,7 +81,9 @@ public class ReadFiles {
                 BufferedReader buffRead = new BufferedReader(fileRead);
                 
                 String line = null;
+                //Scanner lineSc;
                 while ((line = buffRead.readLine()) != null) {
+                  //  lineSc = new Scanner(line);
                     if (line.charAt(0) != '#') {
                         dataBaseManager.addToProductList(line);
                     }
@@ -147,7 +146,6 @@ public class ReadFiles {
         }
 
         else {
-            System.out.println("File doesn't exist");
             return null;
         }
     }

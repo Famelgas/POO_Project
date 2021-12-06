@@ -1,10 +1,14 @@
 package client;
 import java.io.Serializable;
-import java.lang.NumberFormatException;
 import java.lang.String;
 import java.util.ArrayList;
+
+import database.DataBaseManager;
 import date.Date;
 import product.*;
+
+
+import java.util.Scanner;
 
 
 public class Client implements Serializable {
@@ -19,13 +23,16 @@ public class Client implements Serializable {
     private Date expirationDate;
     private int creditCardCVV;
     private ArrayList<Product> shoppingCart;
-    // To keep the clients shopping history an ArrayList of Sales is needed,
-    // this allows the client to keep track of every purchase he has ever made
-    private ArrayList<Purchase> purchaseHistory;  
+    // ArrayList with the reference numbers of every purchase made by the client
+    private ArrayList<Integer> purchaseHistory;  
 
     public Client() {
         this.shoppingCart = new ArrayList<>();
         this.purchaseHistory = new ArrayList<>();
+        this.mbWayPin = 0;
+        this.creditCardNumber = 0;
+        this.expirationDate = new Date(00, 00, 0000);
+        this.creditCardCVV = 0;
     }
 
     public Client(String name, String address, String email, int phoneNumber, Date birthday, Boolean frequent) {
@@ -38,50 +45,10 @@ public class Client implements Serializable {
         this.frequent = false;
         this.shoppingCart = new ArrayList<>();
         this.purchaseHistory = new ArrayList<>();
-    }
-
-    public Client(String name, String address, String email, int phoneNumber, Date birthday, Boolean frequent, int mbWayPin, int creditCardNumber, Date creditCardDate, int creditCardCVV) {
-        this.frequent = frequent;
-        this.name = name;
-        this.address = address;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.birthday = birthday;
-        this.frequent = false;
-        this.mbWayPin = mbWayPin;
-        this.creditCardNumber = creditCardNumber;
-        this.expirationDate = creditCardDate;
-        this.creditCardCVV = creditCardCVV;
-        this.shoppingCart = new ArrayList<>();
-        this.purchaseHistory = new ArrayList<>();
-    }
-
-    public Client(String name, String address, String email, int phoneNumber, Date birthday, Boolean frequent, int mbWayPin) {
-        this.frequent = frequent;
-        this.name = name;
-        this.address = address;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.birthday = birthday;
-        this.frequent = false;
-        this.mbWayPin = mbWayPin;
-        this.shoppingCart = new ArrayList<>();
-        this.purchaseHistory = new ArrayList<>();
-    }
-
-    public Client(String name, String address, String email, int phoneNumber, Date birthday, Boolean frequent, int creditCardNumber, Date creditCardDate, int creditCardCVV) {
-        this.frequent = frequent;
-        this.name = name;
-        this.address = address;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.birthday = birthday;
-        this.frequent = false;
-        this.creditCardNumber = creditCardNumber;
-        this.expirationDate = creditCardDate;
-        this.creditCardCVV = creditCardCVV;
-        this.shoppingCart = new ArrayList<>();
-        this.purchaseHistory = new ArrayList<>();
+        this.mbWayPin = 0;
+        this.creditCardNumber = 0;
+        this.expirationDate = new Date(00, 00, 0000);
+        this.creditCardCVV = 0;
     }
 
     public String getName() {
@@ -172,11 +139,11 @@ public class Client implements Serializable {
         this.shoppingCart = shoppingCart;
     }
 
-    public ArrayList<Purchase> getPurchaseHistory() {
+    public ArrayList<Integer> getPurchaseHistory() {
         return purchaseHistory;
     }
 
-    public void setPurchaseHistory(ArrayList<Purchase> purchaseHistory) {
+    public void setPurchaseHistory(ArrayList<Integer> purchaseHistory) {
         this.purchaseHistory = purchaseHistory;
     }
 
@@ -186,20 +153,24 @@ public class Client implements Serializable {
         this.shoppingCart.add(product);
     }
 
-    public void addToPurchaseHistory(Purchase purchase) {
-        this.purchaseHistory.add(purchase);
+    public void addToPurchaseHistory(int reference) {
+        this.purchaseHistory.add(reference);
     }
 
     public String toString() {
         return "Name: " + name + "\nAddress: " + address + "\nEmail: " + email + "\nPhone number: " + phoneNumber + "\nBirthday: " + birthday + "\nFrequent: " + frequent + "\nMBWay pin: " + mbWayPin + "\nCredit card number: " + creditCardNumber + "\nExpiration date: " + expirationDate.toString() + "\nCVV: " + creditCardCVV;
     }
 
-    public void showPurchaseHistory() {
+    public void showPurchaseHistory(DataBaseManager dataBaseManager) {
         int count = 0;
-        for (Purchase purchase : purchaseHistory) {
-            System.out.print(count + ". ");
-            purchase.showPurchase();
-            System.out.println();
+        for (Integer reference : purchaseHistory) {
+            for (Purchase purchase : dataBaseManager.getPurchaseList()) {
+                if (reference == purchase.getPurchaseReference()) {
+                    System.out.print(count + ". ");
+                    purchase.showPurchase();
+                    System.out.println();
+                }
+            }
         }
     }
 
@@ -245,87 +216,27 @@ public class Client implements Serializable {
       * @param line - all the information of one client
       * @return - returns a new Client
       */
-    public Client separateClientInfo(String line) {
+    public Client separateClientInfo(Scanner lineSc) {
         Client newClient = new Client();
-        String[] clientAtributes = {"name", "address", "email", "phoneNumber", "birthday", "frequent", "mbwaypin", "ccnumber", "ccdate", "cvv", "pHist"};
         
-        String[] words = line.split("[;:]+");
-        int atrib = 0;
-        // client info
-        for (int i = 0; i < words.length; ++i) {
-            if (clientAtributes[atrib].equals("name")) {
-                newClient.setName(words[i]);
-            }
-            if (clientAtributes[atrib].equals("address")) {
-                newClient.setAddress(words[i]);
-            }
-            if (clientAtributes[atrib].equals("email")) {
-                newClient.setEmail(words[i]);
-            }
-            if (clientAtributes[atrib].equals("phoneNumber")) {
-                int phNum;
-                try {
-                    phNum = Integer.parseInt(words[i]);
-                }
-                catch (NumberFormatException nfe) {
-                    phNum = -1;
-                }
-                newClient.setPhoneNumber(phNum);
-            }
-            if (clientAtributes[atrib].equals("birthday")) {
-                Date birthday = Date.convertStringToDate(words[i]);
-                newClient.setBirthday(birthday);
-            }
-            if (clientAtributes[atrib].equals("frequent")){
-                if (words[i].equals("true")) {
-                    newClient.setFrequent(true);
-                }
-                else if (words[i].equals("false")) {
-                    newClient.setFrequent(false);
-                }
-            }
-            
-            if (clientAtributes[atrib].equals("mbwaypin")) {
-                int mbwaypin;
-                try {
-                    mbwaypin = Integer.parseInt(words[i]);
-                }
-                catch (NumberFormatException nfe) {
-                    mbwaypin = -1;
-                }
-                newClient.setPhoneNumber(mbwaypin);
-            }
-            
-            if (clientAtributes[atrib].equals("ccnumber")) {
-                int ccnumber;
-                try {
-                    ccnumber = Integer.parseInt(words[i]);
-                }
-                catch (NumberFormatException nfe) {
-                    ccnumber = -1;
-                }
-                newClient.setPhoneNumber(ccnumber);
-            }
-            
-            if (clientAtributes[atrib].equals("ccdate")) {
-                Date expirationDate = Date.convertStringToDate(words[i]);
-                newClient.setExpirationDate(expirationDate);
-            }
-            
-            if (clientAtributes[atrib].equals("cvv")) {
-                int cvv;
-                try {
-                    cvv = Integer.parseInt(words[i]);
-                }
-                catch (NumberFormatException nfe) {
-                    cvv = -1;
-                }
-                newClient.setPhoneNumber(cvv);
-            }
-            
-            ++atrib; 
-        }
+        lineSc.useDelimiter("\\s*;\\s*");
+        
+        newClient.setName(lineSc.next());
+        newClient.setAddress(lineSc.next());
+        newClient.setEmail(lineSc.next());
+        newClient.setPhoneNumber(lineSc.nextInt());
 
+        Date birthday = Date.convertStringToDate(lineSc.next());
+        newClient.setBirthday(birthday);
+
+        newClient.setFrequent(lineSc.nextBoolean());
+
+        while (lineSc.hasNextInt()) {
+            newClient.addToPurchaseHistory(lineSc.nextInt());
+        }
+        
+
+        //System.out.println(newClient);
         return newClient;
     }
     

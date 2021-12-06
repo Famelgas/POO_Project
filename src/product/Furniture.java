@@ -56,9 +56,11 @@ public class Furniture extends Product {
 
 
     public Furniture separateProductInfo(String line) {
+        System.out.println(line);
         Furniture newProduct = new Furniture();
-        String[] atributes = {"type", "identifier", "name", "unitPrice", "stock", "height", "width", "depth", "weight"};
+        String[] atributes = {"type", "identifier", "name", "unitPrice", "stock", "height", "width", "depth", "weight", "promoType"};
         int atrib = 0;
+        line = line.strip();
         String[] words = line.split("[;:]+");
 
         for (int i = 0; i < words.length; ++i) {

@@ -34,42 +34,26 @@ public class Main {
 
 
     
-        // If any produdcts were added to the supermarket stock (Products.txt) the program need to 
-        // reload files 
-        // boolean reload - false: no reload; true: reload files
-        boolean reloadTextFiles = false;
-        if (reloadTextFiles) {
-            if (ReadFiles.importFromTextFile(date) == null) {
+       
+        dataBaseManager = ReadFiles.importFromObjectFile(dataBaseManager, objFile);
+        if (dataBaseManager == null) {
+            dataBaseManager = ReadFiles.importFromTextFile(date);
+            if (dataBaseManager== null) {
                 System.out.println("Error importing from text file");
                 return;
             }
-            else {
-                dataBaseManager = ReadFiles.importFromTextFile(date);
-                if (!ReadFiles.reloadFiles(objFile)) {
-                    System.out.println("Error deleting .obj file");
-                }
-            }
-        }
-        else {
-            if (ReadFiles.importFromObjectFile(dataBaseManager, objFile) == null) {
-                if (ReadFiles.importFromTextFile(date) == null) {
-                    System.out.println("Error importing from text file");
-                    return;
-                }
-                else {
-                    dataBaseManager = ReadFiles.importFromTextFile(date);
-                }
-            } 
-    
-            else {
-                dataBaseManager = ReadFiles.importFromObjectFile(dataBaseManager, objFile);
-            }
-        }
+        } 
 
 
         FormatText.separationLine();
         System.out.println("\n");
-        //dataBaseManager.showAvailableProducts();
+        
+        dataBaseManager.showAllClients();
+        
+        System.out.println("\n");
+
+        dataBaseManager.showAvailableProducts();
+        
         
         ui.menu(dataBaseManager, date);
 

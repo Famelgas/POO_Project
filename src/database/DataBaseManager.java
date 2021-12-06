@@ -1,6 +1,7 @@
 package database;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Scanner;
 import client.Client;
 import client.Purchase;
 import product.*;
@@ -16,6 +17,18 @@ public class DataBaseManager implements Serializable {
     // Imported supermarket protuct stock form text file 
     private ArrayList<Product> productList;
     
+    private ArrayList<Purchase> purchaseList;
+
+    
+    /**
+     * DataBaseManager constuctor
+     */
+    public DataBaseManager() {
+       clientList = new ArrayList<>();
+       productList = new ArrayList<>(); 
+       purchaseList = new ArrayList<>();
+    }
+    
     public ArrayList<Client> getClientList() {
         return clientList;
     }
@@ -27,31 +40,30 @@ public class DataBaseManager implements Serializable {
     public ArrayList<Product> getProductList() {
         return productList;
     }
-
+    
     public void setProductList(ArrayList<Product> productList) {
         this.productList = productList;
     }    
 
-    /**
-     * DataBaseManager constuctor
-     */
-    public DataBaseManager() {
-       clientList = new ArrayList<>();
-       productList = new ArrayList<>(); 
+    public ArrayList<Purchase> getPurchaseList() {
+        return purchaseList;
     }
+    
+    public void setPurchaseList(ArrayList<Purchase> purchaseList) {
+        this.purchaseList = purchaseList;
+    }    
 
     /**
      * Adds a new client account to the shop's database
      * @param line - Line read from the .txt file
      */
-    public void addToClientList(String line) {
+    public void addToClientList(Scanner lineSc) {
         Client client = new Client();
-        if (client.separateClientInfo(line) == null) {
+        client = client.separateClientInfo(lineSc);
+        if (client == null) {
             System.out.println("Error client object is null");
-        }
-        else {
-            clientList.add(client.separateClientInfo(line));
-        }
+        }   
+        clientList.add(client);
     }
 
     /**
@@ -60,13 +72,15 @@ public class DataBaseManager implements Serializable {
      */
     public void addToProductList(String line) {
         Product newProduct = Product.getProductType(line);
-        
-        if (newProduct.separateProductInfo(line) == null) {
+        newProduct = newProduct.separateProductInfo(line);
+        if (newProduct == null) {
             System.out.println("Error product object is null");
         }
-        else {
-            productList.add(newProduct.separateProductInfo(line));
-        }
+        productList.add(newProduct);
+    }
+
+    public void addPurchase(Purchase purchase) {
+        purchaseList.add(purchase);
     }
 
 
@@ -102,6 +116,15 @@ public class DataBaseManager implements Serializable {
         
         return newClient;
     }
+
+    public void showAllClients() {
+        for (Client client: this.clientList) {
+            System.out.println();
+            System.out.println(client);
+            System.out.println();
+            FormatText.intermidietLine();
+        }
+    }
     
 
 
@@ -117,13 +140,10 @@ public class DataBaseManager implements Serializable {
      */
     public Purchase createNewPurchase(Client client, Date date) {
         ArrayList<Product> shoppingCart = client.getShoppingCart();
-
-        // mudar para data local do pc!!!!!!!!!!
-        
-        
-        
         Purchase newPurchase = new Purchase(date);
         
+        newPurchase.setPurchaseReference(Purchase.createReference());
+
         // Serching through the client's shopping cart
         for (Product productToBuy : shoppingCart) {
             // Serching through the store's stock 
