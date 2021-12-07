@@ -108,6 +108,10 @@ public class Purchase implements Serializable {
         this.purchasePrice += priceToRaise;
     }
 
+    public String toString() {
+        return "Date: " + date + "\nReference: " + reference + "\nPurchase price: " + purchasePrice + "\nShipping price: " + shippingPrice + "\nTotal price: " + totalPrice + "\nPurchased roducts:\n" + purchasedProducts.toString().substring(1, purchasedProducts.toString().length() - 1);
+    }
+
 
     public void showPurchase() {
         System.out.println("Purchase date: " + date + "\nReference: " + reference + "\nTotal payed: " + purchasePrice);
@@ -123,10 +127,10 @@ public class Purchase implements Serializable {
      * @param line - purchase information
      * @return - return a new Purchase;
      */
-    public static Purchase serparatePurchaseInfo(Scanner lineSc) {
+    public Purchase separatePurchaseInfo(Scanner lineSc) {
         Purchase purchase = new Purchase();
 
-        lineSc.useDelimiter("\\s*|\\s*");
+        lineSc.useDelimiter("\\s*:\\s*");
 
         purchase.setPurchaseDate(Date.convertStringToDate(lineSc.next()));
         purchase.setPurchaseReference(lineSc.nextInt());
@@ -135,8 +139,14 @@ public class Purchase implements Serializable {
         purchase.setTotalPrice(lineSc.nextFloat());
 
         while(lineSc.hasNext()) {
-            Product newProduct = Product.getProductType(lineSc);
-            purchase.addToPurchasedProducts(newProduct.separateProductInfo(lineSc));
+            Scanner tempLineSc = new Scanner(lineSc.next());
+            Product newProduct = Product.getProductType(tempLineSc);
+            newProduct = newProduct.separateProductInfo(tempLineSc);
+            if (newProduct == null) {
+                System.out.println("Error product object is null");
+            }
+            purchase.addToPurchasedProducts(newProduct);
+            tempLineSc.close();
         }
         
         return purchase;
@@ -170,6 +180,5 @@ public class Purchase implements Serializable {
         }
         return shippingPrice;
     }
-    
 
 }

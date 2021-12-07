@@ -77,6 +77,16 @@ public class DataBaseManager implements Serializable {
         }
         productList.add(newProduct);
     }
+    
+    public void addToPurchaseList(Scanner lineSc) {
+        Purchase newPurchase = new Purchase();
+        newPurchase = newPurchase.separatePurchaseInfo(lineSc);
+        if (newPurchase == null) {
+            System.out.println("Error product object is null");
+        }
+        purchaseList.add(newPurchase);
+
+    }
 
     public void addPurchase(Purchase purchase) {
         purchaseList.add(purchase);
@@ -118,7 +128,7 @@ public class DataBaseManager implements Serializable {
 
     public void showAllClients() {
         for (Client client: this.clientList) {
-            System.out.println();
+            System.out.println("\n");
             System.out.println(client);
             System.out.println();
             FormatText.intermidietLine();
@@ -129,8 +139,50 @@ public class DataBaseManager implements Serializable {
 
     /** --------------------------------------Product associated---------------------------------------------- */
     
+    
+    
+    
+    
+    public Product getProduct(String productName) {
+        for (Product product : productList) {
+            if (product.getName().equals(productName)) {
+                return product;
+            }
+        }
+        return null;
+    }
+    
+    public Product verifyStock(Product product, int amount) {
+        for (Product productInStock : productList) {
+            if (product.getName() == productInStock.getName()) {
+                // If the client wants to add to the cart more items then what the supermarket has
+                // then he can only buy the existing stock
+                if (productInStock.getStock() < product.getStock()) {
+                    product.setStock(productInStock.getStock());
+                }
+            }
+        }
+        return product;
+    }
+    
+    
+    public void showAvailableProducts() {
+        for (Product product : productList) {
+            System.out.println();
+            System.out.println(product);
+            System.out.println();
+            FormatText.intermidietLine();
+        }
+    }
+    
+
+    
+    
+    /** --------------------------------------Purchase associated---------------------------------------------- */
 
 
+
+    
     /**
      * Buy a product from the online strore
      * @param client - client buying the product
@@ -142,12 +194,12 @@ public class DataBaseManager implements Serializable {
         Purchase newPurchase = new Purchase(date);
         
         newPurchase.setPurchaseReference(Purchase.createReference());
-
+        
         // Serching through the client's shopping cart
         for (Product productToBuy : shoppingCart) {
             // Serching through the store's stock 
             for (Product productInStock : productList) {
-                if (productToBuy.getIdentifier() == productInStock.getIdentifier()) {
+                if (productToBuy.getName() == productInStock.getName()) {
                     Promotion promotion = productToBuy.getPromotion();
                     float productsPrice = 0;
                     // If there is more items in stock then what the client wants to buy
@@ -176,45 +228,19 @@ public class DataBaseManager implements Serializable {
             } 
             
         }
-
+    
         newPurchase.setTotalPrice(newPurchase.getPurchasePrice(), newPurchase.calculateShippingPrice(client, newPurchase));
     
         return newPurchase;
     }
 
-
-    public Product getProduct(String productName) {
-        for (Product product : productList) {
-            if (product.getName().equals(productName)) {
-                return product;
-            }
-        }
-        return null;
-    }
-
-    public Product verifyStock(Product product, int amount) {
-        for (Product productInStock : productList) {
-            if (product.getIdentifier() == productInStock.getIdentifier()) {
-                // If the client wants to add to the cart more items then what the supermarket has
-                // then he can only buy the existing stock
-                if ((productInStock.getStock() - product.getStock()) < 0) {
-                    System.out.println("There are only " + productInStock.getStock() + " " + productInStock.getName() + " in stock, so only " + productInStock.getStock() + " were added to your shopping cart.");
-                    product.setStock(productInStock.getStock());
-                }
-            }
-        }
-        return product;
-    }
-
-
-    public void showAvailableProducts() {
-        for (Product product : productList) {
-            System.out.println();
-            System.out.println(product);
+    public void showAllPurchases() {
+        for (Purchase purchase : purchaseList) {
+            System.out.println("\n");
+            System.out.println(purchase);
             System.out.println();
             FormatText.intermidietLine();
         }
     }
-
 
 }   

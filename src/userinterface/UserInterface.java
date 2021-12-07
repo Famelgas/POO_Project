@@ -44,6 +44,8 @@ public class UserInterface {
     }
 
 
+
+    // Menu
     public void menu(DataBaseManager dataBaseManager, Date date) {
         Client client = new Client();
 
@@ -413,7 +415,7 @@ public class UserInterface {
                                     if (dataBaseManager.createNewPurchase(client, date) != null) {
                                         FormatText.intermidietLine();
                                         System.out.println();
-                                        
+
                                         System.out.println("Your total is: " + newPurchase.getPurchasePrice());
                                         while (true) {
                                             System.out.println(FormatText.alignCenterText("Select your desired payment method:"));

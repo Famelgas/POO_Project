@@ -75,7 +75,7 @@ public class Product implements Serializable {
     }
 
     public String toString() {
-        return "Type: " + productType + "\nIdentifier: " + identifier + "\nName: " + name + "\nPrice per unit: " + unitPrice + "\nStock: " + stock + "\nPromotion: " + promotion.toString();
+        return "\nType: " + productType + "\nIdentifier: " + identifier + "\nName: " + name + "\nPrice per unit: " + unitPrice + "\nStock: " + stock + "\nPromotion: " + promotion.toString();
     }
 
     public Promotion getProductPromotion(String promoType, String strStartDate, String strEndDate) {

@@ -26,6 +26,11 @@ public class ReadFiles {
             return null;
         }
 
+        dataBaseManager = importPurchasesFromTextFile(dataBaseManager);
+        if (dataBaseManager == null) {
+            return null;
+        }
+
         return dataBaseManager;
     }
 
@@ -112,6 +117,42 @@ public class ReadFiles {
         return dataBaseManager;
     }
 
+
+    public static DataBaseManager importPurchasesFromTextFile(DataBaseManager dataBaseManager) {
+        File file = new File("Purchases.txt");
+
+        if (file.exists() && file.isFile()) {
+            try {
+                FileReader fileRead = new FileReader(file);
+                BufferedReader buffRead = new BufferedReader(fileRead);
+
+                String line = null;
+                Scanner lineSc;
+                while ((line = buffRead.readLine()) != null) {
+                    lineSc = new Scanner(line);
+                    if (line.charAt(0) != '#') {
+                        dataBaseManager.addToPurchaseList(lineSc);
+                    }
+
+                }
+
+                buffRead.close();
+
+            } catch (FileNotFoundException fnf) {
+                System.out.println("Error opening specified file");
+                return null;
+            } catch (IOException ioe) {
+                System.out.println("Error reading specified file");
+                return null;
+            }
+
+        } else {
+            System.out.println("Error - Purchases.txt file not found\nPlease try again.");
+            return null;
+        }
+
+        return dataBaseManager;
+    }
 
 
         /**

@@ -163,6 +163,7 @@ public class Client implements Serializable {
 
     public void showPurchaseHistory(DataBaseManager dataBaseManager) {
         int count = 0;
+        System.out.println(purchaseHistory);
         for (Integer reference : purchaseHistory) {
             for (Purchase purchase : dataBaseManager.getPurchaseList()) {
                 if (reference == purchase.getPurchaseReference()) {
@@ -176,9 +177,9 @@ public class Client implements Serializable {
 
     public Product verifyStock(Product product, int amount) {
         for (Product productInCart : shoppingCart) {
-            if (product.getIdentifier() == productInCart.getIdentifier()) {
+            if (product.getName() == productInCart.getName()) {
                 // It's impossible to remove more items from the cart than those that are in the cart 
-                if ((productInCart.getStock() - product.getStock()) < 0) {
+                if (productInCart.getStock() < product.getStock()) {
                     product.setStock(productInCart.getStock());
                 }
             }
@@ -198,7 +199,7 @@ public class Client implements Serializable {
 
     public void removeProductFromShoppingCart(Product product) {
         for (Product productInCart : shoppingCart) {
-            if (product.getIdentifier() == productInCart.getIdentifier()) {
+            if (product.getName() == productInCart.getName()) {
                 shoppingCart.remove(productInCart);
             }
         }
