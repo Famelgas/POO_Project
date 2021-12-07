@@ -81,11 +81,11 @@ public class ReadFiles {
                 BufferedReader buffRead = new BufferedReader(fileRead);
                 
                 String line = null;
-                //Scanner lineSc;
+                Scanner lineSc;
                 while ((line = buffRead.readLine()) != null) {
-                  //  lineSc = new Scanner(line);
+                    lineSc = new Scanner(line);
                     if (line.charAt(0) != '#') {
-                        dataBaseManager.addToProductList(line);
+                        dataBaseManager.addToProductList(lineSc);
                     }
                     
                 }

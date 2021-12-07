@@ -70,9 +70,9 @@ public class DataBaseManager implements Serializable {
      * Adds a new Product to the shop's stock 
      * @param line - Line read from the .txt file
      */
-    public void addToProductList(String line) {
-        Product newProduct = Product.getProductType(line);
-        newProduct = newProduct.separateProductInfo(line);
+    public void addToProductList(Scanner lineSc) {
+        Product newProduct = Product.getProductType(lineSc);
+        newProduct = newProduct.separateProductInfo(lineSc);
         if (newProduct == null) {
             System.out.println("Error product object is null");
         }

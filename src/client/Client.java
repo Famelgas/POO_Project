@@ -217,27 +217,27 @@ public class Client implements Serializable {
       * @return - returns a new Client
       */
     public Client separateClientInfo(Scanner lineSc) {
-        Client newClient = new Client();
+        Client client = new Client();
         
         lineSc.useDelimiter("\\s*;\\s*");
         
-        newClient.setName(lineSc.next());
-        newClient.setAddress(lineSc.next());
-        newClient.setEmail(lineSc.next());
-        newClient.setPhoneNumber(lineSc.nextInt());
+        client.setName(lineSc.next());
+        client.setAddress(lineSc.next());
+        client.setEmail(lineSc.next());
+        client.setPhoneNumber(lineSc.nextInt());
 
-        Date birthday = Date.convertStringToDate(lineSc.next());
-        newClient.setBirthday(birthday);
+        
+        client.setBirthday(Date.convertStringToDate(lineSc.next()));
 
-        newClient.setFrequent(lineSc.nextBoolean());
+        client.setFrequent(lineSc.nextBoolean());
 
         while (lineSc.hasNextInt()) {
-            newClient.addToPurchaseHistory(lineSc.nextInt());
+            client.addToPurchaseHistory(lineSc.nextInt());
         }
         
 
-        //System.out.println(newClient);
-        return newClient;
+        //System.out.println(client);
+        return client;
     }
     
     // Verifies that the payment is accepted 

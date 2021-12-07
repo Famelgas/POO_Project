@@ -48,7 +48,7 @@ public class Main {
         FormatText.separationLine();
         System.out.println("\n");
         
-        dataBaseManager.showAllClients();
+        // dataBaseManager.showAllClients();
         
         System.out.println("\n");
 
