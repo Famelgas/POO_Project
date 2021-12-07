@@ -30,6 +30,8 @@ public class Purchase implements Serializable {
     private Date date;
     private int reference;
     private float purchasePrice;
+    private int shippingPrice;
+    private float totalPrice;
     private ArrayList<Product> purchasedProducts;
 
 
@@ -64,6 +66,30 @@ public class Purchase implements Serializable {
 
     public void setPurchasePrice(float purchasePrice) {
         this.purchasePrice = purchasePrice;
+   
+    }
+    public float getShippingPrice() {
+        return shippingPrice;
+    }
+
+    public void setShippingPrice(int shippingPrice) {
+        this.shippingPrice = shippingPrice;
+    }
+   
+    public float getTotalPrice() {
+        return totalPrice;
+    }
+
+    public float getTotalPrice(float purchasePrice, int shippingPrice) {
+        return purchasePrice + shippingPrice;
+    }
+
+    public void setTotalPrice(float purchasePrice, int shippingPrice) {
+        this.totalPrice = purchasePrice + shippingPrice;
+    }
+
+    public void setTotalPrice(float totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public ArrayList<Product> getPurchadeProducts() {
@@ -81,6 +107,7 @@ public class Purchase implements Serializable {
     public void raisePurchasePrice(float priceToRaise) {
         this.purchasePrice += priceToRaise;
     }
+
 
     public void showPurchase() {
         System.out.println("Purchase date: " + date + "\nReference: " + reference + "\nTotal payed: " + purchasePrice);
@@ -104,6 +131,8 @@ public class Purchase implements Serializable {
         purchase.setPurchaseDate(Date.convertStringToDate(lineSc.next()));
         purchase.setPurchaseReference(lineSc.nextInt());
         purchase.setPurchasePrice(lineSc.nextFloat());
+        purchase.setShippingPrice(lineSc.nextInt());
+        purchase.setTotalPrice(lineSc.nextFloat());
 
         while(lineSc.hasNext()) {
             Product newProduct = Product.getProductType(lineSc);
@@ -118,6 +147,28 @@ public class Purchase implements Serializable {
         Random rand = new Random();
         int ref = 10000000 + rand.nextInt(999999999);
         return ref;
+    }
+
+
+    public int calculateShippingPrice(Client client, Purchase purchase) {
+        int shippingPrice = 0;
+
+        if (client.isFrequent()) {
+            if (purchase.getPurchasePrice() <= 40) {
+                shippingPrice = 15;
+            }
+        }
+
+        else {
+            shippingPrice = 20;
+        }
+
+        for (Product product : purchase.getPurchadeProducts()) {
+            if (product.getProductType().equals("Furniture")) {
+                shippingPrice += 10;
+            }
+        }
+        return shippingPrice;
     }
     
 

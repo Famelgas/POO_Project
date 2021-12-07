@@ -2,8 +2,7 @@ package database;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
-import client.Client;
-import client.Purchase;
+import client.*;
 import product.*;
 import date.Date;
 import promotion.*;
@@ -177,7 +176,9 @@ public class DataBaseManager implements Serializable {
             } 
             
         }
-        
+
+        newPurchase.setTotalPrice(newPurchase.getPurchasePrice(), newPurchase.calculateShippingPrice(client, newPurchase));
+    
         return newPurchase;
     }
 
