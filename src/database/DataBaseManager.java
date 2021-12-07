@@ -173,6 +173,7 @@ public class DataBaseManager implements Serializable {
                 }
             }
         }
+
         return product;
     }
     
@@ -206,29 +207,33 @@ public class DataBaseManager implements Serializable {
      *           returns false if theres is a problem
      */
     public Purchase createNewPurchase(Client client, Date date) {
-        ArrayList<Product> shoppingCart = client.getShoppingCart();
         Purchase newPurchase = new Purchase(date);
         
         newPurchase.setPurchaseReference(Purchase.createReference());
-        
+        float purchasePrice = 0;
+
         // Serching through the client's shopping cart
-        for (Product productToBuy : shoppingCart) {
+        for (Product productToBuy : client.getShoppingCart()) {
+            System.out.println(productToBuy.getIdentifier());
             // Serching through the store's stock 
             for (Product productInStock : productList) {
                 if (productToBuy.getIdentifier() == productInStock.getIdentifier()) {
                     Promotion promotion = productToBuy.getPromotion();
-                    productInStock.setStock(productInStock.getStock() - productToBuy.getStock());                    
                     
-                    float productsPrice =  promotion.priceCalculator(productToBuy);
+                    purchasePrice +=  promotion.priceCalculator(productToBuy);
+                    System.out.println("loop: " + purchasePrice);                    
                     
                     newPurchase.addToPurchasedProducts(productToBuy);          
-                    newPurchase.raisePurchasePrice(productsPrice);
+                    newPurchase.raisePurchasePrice(purchasePrice);
                 }
                 
             }
             
         }
-    
+        
+        newPurchase.setPurchasePrice(purchasePrice);
+        System.out.println("fora loop: " + purchasePrice);
+
         newPurchase.setTotalPrice(newPurchase.getPurchasePrice(), newPurchase.calculateShippingPrice(client, newPurchase));
     
         return newPurchase;
@@ -247,5 +252,17 @@ public class DataBaseManager implements Serializable {
             ++count;
         }
     }
+
+
+    public void resetStock(Client client) {
+        for (Product productInStock : productList) {
+            for (Product productToBuy : client.getShoppingCart()) {
+                if (productInStock.getIdentifier() == productToBuy.getIdentifier()) {
+                    productInStock.setStock(productInStock.getStock() - productToBuy.getStock());
+                }
+            }
+        }
+    }
+
 
 }   

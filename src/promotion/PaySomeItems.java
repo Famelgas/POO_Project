@@ -16,14 +16,17 @@ public class PaySomeItems extends Promotion {
     // verificar se funciona
     public float priceCalculator(Product product) {
         float price = 0;
+        System.out.println(product.getStock() + " " + product.getUnitPrice());
         if ((product.getStock() % 4) == 0) {
-            price = product.getUnitPrice() * product.getStock() - (product.getStock() / 4);
+            price += product.getUnitPrice() * product.getStock() - (product.getStock() / 4);
         }
         else {
             int descountedProducts = product.getStock() - (product.getStock() % 4);
             float descountedPrice = product.getUnitPrice() * descountedProducts - (descountedProducts / 4);
-            price = descountedPrice + ((product.getStock() % 4) * product.getUnitPrice());
+            price += descountedPrice + ((product.getStock() % 4) * product.getUnitPrice());
         }
+        
+        System.out.println(price);
         
         return price;
     }

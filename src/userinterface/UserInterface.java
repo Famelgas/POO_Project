@@ -339,11 +339,12 @@ public class UserInterface {
                                 FormatText.separationLine();
                                 System.out.println();
 
-                                System.out.println(FormatText.alignCenterText("1.   Add to shopping cart  "));
-                                System.out.println(FormatText.alignCenterText("2. Remove fromshopping cart"));
-                                System.out.println(FormatText.alignCenterText("3.   Clear shopping cart   "));
-                                System.out.println(FormatText.alignCenterText("4.    Check out and pay    "));
-                                System.out.println(FormatText.alignCenterText("5.         Go back         "));
+                                System.out.println(FormatText.alignCenterText("1.    Add to shopping cart   "));
+                                System.out.println(FormatText.alignCenterText("2. Remove from shopping cart "));
+                                System.out.println(FormatText.alignCenterText("3.     See shopping cart     "));
+                                System.out.println(FormatText.alignCenterText("4.    Clear shopping cart    "));
+                                System.out.println(FormatText.alignCenterText("5.     Check out and pay     "));
+                                System.out.println(FormatText.alignCenterText("6.          Go back          "));
                                 
                                 
                                 int buyMenuOption;
@@ -355,25 +356,22 @@ public class UserInterface {
                                 // Add a product to the shopping cart
                                 if (buyMenuOption == 1) {
                                     Product product = new Product();
-                                    String productName;
-                                    int amount;
+                                    
                                     sc.nextLine();
                                     System.out.print("Enter the name of the desired product: ");            
-                                    productName = sc.nextLine();
+                                    String productName = sc.nextLine();
                                     System.out.print("Enter the desired amount: ");            
-                                    amount = sc.nextInt();
+                                    int amount = sc.nextInt();
                                     
                                     // Gets the product from the supermarket stock
-                                    if((product = dataBaseManager.getProduct(productName)) == null) {
-                                        System.out.println("Product out of stock.\nPlease try again.");
+                                    product = dataBaseManager.getProduct(productName);
+                                    if(product == null) {
+                                        System.out.println("The product doesn´t exit.\nPlease try again.");
+                                        break;
                                     }
                                     
-                                    // Verifies if there is enough stock for the amount the client wants
-                                    if((product = dataBaseManager.getProduct(productName)) != null) {
-                                        product = dataBaseManager.verifyStock(product, amount);
-                                        client.addToShoppingCart(product, amount);
-                                    }
-                                    
+                                    product = dataBaseManager.verifyStock(product, amount);
+                                    client.addToShoppingCart(product, amount);
     
                                 }
     
@@ -398,14 +396,18 @@ public class UserInterface {
                                     }
     
                                 }
+
+                                if (buyMenuOption == 3) {
+                                    client.showShoppingCart();
+                                }
                                 
                                 // Clear shopping cart
-                                if (buyMenuOption == 5) {
+                                if (buyMenuOption == 4) {
                                     client.setShoppingCart(client.clearShoppingCart());
                                 }
 
                                 // Checkout and pay the items in the shopping cart
-                                if (buyMenuOption == 4) {
+                                if (buyMenuOption == 5) {
                                     Purchase newPurchase = new Purchase();
 
                                     if (dataBaseManager.createNewPurchase(client, date) != null) {
@@ -433,6 +435,7 @@ public class UserInterface {
                                                     System.out.println(FormatText.alignCenterText("Payment accepted."));
                                                     System.out.println();
                                                     dataBaseManager.addPurchase(newPurchase);
+                                                    dataBaseManager.resetStock(client);
                                                     client.addToPurchaseHistory(newPurchase.getPurchaseReference());
                                                     client.setShoppingCart(client.clearShoppingCart());
                                                     break;
@@ -480,6 +483,7 @@ public class UserInterface {
                                                         System.out.println(FormatText.alignCenterText("Payment accepted."));
                                                         System.out.println();
                                                         dataBaseManager.addPurchase(newPurchase);
+                                                        dataBaseManager.resetStock(client);
                                                         client.addToPurchaseHistory(newPurchase.getPurchaseReference());
                                                         client.setShoppingCart(client.clearShoppingCart());
                                                         break;
@@ -511,7 +515,7 @@ public class UserInterface {
                                 }
 
                                 // Go back
-                                if (buyMenuOption == 5) {
+                                if (buyMenuOption == 6) {
                                     break;
                                 }
 

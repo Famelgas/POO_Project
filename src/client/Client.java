@@ -161,6 +161,21 @@ public class Client implements Serializable {
         return "Name: " + name + "\nAddress: " + address + "\nEmail: " + email + "\nPhone number: " + phoneNumber + "\nBirthday: " + birthday + "\nFrequent: " + frequent + "\nMBWay pin: " + mbWayPin + "\nCredit card number: " + creditCardNumber + "\nExpiration date: " + expirationDate.toString() + "\nCVV: " + creditCardCVV;
     }
 
+    public void showShoppingCart() {
+        int count = 0;
+        for (Product product : shoppingCart) {
+            System.out.println();
+            System.out.println(product);
+            System.out.println();
+
+            if (count < shoppingCart.size() - 1) {
+                FormatText.intermidietLine();
+            }
+            ++count;
+        }
+    }
+
+
     public void showPurchaseHistory(DataBaseManager dataBaseManager) {
         int count = 0;
         for (Integer reference : purchaseHistory) {
