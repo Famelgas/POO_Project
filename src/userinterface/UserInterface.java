@@ -54,7 +54,6 @@ public class UserInterface {
         // inventar um nome pra loja
         
         System.out.println("\n");
-        System.out.println("\n");
         System.out.println(FormatText.alignCenterText("Welcome to the Online Shopping Center"));
         System.out.println("\n");
         
@@ -211,7 +210,6 @@ public class UserInterface {
                                 newName = sc.nextLine();
                                 client.setName(newName);
                                 System.out.println("\n");
-                                sc.nextLine();
                             }
                             
                             if (profileOption == 2) {
@@ -221,7 +219,6 @@ public class UserInterface {
                                 newAddress = sc.nextLine();
                                 client.setAddress(newAddress);
                                 System.out.println("\n");
-                                sc.nextLine();
     
                             }
                             
@@ -232,8 +229,8 @@ public class UserInterface {
                                 newEmail = sc.nextLine();
                                 client.setEmail(newEmail);
                                 System.out.println("\n");
-                                sc.nextLine();
                             }
+
                             if (profileOption == 4) {
                                 int newPhoneNumber;
                                 System.out.print("Enter new phone number: ");
@@ -308,7 +305,6 @@ public class UserInterface {
                             
                             client.showPurchaseHistory(dataBaseManager);
                             
-                            FormatText.separationLine();
                             System.out.println("\n");
                         }
     

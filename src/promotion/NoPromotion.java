@@ -9,9 +9,7 @@ public class NoPromotion extends Promotion {
     }
 
     public float priceCalculator(Product product) {
-        float unitPrice = product.getUnitPrice();
-        int numberOfProducts = product.getStock();
-        return unitPrice * numberOfProducts;
+        return product.getUnitPrice() * product.getStock();
     }
 
     public String toString() {

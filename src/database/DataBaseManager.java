@@ -127,11 +127,16 @@ public class DataBaseManager implements Serializable {
     }
 
     public void showAllClients() {
-        for (Client client: this.clientList) {
+        int count = 0;
+        for (Client client: clientList) {
             System.out.println("\n");
             System.out.println(client);
             System.out.println();
-            FormatText.intermidietLine();
+
+            if (count < clientList.size() - 1) {
+                FormatText.intermidietLine();
+            }
+            ++count;
         }
     }
     
@@ -155,10 +160,16 @@ public class DataBaseManager implements Serializable {
     public Product verifyStock(Product product, int amount) {
         for (Product productInStock : productList) {
             if (product.getName() == productInStock.getName()) {
+                if (productInStock.getStock() == 0) {
+                    System.out.println("Product out of stock.");
+                    return null;
+                }
+
                 // If the client wants to add to the cart more items then what the supermarket has
                 // then he can only buy the existing stock
-                if (productInStock.getStock() < product.getStock()) {
-                    product.setStock(productInStock.getStock());
+                if (product.getStock() > productInStock.getStock()) {
+                    System.out.println("Not enough stock. Please try again.");
+                    return null;
                 }
             }
         }
@@ -167,11 +178,16 @@ public class DataBaseManager implements Serializable {
     
     
     public void showAvailableProducts() {
+        int count = 0;
         for (Product product : productList) {
             System.out.println();
             System.out.println(product);
             System.out.println();
-            FormatText.intermidietLine();
+
+            if (count < productList.size() - 1) {
+                FormatText.intermidietLine();
+            }
+            ++count;
         }
     }
     
@@ -199,33 +215,17 @@ public class DataBaseManager implements Serializable {
         for (Product productToBuy : shoppingCart) {
             // Serching through the store's stock 
             for (Product productInStock : productList) {
-                if (productToBuy.getName() == productInStock.getName()) {
+                if (productToBuy.getIdentifier() == productInStock.getIdentifier()) {
                     Promotion promotion = productToBuy.getPromotion();
-                    float productsPrice = 0;
-                    // If there is more items in stock then what the client wants to buy
-                    if ((productInStock.getStock() - productToBuy.getStock()) > 0) {
-                        productsPrice = promotion.priceCalculator(productToBuy);
-                        productInStock.setStock(productInStock.getStock() - productToBuy.getStock());                    
-                    }
+                    productInStock.setStock(productInStock.getStock() - productToBuy.getStock());                    
                     
-                    // If the client wants to buy all the items ore more then what the supermarket has
-                    // then the product in stock is removed
-                    if ((productInStock.getStock() - productToBuy.getStock()) <= 0) {
-                        productToBuy.setStock(productInStock.getStock());
-                        productsPrice = promotion.priceCalculator(productToBuy);
-                        productList.remove(productInStock);
-                    }
+                    float productsPrice =  promotion.priceCalculator(productToBuy);
                     
                     newPurchase.addToPurchasedProducts(productToBuy);          
                     newPurchase.raisePurchasePrice(productsPrice);
                 }
                 
-                else {
-                    System.out.println("Product out of stock.");
-                    return null;
-                }
-                
-            } 
+            }
             
         }
     
@@ -235,11 +235,16 @@ public class DataBaseManager implements Serializable {
     }
 
     public void showAllPurchases() {
+        int count = 0;
         for (Purchase purchase : purchaseList) {
             System.out.println("\n");
             System.out.println(purchase);
             System.out.println();
-            FormatText.intermidietLine();
+
+            if (count < purchaseList.size() - 1) {
+                FormatText.intermidietLine();
+            }
+            ++count;
         }
     }
 

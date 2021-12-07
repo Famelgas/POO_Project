@@ -5,7 +5,6 @@ import java.util.Random;
 import java.util.Scanner;
 import product.*;
 import date.Date;
-import database.FormatText;
 
 // revise class Purchase: pra mantermos um historico de compras do cliente
 // temos que ter um arraylist das compras que ele ja fez, a minha questao e 
@@ -112,16 +111,6 @@ public class Purchase implements Serializable {
         return "Date: " + date + "\nReference: " + reference + "\nPurchase price: " + purchasePrice + "\nShipping price: " + shippingPrice + "\nTotal price: " + totalPrice + "\nPurchased roducts:\n" + purchasedProducts.toString().substring(1, purchasedProducts.toString().length() - 1);
     }
 
-
-    public void showPurchase() {
-        System.out.println("Purchase date: " + date + "\nReference: " + reference + "\nTotal payed: " + purchasePrice);
-        FormatText.intermidietLine();
-        for (Product product : purchasedProducts) {
-            System.out.println(product);
-            FormatText.intermidietLine();
-        } 
-    }
-
     /**
      * Separates purchase information for a client given by a .txt file
      * @param line - purchase information
@@ -129,7 +118,6 @@ public class Purchase implements Serializable {
      */
     public Purchase separatePurchaseInfo(Scanner lineSc) {
         Purchase purchase = new Purchase();
-
         lineSc.useDelimiter("\\s*:\\s*");
 
         purchase.setPurchaseDate(Date.convertStringToDate(lineSc.next()));

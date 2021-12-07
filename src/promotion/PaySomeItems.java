@@ -15,15 +15,14 @@ public class PaySomeItems extends Promotion {
     // Pague 3 leve 4
     // verificar se funciona
     public float priceCalculator(Product product) {
-        int numberOfProducts = product.getStock();
         float price = 0;
-        if ((numberOfProducts % 4) == 0) {
-            price = product.getUnitPrice() * numberOfProducts - (numberOfProducts / 4);
+        if ((product.getStock() % 4) == 0) {
+            price = product.getUnitPrice() * product.getStock() - (product.getStock() / 4);
         }
         else {
-            int descountedProducts = numberOfProducts - (numberOfProducts % 4);
+            int descountedProducts = product.getStock() - (product.getStock() % 4);
             float descountedPrice = product.getUnitPrice() * descountedProducts - (descountedProducts / 4);
-            price = descountedPrice + ((numberOfProducts % 4) * product.getUnitPrice());
+            price = descountedPrice + ((product.getStock() % 4) * product.getUnitPrice());
         }
         
         return price;

@@ -2,7 +2,7 @@ package client;
 import java.io.Serializable;
 import java.lang.String;
 import java.util.ArrayList;
-
+import database.FormatText;
 import database.DataBaseManager;
 import date.Date;
 import product.*;
@@ -163,13 +163,17 @@ public class Client implements Serializable {
 
     public void showPurchaseHistory(DataBaseManager dataBaseManager) {
         int count = 0;
-        System.out.println(purchaseHistory);
         for (Integer reference : purchaseHistory) {
             for (Purchase purchase : dataBaseManager.getPurchaseList()) {
                 if (reference == purchase.getPurchaseReference()) {
-                    System.out.print(count + ". ");
-                    purchase.showPurchase();
                     System.out.println();
+                    System.out.println(purchase);
+                    System.out.println();
+
+                    if (count < purchaseHistory.size() - 1) {
+                        FormatText.intermidietLine();
+                    }
+                    ++count;
                 }
             }
         }
@@ -228,7 +232,7 @@ public class Client implements Serializable {
         
         client.setBirthday(Date.convertStringToDate(lineSc.next()));
 
-        client.setFrequent(lineSc.nextBoolean());
+        client.setFrequent(Boolean.parseBoolean(lineSc.next()));
 
         while (lineSc.hasNextInt()) {
             client.addToPurchaseHistory(lineSc.nextInt());

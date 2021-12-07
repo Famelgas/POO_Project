@@ -50,7 +50,6 @@ public class ReadFiles {
                         dataBaseManager.addToClientList(lineSc);
                     }
                     
-                    
                 }
                 
                 buffRead.close();

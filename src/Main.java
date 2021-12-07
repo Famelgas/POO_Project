@@ -49,10 +49,14 @@ public class Main {
         System.out.println("\n");
         
         //dataBaseManager.showAllClients();
+        //FormatText.separationLine();
         
         dataBaseManager.showAvailableProducts();
+        FormatText.separationLine();
         
         //dataBaseManager.showAllPurchases();
+        //FormatText.separationLine();
+
         
         ui.menu(dataBaseManager, date);
 

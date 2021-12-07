@@ -1,5 +1,4 @@
 package promotion;
-import java.util.ArrayList;
 import product.*;
 import date.Date;
 
@@ -12,7 +11,6 @@ public class PayLess extends Promotion {
     }
 
     public float priceCalculator(Product product){
-        ArrayList <Float> array = new ArrayList<>();
         float discount = 0.05f;
         float finalPrice = 0;
         for (int i = 0; i < product.getStock(); i++ ){
@@ -20,12 +18,8 @@ public class PayLess extends Promotion {
                 finalPrice = product.getUnitPrice();
             }
             else{
-                float discountedProduct = product.getUnitPrice() - (i*discount);
-                array.add(discountedProduct);
+                finalPrice = product.getUnitPrice() - (i * discount);
             }
-        }
-        for (Float discountedProduct : array) {
-            finalPrice += discountedProduct;
         }
         return finalPrice;
     }
