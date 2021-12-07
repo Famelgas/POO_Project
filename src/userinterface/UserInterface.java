@@ -67,7 +67,7 @@ public class UserInterface {
 
                 int preMenuOption = 0;
                 System.out.println(FormatText.alignCenterText("1. Sign in"));
-                System.out.println(FormatText.alignCenterText("2. Sing up"));
+                System.out.println(FormatText.alignCenterText("2. Sign up"));
                 System.out.println(FormatText.alignCenterText("3.  Quit  "));
 
                 System.out.println("\n");
@@ -168,7 +168,7 @@ public class UserInterface {
     
                         System.out.println(FormatText.alignCenterText("1.    Edit profile     "));
                         System.out.println(FormatText.alignCenterText("2. See purchase history"));
-                        System.out.println(FormatText.alignCenterText("2.      Go back        "));
+                        System.out.println(FormatText.alignCenterText("3.      Go back        "));
                         
                         int subMenuOption;
                         System.out.println("\n");
@@ -362,7 +362,6 @@ public class UserInterface {
                                     sc.nextLine();
                                     System.out.print("Enter the name of the desired product: ");            
                                     productName = sc.nextLine();
-                                    sc.nextLine();
                                     System.out.print("Enter the desired amount: ");            
                                     amount = sc.nextInt();
                                     
@@ -388,7 +387,6 @@ public class UserInterface {
                                     sc.nextLine();
                                     System.out.print("Enter the name of the product you want to remove: ");
                                     productName = sc.nextLine();
-                                    sc.nextLine();
                                     System.out.print("Enter the amount you want to remove: ");
                                     amount = sc.nextInt();
     
@@ -405,7 +403,7 @@ public class UserInterface {
                                 
                                 // Clear shopping cart
                                 if (buyMenuOption == 5) {
-                                    client.clearShoppingCart();
+                                    client.setShoppingCart(client.clearShoppingCart());
                                 }
 
                                 // Checkout and pay the items in the shopping cart
@@ -415,7 +413,7 @@ public class UserInterface {
                                     if (dataBaseManager.createNewPurchase(client, date) != null) {
                                         FormatText.intermidietLine();
                                         System.out.println();
-                                        System.out.print("Your total is: " + newPurchase.getPurchasePrice());
+                                        System.out.println("Your total is: " + newPurchase.getPurchasePrice());
                                         while (true) {
                                             System.out.println(FormatText.alignCenterText("Select your desired payment method:"));
                                             System.out.println(FormatText.alignCenterText("1.    MbWay   ")); 
@@ -430,13 +428,14 @@ public class UserInterface {
                                                 System.out.print("Pin: ");
                                                 System.out.println();
                                                 int pin = sc.nextInt();
-
+                                                
                                                 
                                                 if (client.acceptMbWayPayment(phoneNumber, pin)) {
                                                     System.out.println(FormatText.alignCenterText("Payment accepted."));
                                                     System.out.println();
                                                     dataBaseManager.addPurchase(newPurchase);
                                                     client.addToPurchaseHistory(newPurchase.getPurchaseReference());
+                                                    client.setShoppingCart(client.clearShoppingCart());
                                                     break;
                                                 }
                                                 else {
@@ -483,6 +482,7 @@ public class UserInterface {
                                                         System.out.println();
                                                         dataBaseManager.addPurchase(newPurchase);
                                                         client.addToPurchaseHistory(newPurchase.getPurchaseReference());
+                                                        client.setShoppingCart(client.clearShoppingCart());
                                                         break;
                                                     }
                                                     else {
@@ -503,7 +503,6 @@ public class UserInterface {
                                     
                                         System.out.println(FormatText.alignCenterText("Thank you for choosing us!"));
                                         System.out.println();
-                                        client.clearShoppingCart();
                                     }
                                     else {
                                         System.out.println("Error concluding purchase. Please try again.");

@@ -204,10 +204,8 @@ public class Client implements Serializable {
         }
     }
 
-    public void clearShoppingCart() {
-        for (Product product : shoppingCart) {
-            shoppingCart.remove(product);
-        }
+    public ArrayList<Product> clearShoppingCart() {
+        return new ArrayList<>();
     }
 
    
