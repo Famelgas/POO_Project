@@ -408,13 +408,13 @@ public class UserInterface {
 
                                 // Checkout and pay the items in the shopping cart
                                 if (buyMenuOption == 5) {
-                                    Purchase newPurchase = new Purchase();
+                                    Purchase newPurchase = dataBaseManager.createNewPurchase(client, date);
 
-                                    if (dataBaseManager.createNewPurchase(client, date) != null) {
+                                    if (newPurchase != null) {
                                         FormatText.intermidietLine();
                                         System.out.println();
 
-                                        System.out.println("Your total is: " + newPurchase.getPurchasePrice());
+                                        System.out.println("Your total is: " + newPurchase.getTotalPrice());
                                         while (true) {
                                             System.out.println(FormatText.alignCenterText("Select your desired payment method:"));
                                             System.out.println(FormatText.alignCenterText("1.    MbWay   ")); 

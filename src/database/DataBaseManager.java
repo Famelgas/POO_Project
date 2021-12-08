@@ -214,14 +214,12 @@ public class DataBaseManager implements Serializable {
 
         // Serching through the client's shopping cart
         for (Product productToBuy : client.getShoppingCart()) {
-            System.out.println(productToBuy.getIdentifier());
             // Serching through the store's stock 
             for (Product productInStock : productList) {
                 if (productToBuy.getIdentifier() == productInStock.getIdentifier()) {
                     Promotion promotion = productToBuy.getPromotion();
                     
                     purchasePrice +=  promotion.priceCalculator(productToBuy);
-                    System.out.println("loop: " + purchasePrice);                    
                     
                     newPurchase.addToPurchasedProducts(productToBuy);          
                     newPurchase.raisePurchasePrice(purchasePrice);
@@ -232,7 +230,6 @@ public class DataBaseManager implements Serializable {
         }
         
         newPurchase.setPurchasePrice(purchasePrice);
-        System.out.println("fora loop: " + purchasePrice);
 
         newPurchase.setTotalPrice(newPurchase.getPurchasePrice(), newPurchase.calculateShippingPrice(client, newPurchase));
     
