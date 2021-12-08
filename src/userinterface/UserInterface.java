@@ -7,7 +7,8 @@ import date.Date;
 import product.*;
 
 public class UserInterface {
-    Scanner sc;
+    private Scanner sc;
+    
     public UserInterface() {
         this.sc = new Scanner(System.in);
     }
