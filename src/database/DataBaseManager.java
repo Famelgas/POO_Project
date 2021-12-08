@@ -28,26 +28,50 @@ public class DataBaseManager implements Serializable {
        purchaseList = new ArrayList<>();
     }
     
+    
+    /** 
+     * @return ArrayList<Client>
+     */
     public ArrayList<Client> getClientList() {
         return clientList;
     }
     
+    
+    /** 
+     * @param clientList
+     */
     public void setClientList(ArrayList<Client> clientList) {
         this.clientList = clientList;
     }    
 
+    
+    /** 
+     * @return ArrayList<Product>
+     */
     public ArrayList<Product> getProductList() {
         return productList;
     }
     
+    
+    /** 
+     * @param productList
+     */
     public void setProductList(ArrayList<Product> productList) {
         this.productList = productList;
     }    
 
+    
+    /** 
+     * @return ArrayList<Purchase>
+     */
     public ArrayList<Purchase> getPurchaseList() {
         return purchaseList;
     }
     
+    
+    /** 
+     * @param purchaseList
+     */
     public void setPurchaseList(ArrayList<Purchase> purchaseList) {
         this.purchaseList = purchaseList;
     }    
@@ -78,6 +102,10 @@ public class DataBaseManager implements Serializable {
         productList.add(newProduct);
     }
     
+    
+    /** 
+     * @param lineSc
+     */
     public void addToPurchaseList(Scanner lineSc) {
         Purchase newPurchase = new Purchase();
         newPurchase = newPurchase.separatePurchaseInfo(lineSc);
@@ -88,6 +116,10 @@ public class DataBaseManager implements Serializable {
 
     }
 
+    
+    /** 
+     * @param purchase
+     */
     public void addPurchase(Purchase purchase) {
         purchaseList.add(purchase);
     }
@@ -157,6 +189,12 @@ public class DataBaseManager implements Serializable {
         return null;
     }
     
+    
+    /** 
+     * @param product
+     * @param amount
+     * @return Product
+     */
     public Product verifyStock(Product product, int amount) {
         for (Product productInStock : productList) {
             if (product.getName() == productInStock.getName()) {
@@ -251,6 +289,10 @@ public class DataBaseManager implements Serializable {
     }
 
 
+    
+    /** 
+     * @param client
+     */
     public void resetStock(Client client) {
         for (Product productInStock : productList) {
             for (Product productToBuy : client.getShoppingCart()) {

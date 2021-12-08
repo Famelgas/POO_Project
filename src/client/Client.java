@@ -51,112 +51,221 @@ public class Client implements Serializable {
         this.creditCardCVV = 0;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getName() {
         return name;
     }
 
+    
+    /** 
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getAddress() {
         return address;
     }
 
+    
+    /** 
+     * @param address
+     */
     public void setAddress(String address) {
         this.address = address;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getEmail() {
         return email;
     }
 
+    
+    /** 
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getPhoneNumber() {
         return phoneNumber;
     }
 
+    
+    /** 
+     * @param phoneNumber
+     */
     public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
+    
+    /** 
+     * @return Date
+     */
     public Date getBirthday() {
         return birthday;
     }
 
+    
+    /** 
+     * @param birthday
+     */
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
+    
+    /** 
+     * @return boolean
+     */
     public boolean isFrequent() {
         return frequent;
     }
 
+    
+    /** 
+     * @param frequent
+     */
     public void setFrequent(boolean frequent) {
         this.frequent = frequent;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getMbWayPin() {
         return mbWayPin;
     }
 
+    
+    /** 
+     * @param pin
+     */
     public void setMbWayPin(int pin) {
         this.mbWayPin = pin;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getCreditCardNumber() {
         return creditCardNumber;
     }
 
+    
+    /** 
+     * @param creditCardNumber
+     */
     public void setCreditCardNumber(int creditCardNumber) {
         this.creditCardNumber = creditCardNumber;
     }
 
+    
+    /** 
+     * @return Date
+     */
     public Date getExpirationDate() {
         return expirationDate;
     }
 
+    
+    /** 
+     * @param date
+     */
     public void setExpirationDate(Date date) {
         this.expirationDate = date;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getCreditCardCVV() {
         return creditCardCVV;
     }
 
+    
+    /** 
+     * @param cvv
+     */
     public void setCreditCardCVV(int cvv) {
         this.creditCardCVV = cvv;
     }
 
+    
+    /** 
+     * @return ArrayList<Product>
+     */
     public ArrayList<Product> getShoppingCart() {
         return shoppingCart;
     }
 
+    
+    /** 
+     * @param shoppingCart
+     */
     public void setShoppingCart(ArrayList<Product> shoppingCart) {
         this.shoppingCart = shoppingCart;
     }
 
+    
+    /** 
+     * @return ArrayList<Integer>
+     */
     public ArrayList<Integer> getPurchaseHistory() {
         return purchaseHistory;
     }
 
+    
+    /** 
+     * @param purchaseHistory
+     */
     public void setPurchaseHistory(ArrayList<Integer> purchaseHistory) {
         this.purchaseHistory = purchaseHistory;
     }
 
 
+    
+    /** 
+     * @param product
+     * @param amount
+     */
     public void addToShoppingCart(Product product, int amount) {
         product.setStock(amount);
         this.shoppingCart.add(product);
     }
 
+    
+    /** 
+     * @param reference
+     */
     public void addToPurchaseHistory(int reference) {
         this.purchaseHistory.add(reference);
     }
 
+    
+    /** 
+     * @return String
+     */
     public String toString() {
         return "Name: " + name + "\nAddress: " + address + "\nEmail: " + email + "\nPhone number: " + phoneNumber + "\nBirthday: " + birthday + "\nFrequent: " + frequent + "\nMBWay pin: " + mbWayPin + "\nCredit card number: " + creditCardNumber + "\nExpiration date: " + expirationDate.toString() + "\nCVV: " + creditCardCVV;
     }
@@ -176,6 +285,10 @@ public class Client implements Serializable {
     }
 
 
+    
+    /** 
+     * @param dataBaseManager
+     */
     public void showPurchaseHistory(DataBaseManager dataBaseManager) {
         int count = 0;
         for (Integer reference : purchaseHistory) {
@@ -194,6 +307,12 @@ public class Client implements Serializable {
         }
     }
 
+    
+    /** 
+     * @param product
+     * @param amount
+     * @return Product
+     */
     public Product verifyStock(Product product, int amount) {
         for (Product productInCart : shoppingCart) {
             if (product.getName() == productInCart.getName()) {
@@ -207,6 +326,11 @@ public class Client implements Serializable {
     }
 
 
+    
+    /** 
+     * @param productName
+     * @return Product
+     */
     public Product getProductFromShoppingCart(String productName) {
         for (Product product : shoppingCart) {
             if (product.getName().equals(productName)) {
@@ -216,6 +340,10 @@ public class Client implements Serializable {
         return null;
     }
 
+    
+    /** 
+     * @param product
+     */
     public void removeProductFromShoppingCart(Product product) {
         for (Product productInCart : shoppingCart) {
             if (product.getName() == productInCart.getName()) {
@@ -224,6 +352,10 @@ public class Client implements Serializable {
         }
     }
 
+    
+    /** 
+     * @return ArrayList<Product>
+     */
     public ArrayList<Product> clearShoppingCart() {
         return new ArrayList<>();
     }
@@ -258,6 +390,12 @@ public class Client implements Serializable {
         return client;
     }
     
+    
+    /** 
+     * @param phoneNumber
+     * @param pin
+     * @return boolean
+     */
     // Verifies that the payment is accepted 
     // returns false if not
     public boolean acceptMbWayPayment(int phoneNumber, int pin) {
@@ -265,6 +403,13 @@ public class Client implements Serializable {
     }         
 
 
+    
+    /** 
+     * @param creditCardNumber
+     * @param expirationDate
+     * @param cvv
+     * @return boolean
+     */
     public boolean acceptCreditCardPayment(int creditCardNumber, Date expirationDate, int cvv) {
         return this.creditCardNumber == creditCardNumber && this.expirationDate.equals(expirationDate) && this.creditCardCVV == cvv;
     }

@@ -12,6 +12,11 @@ public class PaySomeItems extends Promotion {
         this.promotionType = "Pay some items";
     }
 
+    
+    /** 
+     * @param product
+     * @return float
+     */
     // Pague 3 leve 4
     // verificar se funciona
     public float priceCalculator(Product product) {
@@ -34,6 +39,10 @@ public class PaySomeItems extends Promotion {
         return price;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String toString() {
         return "\nStarting date: " + startDate + "\nEnding date: " + endDate + "\nPromotion type: " + "Pague 3 leve 4";
     }

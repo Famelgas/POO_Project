@@ -18,19 +18,36 @@ public class Cleaning extends Product {
         this.productType = "Cleaning";
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getToxicityLevel() {
         return toxicityLevel;
     }
 
+    
+    /** 
+     * @param toxicityLevel
+     */
     public void setToxicityLevel(int toxicityLevel) {
         this.toxicityLevel = toxicityLevel;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String toString() {
         return "\nType: " + productType + "\nIdentifier: " + identifier + "\nName: " + name + "\nPrice per unit: " + unitPrice + "\nStock: " + stock + "\nPromotion: " + promotion.toString() + "\nToxicity level: " + toxicityLevel;
     }
     
     
+    
+    /** 
+     * @param lineSc
+     * @return Product
+     */
     public Product separateProductInfo(Scanner lineSc) {
         Cleaning product = new Cleaning();
         

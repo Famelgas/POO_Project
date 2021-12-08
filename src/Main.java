@@ -16,6 +16,10 @@ import database.FormatText;
 
 
 public class Main {
+    
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
         DataBaseManager dataBaseManager = new DataBaseManager();
         UserInterface ui = new UserInterface();

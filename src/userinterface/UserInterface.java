@@ -12,6 +12,10 @@ public class UserInterface {
         this.sc = new Scanner(System.in);
     }
 
+    
+    /** 
+     * @return Date
+     */
     public Date getAppDate() {
         // Date and time options
         System.out.println(FormatText.alignCenterText("1. Enter date manually"));
@@ -45,6 +49,11 @@ public class UserInterface {
 
 
 
+    
+    /** 
+     * @param dataBaseManager
+     * @param date
+     */
     // Menu
     public void menu(DataBaseManager dataBaseManager, Date date) {
         Client client = new Client();

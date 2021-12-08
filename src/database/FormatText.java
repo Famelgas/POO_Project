@@ -3,6 +3,11 @@ package database;
 public class FormatText {
     public FormatText() {}
 
+    
+    /** 
+     * @param string
+     * @return String
+     */
     public static String alignCenterText(String string) {
         String newString = "";
         for (int i = 0; i < ((80 - string.length()) / 2); ++i) {
@@ -11,6 +16,11 @@ public class FormatText {
         return newString + string;
     }
 
+    
+    /** 
+     * @param string
+     * @return String
+     */
     public static String  alignRightText(String string) {
         String newString = "";
         for (int i = 0; i < (80 - string.length()); ++i) {

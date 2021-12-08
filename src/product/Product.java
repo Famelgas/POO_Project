@@ -26,58 +26,117 @@ public class Product implements Serializable {
         
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getProductType() {
         return productType;
     }
 
+    
+    /** 
+     * @param productType
+     */
     public void setProductType(String productType) {
         this.productType = productType;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getIdentifier() {
         return identifier;
     }
 
+    
+    /** 
+     * @param identifier
+     */
     public void setIdentifier(int identifier) {
         this.identifier = identifier;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getName() {
         return name;
     }
 
+    
+    /** 
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    
+    /** 
+     * @return float
+     */
     public float getUnitPrice() {
         return unitPrice;
     }
 
+    
+    /** 
+     * @param unitPrice
+     */
     public void setUnitPrice(float unitPrice) {
         this.unitPrice = unitPrice;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getStock() {
         return stock;
     }
 
+    
+    /** 
+     * @param stock
+     */
     public void setStock(int stock) {
         this.stock = stock;
     }
 
+    
+    /** 
+     * @return Promotion
+     */
     public Promotion getPromotion() {
         return promotion;
     }
 
+    
+    /** 
+     * @param promotion
+     */
     public void setPromotion(Promotion promotion) {
         this.promotion = promotion;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String toString() {
         return "\nType: " + productType + "\nIdentifier: " + identifier + "\nName: " + name + "\nPrice per unit: " + unitPrice + "\nStock: " + stock + "\nPromotion: " + promotion.toString();
     }
 
+    
+    /** 
+     * @param promoType
+     * @param strStartDate
+     * @param strEndDate
+     * @return Promotion
+     */
     public Promotion getProductPromotion(String promoType, String strStartDate, String strEndDate) {
         Promotion promotion = switch (promoType) {
             case "No promotion" -> new NoPromotion();
@@ -90,6 +149,11 @@ public class Product implements Serializable {
 
 
 
+    
+    /** 
+     * @param lineSc
+     * @return Product
+     */
     public static Product getProductType(Scanner lineSc) {
         lineSc.useDelimiter("\\s*;\\s*");
         String productType = lineSc.next();
@@ -109,6 +173,11 @@ public class Product implements Serializable {
         return null;
     }
 
+    
+    /** 
+     * @param lineSc
+     * @return Product
+     */
     // Separates the string so we can create a new product
     public Product separateProductInfo(Scanner lineSc) {
         Product product = new Product();

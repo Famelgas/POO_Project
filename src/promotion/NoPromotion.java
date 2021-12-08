@@ -8,10 +8,19 @@ public class NoPromotion extends Promotion {
         this.promotionType = "No promotion";
     }
 
+    
+    /** 
+     * @param product
+     * @return float
+     */
     public float priceCalculator(Product product) {
         return product.getUnitPrice() * product.getStock();
     }
 
+    
+    /** 
+     * @return String
+     */
     public String toString() {
         return "Nenhuma promoção disponível";
     }

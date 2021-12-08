@@ -17,31 +17,60 @@ public class Date implements Serializable{
         this.year = year;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getDay() {
         return day;
     }
 
+    
+    /** 
+     * @param day
+     */
     public void setDay(int day) {
         this.day = day;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getMonth() {
         return month;
     }
 
+    
+    /** 
+     * @param month
+     */
     public void setMonth(int month) {
         this.month = month;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getYear() {
         return year;
     }
 
+    
+    /** 
+     * @param year
+     */
     public void setYear(int year) {
         this.year = year;
     }
     
     
+    
+    /** 
+     * @param strDate
+     * @return Date
+     */
     public static Date convertStringToDate(String strDate) {
         Date date = new Date();
         String numStr = "";
@@ -87,6 +116,10 @@ public class Date implements Serializable{
     }
     
     
+    
+    /** 
+     * @return Date
+     */
     public static Date getLocalDate() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime now = LocalDateTime.now();
@@ -96,14 +129,28 @@ public class Date implements Serializable{
     
     
     
+    
+    /** 
+     * @return String
+     */
     public String toString() {
         return day + "/" + month + "/" + year; 
     }
 
+    
+    /** 
+     * @param dateToVerify
+     * @return boolean
+     */
     public boolean equals(Date dateToVerify) {
         return this.day == dateToVerify.getDay() && this.month == dateToVerify.getMonth() && this.year == dateToVerify.getYear();
     } 
 
+    
+    /** 
+     * @param date
+     * @return int
+     */
     public int compareDates(Date date) {
         if (this.day < date.getDay() && this.month < date.getMonth() && this.year < date.getYear()) {
             return -1;

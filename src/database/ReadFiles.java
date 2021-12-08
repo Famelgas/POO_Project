@@ -34,6 +34,11 @@ public class ReadFiles {
         return dataBaseManager;
     }
 
+    
+    /** 
+     * @param dataBaseManager
+     * @return DataBaseManager
+     */
     private static DataBaseManager importClientsFromTextFile(DataBaseManager dataBaseManager) {
         File file = new File("Clients.txt");
 
@@ -76,6 +81,11 @@ public class ReadFiles {
     
     
     
+    
+    /** 
+     * @param dataBaseManager
+     * @return DataBaseManager
+     */
     private static DataBaseManager importProductsFromTextFile(DataBaseManager dataBaseManager) {
         File file = new File("Products.txt");
         
@@ -117,6 +127,11 @@ public class ReadFiles {
     }
 
 
+    
+    /** 
+     * @param dataBaseManager
+     * @return DataBaseManager
+     */
     public static DataBaseManager importPurchasesFromTextFile(DataBaseManager dataBaseManager) {
         File file = new File("Purchases.txt");
 
@@ -226,6 +241,11 @@ public class ReadFiles {
     }
 
 
+    
+    /** 
+     * @param objFile
+     * @return boolean
+     */
     public static boolean reloadFiles(String objFile) {
         File file = new File(objFile);
         try {

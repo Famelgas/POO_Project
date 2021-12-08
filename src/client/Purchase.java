@@ -43,70 +43,141 @@ public class Purchase implements Serializable {
         this.date = date;
     }  
 
+    
+    /** 
+     * @return Date
+     */
     public Date getPurchaseDate() {
         return date;
     }
 
+    
+    /** 
+     * @param date
+     */
     public void setPurchaseDate(Date date) {
         this.date = date;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getPurchaseReference() {
         return reference;
     }
 
+    
+    /** 
+     * @param reference
+     */
     public void setPurchaseReference(int reference) {
         this.reference = reference;
     }
 
+    
+    /** 
+     * @return float
+     */
     public float getPurchasePrice() {
         return purchasePrice;
     }
 
+    
+    /** 
+     * @param purchasePrice
+     */
     public void setPurchasePrice(float purchasePrice) {
         this.purchasePrice = purchasePrice;
    
     }
+    
+    /** 
+     * @return float
+     */
     public float getShippingPrice() {
         return shippingPrice;
     }
 
+    
+    /** 
+     * @param shippingPrice
+     */
     public void setShippingPrice(int shippingPrice) {
         this.shippingPrice = shippingPrice;
     }
    
+    
+    /** 
+     * @return float
+     */
     public float getTotalPrice() {
         return totalPrice;
     }
 
+    
+    /** 
+     * @param purchasePrice
+     * @param shippingPrice
+     * @return float
+     */
     public float getTotalPrice(float purchasePrice, int shippingPrice) {
         return purchasePrice + shippingPrice;
     }
 
+    
+    /** 
+     * @param purchasePrice
+     * @param shippingPrice
+     */
     public void setTotalPrice(float purchasePrice, int shippingPrice) {
         this.totalPrice = purchasePrice + shippingPrice;
     }
 
+    
+    /** 
+     * @param totalPrice
+     */
     public void setTotalPrice(float totalPrice) {
         this.totalPrice = totalPrice;
     }
 
+    
+    /** 
+     * @return ArrayList<Product>
+     */
     public ArrayList<Product> getPurchadeProducts() {
         return purchasedProducts;
     }
 
+    
+    /** 
+     * @param purchasedProducts
+     */
     public void setPurchasedProducts(ArrayList<Product> purchasedProducts) {
         this.purchasedProducts = purchasedProducts;
     }
 
+    
+    /** 
+     * @param product
+     */
     public void addToPurchasedProducts(Product product) {
         purchasedProducts.add(product);
     }
 
+    
+    /** 
+     * @param priceToRaise
+     */
     public void raisePurchasePrice(float priceToRaise) {
         this.purchasePrice += priceToRaise;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String toString() {
         return "Date: " + date + "\nReference: " + reference + "\nPurchase price: " + purchasePrice + "\nShipping price: " + shippingPrice + "\nTotal price: " + totalPrice + "\nPurchased roducts:\n" + purchasedProducts.toString().substring(1, purchasedProducts.toString().length() - 1);
     }
@@ -141,6 +212,10 @@ public class Purchase implements Serializable {
     }
  
 
+    
+    /** 
+     * @return int
+     */
     public static int createReference() {
         Random rand = new Random();
         int ref = 10000000 + rand.nextInt(999999999);
@@ -148,6 +223,12 @@ public class Purchase implements Serializable {
     }
 
 
+    
+    /** 
+     * @param client
+     * @param purchase
+     * @return int
+     */
     public int calculateShippingPrice(Client client, Purchase purchase) {
         int shippingPrice = 0;
 

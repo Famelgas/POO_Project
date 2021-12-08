@@ -20,27 +20,52 @@ public class Food extends Product {
         this.productType = "Food";
     }
     
+    
+    /** 
+     * @return int
+     */
     public int getCaloriesPer100G() {
         return caloriesPer100G;
     }
     
+    
+    /** 
+     * @param caloriesPer100G
+     */
     public void setCaloriesPer100G(int caloriesPer100G) {
         this.caloriesPer100G = caloriesPer100G;
     }
     
+    
+    /** 
+     * @return float
+     */
     public float getFatPercent() {
         return fatPercent;
     }
     
+    
+    /** 
+     * @param fatPercent
+     */
     public void setFatPercent(float fatPercent) {
         this.fatPercent = fatPercent;
     }
     
+    
+    /** 
+     * @return String
+     */
     public String toString() {
         return "\nType: " + productType + "\nIdentifier: " + identifier + "\nName: " + name + "\nPrice per unit: " + unitPrice + "\nStock: " + stock + "\nPromotion: " + promotion.toString() + "\nCalories per 100g: " + caloriesPer100G + "\nFat percentage: " + fatPercent;
     }
 
 
+    
+    /** 
+     * @param lineSc
+     * @return Product
+     */
     public Product separateProductInfo(Scanner lineSc) {
         Food product = new Food();
         lineSc.useDelimiter("\\s*;\\s*");

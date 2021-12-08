@@ -11,6 +11,11 @@ public class PayLess extends Promotion {
         this.promotionType = "Pay less";
     }
 
+    
+    /** 
+     * @param product
+     * @return float
+     */
     public float priceCalculator(Product product){
         float discount = 0.05f;
         float finalPrice = 0;
@@ -31,6 +36,10 @@ public class PayLess extends Promotion {
         return finalPrice;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String toString() {
         return "\nStarting date: " + startDate + "\nEnding date: " + endDate + "\nPromotion type: " + "Pague menos";
     }
