@@ -3,6 +3,9 @@ import java.util.ArrayList;
 import product.*;
 import date.Date;
 
+/**
+ * Class PayLess - extends promotion: pay less
+ */
 public class PayLess extends Promotion {
     /**
      * PayLess's constructor
@@ -11,6 +14,9 @@ public class PayLess extends Promotion {
 
     /**
      * PayLess's constructor
+     * 
+     * @param startDate - startDate
+     * @param endDate - endDate
      */
     public PayLess(Date startDate, Date endDate) {
         super(startDate, endDate);

@@ -19,8 +19,20 @@ public class Product implements Serializable {
     // perguntar a prof se pode ou nao ser abstrata
     protected Promotion promotion;
 
+    /**
+     * Product's constructor
+     */
     public Product() {}
 
+    /**
+     * Product's constructor
+     * 
+     * @param productType - productType
+     * @param identifier - identifier
+     * @param name - name
+     * @param unitPrice - unitPrice
+     * @param stock - stock
+     */
     public Product(String productType, int identifier, String name, float unitPrice, int stock) {
         this.productType = productType;
         this.identifier = identifier;
@@ -228,7 +240,7 @@ public class Product implements Serializable {
     
     /**
      * Separates the line read from the text file into the product's atributes
-     * @param line - line read from the text file
+     * @param lineSc - line read from the text file
      * @return - returns a new Product
      */
     public Product separateProductInfo(Scanner lineSc) {

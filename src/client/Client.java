@@ -42,6 +42,13 @@ public class Client implements Serializable {
     
     /**
      * Client's constructor
+     * 
+     * @param name - name 
+     * @param address - address
+     * @param email - email
+     * @param phoneNumber - phoneNumber
+     * @param birthday - birthday date
+     * @param frequent - frequent
      */
     public Client(String name, String address, String email, int phoneNumber, Date birthday, Boolean frequent) {
         this.frequent = frequent;
@@ -243,7 +250,7 @@ public class Client implements Serializable {
     
     /** 
      * Shopping cart getter
-     * @return ArrayList<Product> - returns shoppingCart
+     * @return - returns shoppingCart
      */
     public ArrayList<Product> getShoppingCart() {
         return shoppingCart;
@@ -261,7 +268,7 @@ public class Client implements Serializable {
     
     /** 
      * Purchase reference history 
-     * @return ArrayList<Integer> - returns ArrayList of references to the purhcases made before
+     * @return - returns ArrayList of references to the purhcases made before
      */
     public ArrayList<Integer> getPurchaseHistory() {
         return purchaseHistory;
@@ -282,7 +289,6 @@ public class Client implements Serializable {
     /** 
      * Add product to the shoppingCart
      * @param product - product to be added
-     * @param amount - amount to be added
      */
     public void addToShoppingCart(Product product) {
         this.shoppingCart.add(product);
@@ -406,7 +412,7 @@ public class Client implements Serializable {
     
     /**
      * Clears the shoppingCart 
-     * @return ArrayList<Product> - new shoppingCart
+     * @return - new shoppingCart
      */
     public ArrayList<Product> clearShoppingCart() {
         return new ArrayList<>();
@@ -415,7 +421,7 @@ public class Client implements Serializable {
    
      /**
       * Separates the line read from the text file into the client's atributes
-      * @param line - line read from the text file
+      * @param lineSc - line read from the text file
       * @return - returns a new Client
       */
     public Client separateClientInfo(Scanner lineSc) {

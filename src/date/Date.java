@@ -59,7 +59,7 @@ public class Date implements Serializable{
     
     /**
      * Month setter
-     * @param day - month to be set
+     * @param month - month to be set
      */
     public void setMonth(int month) {
         this.month = month;
@@ -77,7 +77,7 @@ public class Date implements Serializable{
     
     /**
      * Year setter
-     * @param day - year to be set
+     * @param year - year to be set
      */
     public void setYear(int year) {
         this.year = year;
@@ -158,7 +158,7 @@ public class Date implements Serializable{
 
     
     /** 
-     * @param dateToVerify
+     * @param dateToVerify - date to verify
      * @return boolean
      */
     public boolean equals(Date dateToVerify) {
@@ -167,8 +167,8 @@ public class Date implements Serializable{
 
     
     /** 
-     * @param date
-     * @return int
+     * @param date - date 
+     * @return int - 1 if the given date is bigger, 0 if they are equal and -1 if the given date is lower
      */
     public int compareDates(Date date) {
         if (this.day < date.getDay() && this.month < date.getMonth() && this.year < date.getYear()) {

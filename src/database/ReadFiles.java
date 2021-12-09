@@ -6,9 +6,12 @@ import java.util.Scanner;
  * Class ReadFiles - manages all the interactions with files
  */
 public class ReadFiles {
-    /**
-     * Imports every client, product and purhcase from the corresponding .txt files to the corresponding ArrayList
-     */
+     /**
+      * Imports every client, product and purhcase from the corresponding .txt files
+      * to the corresponding ArrayList
+      * 
+      * @return - returns dataBaseManager
+      */
     public static DataBaseManager importFromTextFile() {
         DataBaseManager dataBaseManager = new DataBaseManager();
         
@@ -128,8 +131,8 @@ public class ReadFiles {
     
     /**
      * Imports every purhcase from the Purchases.txt file to the purhcaseList ArrayList
-     * @param dataBaseManager
-     * @return DataBaseManager
+     * @param dataBaseManager - dataBaseManager
+     * @return DataBaseManager - dataBaseManager with purhcases
      */
     public static DataBaseManager importPurchasesFromTextFile(DataBaseManager dataBaseManager) {
         File file = new File("Purchases.txt");
@@ -170,7 +173,9 @@ public class ReadFiles {
 
     /**
      * Imports every client, product and purchase from database.obj file to the corresponding ArrayLists
+     * @param dataBaseManager - dataBaseManager
      * @param fileName - .obj file to import from
+     * @return - null if there was an error reading the .obj file
      */
     public static DataBaseManager importFromObjectFile(DataBaseManager dataBaseManager, String fileName) {
         File file = new File(fileName);

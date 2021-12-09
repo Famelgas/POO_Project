@@ -4,7 +4,9 @@ import product.Product;
 import date.Date;
 
 
-
+/**
+ * Class promotion - manages the product's prices acording to the correct promotion
+ */
 public class Promotion implements Serializable {
     protected Date startDate;
     protected Date endDate;
@@ -15,9 +17,12 @@ public class Promotion implements Serializable {
      */
     public Promotion() {}
 
-    /**
-     * Promotion's constructor
-     */
+     /**
+      * Promotion's constructor
+      * 
+      * @param startDate - start date
+      * @param endDate - end date
+      */
     public Promotion(Date startDate, Date endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
@@ -28,7 +33,7 @@ public class Promotion implements Serializable {
     /**
      * StartDate getter
      * 
-     * @return Date returns startDate
+     * @return Date - returns startDate
      */
     public Date getStartDate() {
         return startDate;

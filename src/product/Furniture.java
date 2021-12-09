@@ -20,6 +20,11 @@ public class Furniture extends Product {
 
     /**
      * Furnitures's constructor
+     * 
+     * @param height - height
+     * @param width - width
+     * @param depth - depth
+     * @param weight - weights
      */
     public Furniture(float height, float width, float depth, float weight) {
         this.height = height;
@@ -122,7 +127,7 @@ public class Furniture extends Product {
 
     /**
      * Separates the line read from the text file into the furniture's atributes
-     * @param line - line read from the text file
+     * @param lineSc - line read from the text file
      * @return - returns a new Furniture
      */
     public Product separateProductInfo(Scanner lineSc) {

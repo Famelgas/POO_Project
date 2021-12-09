@@ -26,6 +26,8 @@ public class Purchase implements Serializable {
     
     /**
      * Purchases's constructor
+     * 
+     * @param date - date
      */
     public Purchase(Date date) {
         this.purchasedProducts = new ArrayList<>();
@@ -147,7 +149,7 @@ public class Purchase implements Serializable {
     
     /** 
      * Purhcased products getter
-     * @return ArrayList<Product> - returns purhcasedProducts
+     * @return - returns purhcasedProducts
      */
     public ArrayList<Product> getPurchadeProducts() {
         return purchasedProducts;
@@ -191,7 +193,7 @@ public class Purchase implements Serializable {
 
     /**
      * Separates purchase information for a client given by a .txt file
-     * @param line - purchase information
+     * @param lineSc - purchase information
      * @return - returns a new Purchase;
      */
     public Purchase separatePurchaseInfo(Scanner lineSc) {

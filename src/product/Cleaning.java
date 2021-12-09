@@ -17,6 +17,7 @@ public class Cleaning extends Product {
     
     /**
      * Clieaing's constructor
+     * @param toxicityLevel - tocicityLevel
      */
     public Cleaning(int toxicityLevel) {
         this.toxicityLevel = toxicityLevel;
@@ -54,7 +55,7 @@ public class Cleaning extends Product {
     
     /**
      * Separates the line read from the text file into the cleaning's atributes
-     * @param line - line read from the text file
+     * @param lineSc - line read from the text file
      * @return - returns a new Cleaning
      */
     public Product separateProductInfo(Scanner lineSc) {

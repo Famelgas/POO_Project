@@ -1,9 +1,10 @@
 package promotion;
 import product.*;
-
-
 import date.Date;
 
+/**
+ * Class PaySomeItems - extends promotion: pay 3 take 4
+ */
 public class PaySomeItems extends Promotion {
     /**
      * PaySomeItems's constructor
@@ -12,6 +13,9 @@ public class PaySomeItems extends Promotion {
     
     /**
      * PaySomeItems's constructor
+     * 
+     * @param startDate - startDate
+     * @param endDate - endDate
      */
     public PaySomeItems(Date startDate, Date endDate) {
         super(startDate, endDate);

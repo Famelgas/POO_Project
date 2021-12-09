@@ -1,6 +1,9 @@
 package promotion;
 import product.*;
 
+/**
+ * Class NoPromotion - extends promotion: no promotion
+ */
 public class NoPromotion extends Promotion {
     /**
      * NoPromotion's constructor

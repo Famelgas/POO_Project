@@ -65,6 +65,7 @@ public class UserInterface {
      * Menu of the program 
      * @param dataBaseManager - dataBaseManager
      * @param date - date to be used
+     * @param objFile - object file name
      */
     public void menu(DataBaseManager dataBaseManager, Date date, String objFile) {
         Client client = new Client();

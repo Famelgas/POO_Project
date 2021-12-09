@@ -10,10 +10,19 @@ public class Food extends Product {
     private int caloriesPer100G;
     private float fatPercent;
     
+    /** 
+     * Food's constructor
+     */
     public Food() {
         this.productType = "Food";
     }
     
+    /**
+     * Food's constructor
+     * 
+     * @param caloriesPer100G - caloriesPer100G
+     * @param fatPercent - fatPercent
+     */
     public Food(int caloriesPer100G, float fatPercent) {
         this.caloriesPer100G = caloriesPer100G;
         this.fatPercent = fatPercent;
@@ -69,7 +78,7 @@ public class Food extends Product {
     
     /**
      * Separates the line read from the text file into the food's atributes
-     * @param line - line read from the text file
+     * @param lineSc - line read from the text file
      * @return - returns a new Food
      */
     public Product separateProductInfo(Scanner lineSc) {

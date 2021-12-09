@@ -31,7 +31,7 @@ public class DataBaseManager implements Serializable {
     
     /**
      * Client list getter 
-     * @return ArrayList<Client> - return clientList
+     * @return - return clientList
      */
     public ArrayList<Client> getClientList() {
         return clientList;
@@ -49,7 +49,7 @@ public class DataBaseManager implements Serializable {
     
     /** 
      * Products list getter
-     * @return ArrayList<Product> - returns productList
+     * @return - returns productList
      */
     public ArrayList<Product> getProductList() {
         return productList;
@@ -67,7 +67,7 @@ public class DataBaseManager implements Serializable {
     
     /** 
      * Purchase list getter
-     * @return ArrayList<Purchase> - returns purchaseList
+     * @return returns purchaseList
      */
     public ArrayList<Purchase> getPurchaseList() {
         return purchaseList;
@@ -84,7 +84,7 @@ public class DataBaseManager implements Serializable {
 
     /**
      * Adds a new client account to the shop's database
-     * @param line - Line read from the .txt file
+     * @param lineSc - Line read from the .txt file
      */
     public void addToClientList(Scanner lineSc) {
         Client client = new Client();
@@ -97,7 +97,7 @@ public class DataBaseManager implements Serializable {
 
     /**
      * Adds a new Product to the shop's stock 
-     * @param line - Line read from the .txt file
+     * @param lineSc - Line read from the .txt file
      */
     public void addToProductList(Scanner lineSc) {
         Product newProduct = Product.getProductType(lineSc);
@@ -109,9 +109,10 @@ public class DataBaseManager implements Serializable {
     }
     
     
-    /** 
+    /**
      * Adds a new Purhcase to the shop's stock
-     * @param lineSc
+     * 
+     * @param lineSc - Line read from the .txt file
      */
     public void addToPurchaseList(Scanner lineSc) {
         Purchase newPurchase = new Purchase();
@@ -126,7 +127,7 @@ public class DataBaseManager implements Serializable {
     
     /**
      * Adds a given purchase to the shop's stock 
-     * @param purchase
+     * @param purchase - pruchase to be added
      */
     public void addPurchase(Purchase purchase) {
         purchaseList.add(purchase);
@@ -154,11 +155,19 @@ public class DataBaseManager implements Serializable {
         }
         return null;
     }
-    
-    /**
-     * Creates a new client and adds the client to the clientList where it can be 
-     * managed or written into an object file
-     */
+
+     /**
+      * 
+      * Creates a new client and adds the client to the clientList where it can be
+      * managed or written into an object file
+      * 
+      * @param name - name 
+      * @param address - address
+      * @param email - email 
+      * @param phoneNumber - phone number
+      * @param birthday - birthday date
+      * @return - null if email isn't valid or if there was an error
+      */
     public Client createAccount(String name, String address, String email, int phoneNumber, Date birthday) {
         Client newClient;
         if (!verifyEmail(email)) {
@@ -295,6 +304,7 @@ public class DataBaseManager implements Serializable {
     /**
      * Creates a new purchase
      * @param client - client buying the product
+     * @param date - date
      * @return - true if the purchase is succesful false if theres is a problem
      */
     public Purchase createNewPurchase(Client client, Date date) {
