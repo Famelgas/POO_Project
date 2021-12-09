@@ -152,8 +152,15 @@ public class DataBaseManager implements Serializable {
      * managed or written into an object file
      */
     public Client createAccount(String name, String address, String email, int phoneNumber, Date birthday) {
-        Client newClient = new Client(name, address, email, phoneNumber, birthday, false);
-        clientList.add(newClient);
+        Client newClient;
+        if (!verifyEmail(email)) {
+            newClient = null;
+        }
+
+        else {
+            newClient = new Client(name, address, email, phoneNumber, birthday, false);
+            clientList.add(newClient);
+        }
         
         return newClient;
     }
@@ -171,6 +178,27 @@ public class DataBaseManager implements Serializable {
             ++count;
         }
     }
+
+    private static boolean verifyEmail(String email) {
+        if (email.charAt(0) == '@' || email.charAt(0) == '.') {
+            return false;
+        }
+        int at = 0;
+        int dot = 0;
+        for (int i = 0; i < email.length(); ++i) {
+            if (email.charAt(i) == '@') {
+                ++at;
+            }
+            if (email.charAt(i) == '.') {
+                ++dot;
+            }
+        }
+        if (at != 1 || dot < 1) {
+            return false;
+        }
+        
+        return true;
+    }
     
 
 
@@ -181,39 +209,16 @@ public class DataBaseManager implements Serializable {
     
     
     public Product getProduct(String productName) {
+        Product newProduct;
         for (Product product : productList) {
             if (product.getName().equals(productName)) {
-                return product;
+                newProduct = product;
+                return newProduct;
             }
         }
         return null;
     }
     
-    
-    /** 
-     * @param product
-     * @param amount
-     * @return Product
-     */
-    public Product verifyStock(Product product, int amount) {
-        for (Product productInStock : productList) {
-            if (product.getName() == productInStock.getName()) {
-                if (productInStock.getStock() == 0) {
-                    System.out.println("Product out of stock.");
-                    return null;
-                }
-
-                // If the client wants to add to the cart more items then what the supermarket has
-                // then he can only buy the existing stock
-                if (product.getStock() > productInStock.getStock()) {
-                    System.out.println("Not enough stock. Please try again.");
-                    return null;
-                }
-            }
-        }
-
-        return product;
-    }
     
     
     public void showAvailableProducts() {
@@ -228,6 +233,32 @@ public class DataBaseManager implements Serializable {
             }
             ++count;
         }
+    }
+
+
+    /**
+     * @param product
+     * @param amount
+     * @return Product
+     */
+    public Product verifyShopStock(Product product, int amount) {
+        System.out.println(product.getStock());
+        for (Product productInStock : getProductList()) {
+            if (product.getIdentifier() == productInStock.getIdentifier()) {
+                if (productInStock.getStock() == 0) {
+                    System.out.println("Product out of stock.");
+                    return null;
+                }
+
+                if (amount > productInStock.getStock()) {
+                    System.out.println("Not enough stock. Please try again.");
+                    return null;
+                }
+            }
+        }
+        product.setAmountToBuy(amount);
+
+        return product;
     }
     
 
@@ -297,7 +328,7 @@ public class DataBaseManager implements Serializable {
         for (Product productInStock : productList) {
             for (Product productToBuy : client.getShoppingCart()) {
                 if (productInStock.getIdentifier() == productToBuy.getIdentifier()) {
-                    productInStock.setStock(productInStock.getStock() - productToBuy.getStock());
+                    productInStock.setStock(productInStock.getStock() - productToBuy.getAmountToBuy());
                 }
             }
         }

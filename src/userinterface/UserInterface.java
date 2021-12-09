@@ -2,6 +2,7 @@ package userinterface;
 import java.util.Scanner;
 import database.DataBaseManager;
 import database.FormatText;
+import database.ReadFiles;
 import client.*;
 import date.Date;
 import product.*;
@@ -56,7 +57,7 @@ public class UserInterface {
      * @param date
      */
     // Menu
-    public void menu(DataBaseManager dataBaseManager, Date date) {
+    public void menu(DataBaseManager dataBaseManager, Date date, String objFile) {
         Client client = new Client();
 
 
@@ -123,6 +124,7 @@ public class UserInterface {
                     
                     System.out.print("Enter your email:");
                     email = sc.nextLine();
+                    
                     System.out.println();
                     
                     System.out.print("Enter your phone number:");
@@ -144,8 +146,15 @@ public class UserInterface {
 
 
                     client = dataBaseManager.createAccount(name, address, email, phoneNumber, birthday);
-                    System.out.println(FormatText.alignCenterText("Account created successfuly!\n"));
-                    break;
+                    if (client == null) {
+                        System.out.println("Invalid email. Please try again.");
+                        preMenuOption = 0;
+                    }
+
+                    if (client != null) {
+                        System.out.println(FormatText.alignCenterText("Account created successfuly!\n"));
+                        break;
+                    }
                 }
 
                 if (preMenuOption == 3) {
@@ -306,6 +315,10 @@ public class UserInterface {
                             if (profileOption == 10) {
                                 break;
                             }
+
+                            if (!ReadFiles.exportToObjectFile(dataBaseManager, objFile)) {
+                                System.out.println("Error exporting to object file");
+                            }
                         }
     
                         // 2. See purchase history
@@ -365,23 +378,38 @@ public class UserInterface {
     
                                 // Add a product to the shopping cart
                                 if (buyMenuOption == 1) {
-                                    Product product = new Product();
                                     
                                     sc.nextLine();
                                     System.out.print("Enter the name of the desired product: ");            
-                                    String productName = sc.nextLine();
+                                    String productName = sc.nextLine().trim();
                                     System.out.print("Enter the desired amount: ");            
                                     int amount = sc.nextInt();
                                     
-                                    // Gets the product from the supermarket stock
-                                    product = dataBaseManager.getProduct(productName);
+                                    
+                                    
+                                    Product product = dataBaseManager.getProduct(productName);
+                                    product = dataBaseManager.verifyShopStock(product, amount);
+                                    
                                     if(product == null) {
                                         System.out.println("The product doesn´t exit.\nPlease try again.");
                                         break;
                                     }
                                     
-                                    product = dataBaseManager.verifyStock(product, amount);
-                                    client.addToShoppingCart(product, amount);
+                                    for (Product p : dataBaseManager.getProductList()) {
+                                        System.out.println(p.getStock());
+                                    }
+                                    
+                                    System.out.println("depois");
+                                    System.out.println(product.getAmountToBuy());
+                                    System.out.println(product.getStock());
+                                    System.out.println("depois");
+                                    
+                                    for (Product p : dataBaseManager.getProductList()) {
+                                        System.out.println(p.getStock());
+                                    }
+
+
+                                    client.addToShoppingCart(product);
     
                                 }
     
@@ -401,7 +429,10 @@ public class UserInterface {
                                     }
                                     
                                     if((product = client.getProductFromShoppingCart(productName)) != null) {
-                                        product = client.verifyStock(product, amount);
+                                        product = client.verifyCartStock(product, amount);
+                                        if (product == null) {
+                                            break;
+                                        }
                                         client.removeProductFromShoppingCart(product);                                        
                                     }
     
@@ -496,6 +527,11 @@ public class UserInterface {
                                                         dataBaseManager.resetStock(client);
                                                         client.addToPurchaseHistory(newPurchase.getPurchaseReference());
                                                         client.setShoppingCart(client.clearShoppingCart());
+
+                                                        if (!ReadFiles.exportToObjectFile(dataBaseManager, objFile)) {
+                                                            System.out.println("Error exporting to object file");
+                                                        }
+
                                                         break;
                                                     }
                                                     else {
@@ -552,6 +588,9 @@ public class UserInterface {
 
                 // 3. Log out
                 if (menuOption == 3) {
+                    if (!ReadFiles.exportToObjectFile(dataBaseManager, objFile)) {
+                        System.out.println("Error exporting to object file");
+                    }
                     break;
                 }
 

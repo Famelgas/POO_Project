@@ -21,16 +21,16 @@ public class PaySomeItems extends Promotion {
     // verificar se funciona
     public float priceCalculator(Product product) {
         float price = 0;
-        if (product.getStock() <= 3) {
-            price = product.getUnitPrice() * product.getStock();
+        if (product.getAmountToBuy() <= 3) {
+            price = product.getUnitPrice() * product.getAmountToBuy();
         }
         else {
-            if ((product.getStock() % 4) == 0) {
-                price += product.getUnitPrice() * (product.getStock() - (product.getStock() / 4));
+            if ((product.getAmountToBuy() % 4) == 0) {
+                price += product.getUnitPrice() * (product.getAmountToBuy() - (product.getAmountToBuy() / 4));
             }
             else {
-                int noDescount = product.getStock() % 4;
-                int descountedProducts = product.getStock() - noDescount;
+                int noDescount = product.getAmountToBuy() % 4;
+                int descountedProducts = product.getAmountToBuy() - noDescount;
                 price += product.getUnitPrice() * (descountedProducts - (descountedProducts / 4));
                 price += product.getUnitPrice() * noDescount;
             }

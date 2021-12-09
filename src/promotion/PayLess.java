@@ -19,13 +19,25 @@ public class PayLess extends Promotion {
     public float priceCalculator(Product product){
         float discount = 0.05f;
         float finalPrice = 0;
+        float tempPrice = 0;
         ArrayList<Float> descountedPrices = new ArrayList<>();
-        if (product.getStock() == 1){
+        if (product.getAmountToBuy() == 1){
             finalPrice = product.getUnitPrice();
         }
         else {
-            for (int i = 0; i < product.getStock(); i++ ){
-                descountedPrices.add(product.getUnitPrice() - (product.getUnitPrice() * (i * discount)));   
+            int temp = 0;
+            for (int i = 0; i < product.getAmountToBuy(); ++i) {
+                for (Float price : descountedPrices) {
+                    System.out.println(price);
+                    tempPrice += price;
+                }
+                if (tempPrice >= (product.getUnitPrice() * product.getAmountToBuy()) / 2) {
+                    descountedPrices.add(product.getUnitPrice() - (product.getUnitPrice() * (i * discount)));   
+                    ++temp;
+                }
+                else {
+                    descountedPrices.add(product.getUnitPrice() - (product.getUnitPrice() * ((temp - 1) * discount)));
+                }
             }
         }
         for (Float price : descountedPrices) {

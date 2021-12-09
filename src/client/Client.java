@@ -249,8 +249,7 @@ public class Client implements Serializable {
      * @param product
      * @param amount
      */
-    public void addToShoppingCart(Product product, int amount) {
-        product.setStock(amount);
+    public void addToShoppingCart(Product product) {
         this.shoppingCart.add(product);
     }
 
@@ -275,6 +274,7 @@ public class Client implements Serializable {
         for (Product product : shoppingCart) {
             System.out.println();
             System.out.println(product);
+            System.out.println("Amount to buy: " + product.getAmountToBuy());
             System.out.println();
 
             if (count < shoppingCart.size() - 1) {
@@ -307,18 +307,21 @@ public class Client implements Serializable {
         }
     }
 
+
+
     
     /** 
      * @param product
      * @param amount
      * @return Product
      */
-    public Product verifyStock(Product product, int amount) {
+    public Product verifyCartStock(Product product, int amount) {
         for (Product productInCart : shoppingCart) {
-            if (product.getName() == productInCart.getName()) {
+            if (product.getIdentifier() == productInCart.getIdentifier()) {
                 // It's impossible to remove more items from the cart than those that are in the cart 
-                if (productInCart.getStock() < product.getStock()) {
-                    product.setStock(productInCart.getStock());
+                if (productInCart.getAmountToBuy() < amount) {
+                    System.out.println("You can´t remove that many items.");
+                    return null;
                 }
             }
         }
@@ -345,10 +348,12 @@ public class Client implements Serializable {
      * @param product
      */
     public void removeProductFromShoppingCart(Product product) {
+        int i = 0;
         for (Product productInCart : shoppingCart) {
-            if (product.getName() == productInCart.getName()) {
-                shoppingCart.remove(productInCart);
+            if (product.getIdentifier() == productInCart.getIdentifier()) {
+                shoppingCart.remove(i);
             }
+            ++i;
         }
     }
 

@@ -14,7 +14,7 @@ public class NoPromotion extends Promotion {
      * @return float
      */
     public float priceCalculator(Product product) {
-        return product.getUnitPrice() * product.getStock();
+        return product.getUnitPrice() * product.getAmountToBuy();
     }
 
     

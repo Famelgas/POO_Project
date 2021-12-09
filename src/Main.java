@@ -62,7 +62,7 @@ public class Main {
         //FormatText.separationLine();
 
         
-        ui.menu(dataBaseManager, date);
+        ui.menu(dataBaseManager, date, objFile);
 
         
         if (!ReadFiles.exportToObjectFile(dataBaseManager, objFile)) {

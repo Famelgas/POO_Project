@@ -11,6 +11,7 @@ public class Product implements Serializable {
     protected String name;
     protected float unitPrice;
     protected int stock;
+    protected int amountToBuy;
     // falta fazer getter e setter da promotion
     // perguntar a prof se pode ou nao ser abstrata
     protected Promotion promotion;
@@ -107,6 +108,24 @@ public class Product implements Serializable {
     }
 
     
+    /**
+     * 
+     * @return
+     */
+    public int getAmountToBuy() {
+        return amountToBuy;
+    }
+
+
+    /**
+     * 
+     * @param amountToBuy
+     */
+    public void setAmountToBuy(int amountToBuy) {
+        this.amountToBuy = amountToBuy;
+    }
+
+    
     /** 
      * @return Promotion
      */
@@ -174,11 +193,13 @@ public class Product implements Serializable {
     }
 
     
-    /** 
+    /**
+     * Separates the string so we can create a new product
+     * The amountToBuy is never given buy the text files so there is no need to read it
+     * 
      * @param lineSc
      * @return Product
      */
-    // Separates the string so we can create a new product
     public Product separateProductInfo(Scanner lineSc) {
         Product product = new Product();
         lineSc.useDelimiter("\\s*;\\s*");
