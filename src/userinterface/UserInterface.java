@@ -7,16 +7,25 @@ import client.*;
 import date.Date;
 import product.*;
 
+
+/**
+ * Class UserInterface - manages the interaction with the user in the terminal and allows the program
+ * to keep all the inputs the user gives in one class
+ */
 public class UserInterface {
     private Scanner sc;
     
+    /**
+     * UserInterface's constructor
+     */
     public UserInterface() {
         this.sc = new Scanner(System.in);
     }
 
     
     /** 
-     * @return Date
+     * Gives the user the option of using the local date or introducing one 
+     * @return Date - date to be used
      */
     public Date getAppDate() {
         // Date and time options
@@ -52,11 +61,11 @@ public class UserInterface {
 
 
     
-    /** 
-     * @param dataBaseManager
-     * @param date
+    /**
+     * Menu of the program 
+     * @param dataBaseManager - dataBaseManager
+     * @param date - date to be used
      */
-    // Menu
     public void menu(DataBaseManager dataBaseManager, Date date, String objFile) {
         Client client = new Client();
 

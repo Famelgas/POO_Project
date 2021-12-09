@@ -2,14 +2,12 @@ package database;
 import java.io.*;
 import java.util.Scanner;
 
-
+/**
+ * Class ReadFiles - manages all the interactions with files
+ */
 public class ReadFiles {
-    public ReadFiles() {}
-
     /**
-     * Imports every client ou product from .txt file to the corresponding ArrayList
-     * 
-     * @param fileName - .txt file to import from
+     * Imports every client, product and purhcase from the corresponding .txt files to the corresponding ArrayList
      */
     public static DataBaseManager importFromTextFile() {
         DataBaseManager dataBaseManager = new DataBaseManager();
@@ -33,9 +31,10 @@ public class ReadFiles {
     }
 
     
-    /** 
-     * @param dataBaseManager
-     * @return DataBaseManager
+    /**
+     * Imports every client from the Clients.txt file to clientList 
+     * @param dataBaseManager - dataBaseManager
+     * @return DataBaseManager - new dataBaseManager with clients
      */
     private static DataBaseManager importClientsFromTextFile(DataBaseManager dataBaseManager) {
         File file = new File("Clients.txt");
@@ -80,9 +79,10 @@ public class ReadFiles {
     
     
     
-    /** 
-     * @param dataBaseManager
-     * @return DataBaseManager
+    /**
+     * Imports every product from the Products.txt file to productList
+     * @param dataBaseManager - dataBaseManager
+     * @return DataBaseManager - new dataBaseManager with products
      */
     private static DataBaseManager importProductsFromTextFile(DataBaseManager dataBaseManager) {
         File file = new File("Products.txt");
@@ -126,7 +126,8 @@ public class ReadFiles {
 
 
     
-    /** 
+    /**
+     * Imports every purhcase from the Purchases.txt file to the purhcaseList ArrayList
      * @param dataBaseManager
      * @return DataBaseManager
      */
@@ -167,8 +168,8 @@ public class ReadFiles {
     }
 
 
-        /**
-     * Imports every client or object from .obj file to the corresponding ArrayList
+    /**
+     * Imports every client, product and purchase from data.obj file to the corresponding ArrayList
      * 
      * @param fileName - .obj file to import from
      */

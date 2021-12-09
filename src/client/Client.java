@@ -10,7 +10,9 @@ import product.*;
 
 import java.util.Scanner;
 
-
+/**
+ * Class Client, has the atributes and methods that affect every client object.
+ */
 public class Client implements Serializable {
     private String name;
     private String address;
@@ -26,6 +28,9 @@ public class Client implements Serializable {
     // ArrayList with the reference numbers of every purchase made by the client
     private ArrayList<Integer> purchaseHistory;  
 
+    /**
+     * Client's constructor
+     */
     public Client() {
         this.shoppingCart = new ArrayList<>();
         this.purchaseHistory = new ArrayList<>();
@@ -34,7 +39,10 @@ public class Client implements Serializable {
         this.expirationDate = new Date(00, 00, 0000);
         this.creditCardCVV = 0;
     }
-
+    
+    /**
+     * Client's constructor
+     */
     public Client(String name, String address, String email, int phoneNumber, Date birthday, Boolean frequent) {
         this.frequent = frequent;
         this.name = name;
@@ -53,7 +61,8 @@ public class Client implements Serializable {
 
     
     /** 
-     * @return String
+     * Name getter
+     * @return String - returns name
      */
     public String getName() {
         return name;
@@ -61,7 +70,8 @@ public class Client implements Serializable {
 
     
     /** 
-     * @param name
+     * Name setter
+     * @param name - new name to be set 
      */
     public void setName(String name) {
         this.name = name;
@@ -69,7 +79,8 @@ public class Client implements Serializable {
 
     
     /** 
-     * @return String
+     * Addrees getter
+     * @return String - returns address
      */
     public String getAddress() {
         return address;
@@ -77,7 +88,8 @@ public class Client implements Serializable {
 
     
     /** 
-     * @param address
+     * Address setter
+     * @param address - new address to be set
      */
     public void setAddress(String address) {
         this.address = address;
@@ -85,7 +97,8 @@ public class Client implements Serializable {
 
     
     /** 
-     * @return String
+     * Email getter
+     * @return String - returns email
      */
     public String getEmail() {
         return email;
@@ -93,7 +106,8 @@ public class Client implements Serializable {
 
     
     /** 
-     * @param email
+     * Email setter
+     * @param email - new email to be set
      */
     public void setEmail(String email) {
         this.email = email;
@@ -101,7 +115,8 @@ public class Client implements Serializable {
 
     
     /** 
-     * @return int
+     * Phone number getter
+     * @return int - returns phoneNumber
      */
     public int getPhoneNumber() {
         return phoneNumber;
@@ -109,7 +124,8 @@ public class Client implements Serializable {
 
     
     /** 
-     * @param phoneNumber
+     * Phone number setter
+     * @param phoneNumber - new phoneNumber to be set
      */
     public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
@@ -117,7 +133,8 @@ public class Client implements Serializable {
 
     
     /** 
-     * @return Date
+     * Birthday date getter
+     * @return Date - returns birthday
      */
     public Date getBirthday() {
         return birthday;
@@ -125,7 +142,8 @@ public class Client implements Serializable {
 
     
     /** 
-     * @param birthday
+     * Birthday date setter
+     * @param birthday - new birthDate to be set 
      */
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
@@ -133,15 +151,17 @@ public class Client implements Serializable {
 
     
     /** 
-     * @return boolean
+     * Frequent getter
+     * @return boolean - returns true if the client is frequent and false if the client isn't frequent
      */
-    public boolean isFrequent() {
+    public boolean getFrequent() {
         return frequent;
     }
 
     
     /** 
-     * @param frequent
+     * Frequent setter
+     * @param frequent - true if the client is frequent and false if the client isn´t frequent
      */
     public void setFrequent(boolean frequent) {
         this.frequent = frequent;
@@ -149,7 +169,8 @@ public class Client implements Serializable {
 
     
     /** 
-     * @return int
+     * MbWay getter
+     * @return int - return mbWayPin
      */
     public int getMbWayPin() {
         return mbWayPin;
@@ -157,23 +178,27 @@ public class Client implements Serializable {
 
     
     /** 
-     * @param pin
+     * MbWay setter
+     * @param pin - New mbWayPin to be set
      */
     public void setMbWayPin(int pin) {
         this.mbWayPin = pin;
     }
 
     
-    /** 
-     * @return int
+    /**
+     * Creditcard number getter
+     * @return int - returns creditCardNumber
      */
     public int getCreditCardNumber() {
         return creditCardNumber;
     }
 
     
-    /** 
-     * @param creditCardNumber
+    /**
+     * CreditCard number setter
+     * 
+     * @param creditCardNumber - new creditCardNumber to be set 
      */
     public void setCreditCardNumber(int creditCardNumber) {
         this.creditCardNumber = creditCardNumber;
@@ -181,7 +206,8 @@ public class Client implements Serializable {
 
     
     /** 
-     * @return Date
+     * Expiration date getter
+     * @return Date - return expirationDate
      */
     public Date getExpirationDate() {
         return expirationDate;
@@ -189,15 +215,17 @@ public class Client implements Serializable {
 
     
     /** 
-     * @param date
+     * Expiration date
+     * @param date - new expirationDate to be set
      */
     public void setExpirationDate(Date date) {
         this.expirationDate = date;
     }
 
     
-    /** 
-     * @return int
+    /**
+     * CVV getter 
+     * @return int - returns creditCardCVV
      */
     public int getCreditCardCVV() {
         return creditCardCVV;
@@ -205,7 +233,8 @@ public class Client implements Serializable {
 
     
     /** 
-     * @param cvv
+     * CVV setter
+     * @param cvv - new creditCardCVV to be set
      */
     public void setCreditCardCVV(int cvv) {
         this.creditCardCVV = cvv;
@@ -213,7 +242,8 @@ public class Client implements Serializable {
 
     
     /** 
-     * @return ArrayList<Product>
+     * Shopping cart getter
+     * @return ArrayList<Product> - returns shoppingCart
      */
     public ArrayList<Product> getShoppingCart() {
         return shoppingCart;
@@ -221,7 +251,8 @@ public class Client implements Serializable {
 
     
     /** 
-     * @param shoppingCart
+     * Shopping cart setter
+     * @param shoppingCart - new shoppingCart to be set
      */
     public void setShoppingCart(ArrayList<Product> shoppingCart) {
         this.shoppingCart = shoppingCart;
@@ -229,15 +260,18 @@ public class Client implements Serializable {
 
     
     /** 
-     * @return ArrayList<Integer>
+     * Purchase reference history 
+     * @return ArrayList<Integer> - returns ArrayList of references to the purhcases made before
      */
     public ArrayList<Integer> getPurchaseHistory() {
         return purchaseHistory;
     }
 
     
-    /** 
-     * @param purchaseHistory
+    /**
+     * Purchase history setter
+     * 
+     * @param purchaseHistory - new ArrayList of references to be set
      */
     public void setPurchaseHistory(ArrayList<Integer> purchaseHistory) {
         this.purchaseHistory = purchaseHistory;
@@ -246,8 +280,9 @@ public class Client implements Serializable {
 
     
     /** 
-     * @param product
-     * @param amount
+     * Add product to the shoppingCart
+     * @param product - product to be added
+     * @param amount - amount to be added
      */
     public void addToShoppingCart(Product product) {
         this.shoppingCart.add(product);
@@ -255,7 +290,8 @@ public class Client implements Serializable {
 
     
     /** 
-     * @param reference
+     * Add reference to the purhcaseHistory
+     * @param reference - reference to be added
      */
     public void addToPurchaseHistory(int reference) {
         this.purchaseHistory.add(reference);
@@ -263,12 +299,17 @@ public class Client implements Serializable {
 
     
     /** 
-     * @return String
+     * Override String.toString()
+     * @return String - converted string
      */
     public String toString() {
         return "Name: " + name + "\nAddress: " + address + "\nEmail: " + email + "\nPhone number: " + phoneNumber + "\nBirthday: " + birthday + "\nFrequent: " + frequent + "\nMBWay pin: " + mbWayPin + "\nCredit card number: " + creditCardNumber + "\nExpiration date: " + expirationDate.toString() + "\nCVV: " + creditCardCVV;
     }
 
+    
+    /**
+     * Show the products in the shoppingCart
+     */
     public void showShoppingCart() {
         int count = 0;
         for (Product product : shoppingCart) {
@@ -287,7 +328,8 @@ public class Client implements Serializable {
 
     
     /** 
-     * @param dataBaseManager
+     * Shows the purchases associated with the references in the purchaseHistory
+     * @param dataBaseManager - dataBaseManager
      */
     public void showPurchaseHistory(DataBaseManager dataBaseManager) {
         int count = 0;
@@ -311,9 +353,11 @@ public class Client implements Serializable {
 
     
     /** 
-     * @param product
-     * @param amount
-     * @return Product
+     * Verifies if the cart has enough of the items the client wants to remove  
+     * @param product - product to be removed
+     * @param amount - amount to be removed
+     * @return Product - null if the client wants to remove more items than those that are
+     * in the shoppingCart
      */
     public Product verifyCartStock(Product product, int amount) {
         for (Product productInCart : shoppingCart) {
@@ -331,8 +375,9 @@ public class Client implements Serializable {
 
     
     /** 
-     * @param productName
-     * @return Product
+     * Gets the product with the same name entered from the shoppingCart
+     * @param productName - name of the product
+     * @return Product - product 
      */
     public Product getProductFromShoppingCart(String productName) {
         for (Product product : shoppingCart) {
@@ -344,8 +389,9 @@ public class Client implements Serializable {
     }
 
     
-    /** 
-     * @param product
+    /**
+     * Removes item from the shoppingCart 
+     * @param product - product to be removed
      */
     public void removeProductFromShoppingCart(Product product) {
         int i = 0;
@@ -358,8 +404,9 @@ public class Client implements Serializable {
     }
 
     
-    /** 
-     * @return ArrayList<Product>
+    /**
+     * Clears the shoppingCart 
+     * @return ArrayList<Product> - new shoppingCart
      */
     public ArrayList<Product> clearShoppingCart() {
         return new ArrayList<>();
@@ -367,8 +414,8 @@ public class Client implements Serializable {
 
    
      /**
-      * Separates the string so we can create a new client
-      * @param line - all the information of one client
+      * Separates the line read from the text file into the client's atributes
+      * @param line - line read from the text file
       * @return - returns a new Client
       */
     public Client separateClientInfo(Scanner lineSc) {
@@ -397,23 +444,23 @@ public class Client implements Serializable {
     
     
     /** 
-     * @param phoneNumber
-     * @param pin
-     * @return boolean
+     * Accept MbWay payment
+     * @param phoneNumber - client's phone number
+     * @param pin - client's MbWay pin
+     * @return boolean - true if payment was accepted and false if the payment was decleined 
      */
-    // Verifies that the payment is accepted 
-    // returns false if not
     public boolean acceptMbWayPayment(int phoneNumber, int pin) {
         return this.phoneNumber == phoneNumber && this.mbWayPin == pin;
     }         
 
 
     
-    /** 
-     * @param creditCardNumber
-     * @param expirationDate
-     * @param cvv
-     * @return boolean
+    /**
+     * Accept Credit card payment
+     * @param creditCardNumber - client's credit card number
+     * @param expirationDate - client's credit card expiration date
+     * @param cvv - client's credit card cvv
+     * @return boolean - true if payment was accepted and false if the payment was decleined
      */
     public boolean acceptCreditCardPayment(int creditCardNumber, Date expirationDate, int cvv) {
         return this.creditCardNumber == creditCardNumber && this.expirationDate.equals(expirationDate) && this.creditCardCVV == cvv;

@@ -232,7 +232,7 @@ public class Purchase implements Serializable {
     public int calculateShippingPrice(Client client, Purchase purchase) {
         int shippingPrice = 0;
 
-        if (client.isFrequent()) {
+        if (client.getFrequent()) {
             if (purchase.getPurchasePrice() <= 40) {
                 shippingPrice = 15;
             }
