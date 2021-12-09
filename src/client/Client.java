@@ -2,11 +2,11 @@ package client;
 import java.io.Serializable;
 import java.lang.String;
 import java.util.ArrayList;
-import database.FormatText;
+
 import database.DataBaseManager;
 import date.Date;
 import product.*;
-
+import userinterface.FormatText;
 
 import java.util.Scanner;
 

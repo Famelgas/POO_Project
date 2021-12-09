@@ -1,7 +1,6 @@
 package userinterface;
 import java.util.Scanner;
 import database.DataBaseManager;
-import database.FormatText;
 import database.ReadFiles;
 import client.*;
 import date.Date;

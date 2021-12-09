@@ -6,6 +6,7 @@ import client.*;
 import product.*;
 import date.Date;
 import promotion.*;
+import userinterface.FormatText;
 
 /**
  * Class DataBaseManager - manages data related to files, clients and products from the supermarket

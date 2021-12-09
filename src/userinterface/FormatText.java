@@ -1,4 +1,4 @@
-package database;
+package userinterface;
 
 /**
  * Class FormatText - methods to manipulate the text written in the terminal

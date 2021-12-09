@@ -1,8 +1,8 @@
 import database.DataBaseManager;
 import database.ReadFiles;
+import userinterface.FormatText;
 import userinterface.UserInterface;
 import date.Date;
-import database.FormatText;
 
 
 /**
