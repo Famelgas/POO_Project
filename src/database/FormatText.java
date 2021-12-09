@@ -16,19 +16,6 @@ public class FormatText {
         return newString + string;
     }
 
-    
-    /** 
-     * @param string
-     * @return String
-     */
-    public static String  alignRightText(String string) {
-        String newString = "";
-        for (int i = 0; i < (80 - string.length()); ++i) {
-            newString += " ";
-        }
-        return newString + string;
-    }
-
     public static void separationLine() {
         System.out.print("x");
         for (int i = 0; i < 79; ++i) {
