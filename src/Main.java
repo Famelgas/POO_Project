@@ -41,7 +41,7 @@ public class Main {
        
         dataBaseManager = ReadFiles.importFromObjectFile(dataBaseManager, objFile);
         if (dataBaseManager == null) {
-            dataBaseManager = ReadFiles.importFromTextFile(date);
+            dataBaseManager = ReadFiles.importFromTextFile();
             if (dataBaseManager== null) {
                 System.out.println("Error importing from text file");
                 return;

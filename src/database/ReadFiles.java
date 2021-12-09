@@ -1,7 +1,6 @@
 package database;
 import java.io.*;
 import java.lang.SecurityException;
-import date.Date;
 import java.util.Scanner;
 
 
@@ -13,7 +12,7 @@ public class ReadFiles {
      * 
      * @param fileName - .txt file to import from
      */
-    public static DataBaseManager importFromTextFile(Date date) {
+    public static DataBaseManager importFromTextFile() {
         DataBaseManager dataBaseManager = new DataBaseManager();
         
         dataBaseManager = importClientsFromTextFile(dataBaseManager);
