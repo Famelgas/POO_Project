@@ -4,13 +4,25 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import date.Date;
 
+/**
+ * Cass Date - manages date related methods
+ */
 public class Date implements Serializable{
     private int day;
     private int month;
     private int year;
 
+    /**
+     * Date's constructor
+     */
     public Date() {}
-
+    
+    /**
+     * Date's constructor
+     * @param day - day
+     * @param month - month
+     * @param year - year
+     */
     public Date (int day, int month, int year) {
         this.day = day;
         this.month = month;
@@ -19,7 +31,8 @@ public class Date implements Serializable{
 
     
     /** 
-     * @return int
+     * Day getter
+     * @return int - day
      */
     public int getDay() {
         return day;
@@ -27,39 +40,44 @@ public class Date implements Serializable{
 
     
     /** 
-     * @param day
+     * Day setter
+     * @param day - day to be set
      */
     public void setDay(int day) {
         this.day = day;
     }
 
     
-    /** 
-     * @return int
+    /**
+     * Month getter
+     * @return int - month
      */
     public int getMonth() {
         return month;
     }
 
     
-    /** 
-     * @param month
+    /**
+     * Month setter
+     * @param day - month to be set
      */
     public void setMonth(int month) {
         this.month = month;
     }
 
     
-    /** 
-     * @return int
+    /**
+     * Year getter
+     * @return int - year
      */
     public int getYear() {
         return year;
     }
 
     
-    /** 
-     * @param year
+    /**
+     * Year setter
+     * @param day - year to be set
      */
     public void setYear(int year) {
         this.year = year;
@@ -67,9 +85,10 @@ public class Date implements Serializable{
     
     
     
-    /** 
-     * @param strDate
-     * @return Date
+    /**
+     * Converts a string to a date 
+     * @param strDate - Date string
+     * @return Date - return a new date
      */
     public static Date convertStringToDate(String strDate) {
         Date date = new Date();

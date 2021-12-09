@@ -5,6 +5,9 @@ import java.util.Scanner;
 import promotion.*;
 import date.Date;
 
+/**
+ * Class Product - manages methods that manipulate or are related to products
+ */
 public class Product implements Serializable {
     protected String productType; 
     protected int identifier;
@@ -28,80 +31,100 @@ public class Product implements Serializable {
     }
 
     
-    /** 
-     * @return String
+    /**
+     * ProductType getter
+     * 
+     * @return String - returns productType
      */
     public String getProductType() {
         return productType;
     }
 
     
-    /** 
-     * @param productType
+    /**
+     * ProductType setter
+     * 
+     * @param productType - productType to be set
      */
     public void setProductType(String productType) {
         this.productType = productType;
     }
 
     
-    /** 
-     * @return int
+    /**
+     * Identifier getter
+     * 
+     * @return int - returns identifier
      */
     public int getIdentifier() {
         return identifier;
     }
 
     
-    /** 
-     * @param identifier
+    /**
+     * Identifier setter
+     * 
+     * @param identifier - identifier to be set
      */
     public void setIdentifier(int identifier) {
         this.identifier = identifier;
     }
 
     
-    /** 
-     * @return String
+    /**
+     * Name getter
+     * 
+     * @return String - returns name
      */
     public String getName() {
         return name;
     }
 
     
-    /** 
-     * @param name
+    /**
+     * Name setter
+     * 
+     * @param name - name to be set
      */
     public void setName(String name) {
         this.name = name;
     }
 
     
-    /** 
-     * @return float
+    /**
+     * UnitPrice getter
+     * 
+     * @return float - returns unitPrice
      */
     public float getUnitPrice() {
         return unitPrice;
     }
 
     
-    /** 
-     * @param unitPrice
+    /**
+     * UnitPrice setter
+     * 
+     * @param unitPrice - unitPrice to be set
      */
     public void setUnitPrice(float unitPrice) {
         this.unitPrice = unitPrice;
     }
 
     
-    /** 
-     * @return int
+    /**
+     * Stock getter
+     * 
+     * @return int - returns stock
      */
     public int getStock() {
         return stock;
     }
 
     
-    /** 
-     * @param stock
+    /**
+     * Stock setter
+     * 
+     * @param stock - stock to be set
      */
     public void setStock(int stock) {
         this.stock = stock;
@@ -109,8 +132,9 @@ public class Product implements Serializable {
 
     
     /**
+     * AmountToBuy getter
      * 
-     * @return
+     * @return - returns amountToBuy
      */
     public int getAmountToBuy() {
         return amountToBuy;
@@ -118,32 +142,39 @@ public class Product implements Serializable {
 
 
     /**
+     * AmountToBuy
      * 
-     * @param amountToBuy
+     * @param amountToBuy - amountToBuy to be set
      */
     public void setAmountToBuy(int amountToBuy) {
         this.amountToBuy = amountToBuy;
     }
 
     
-    /** 
-     * @return Promotion
+    /**
+     * Promotion getter
+     * 
+     * @return Promotion - returns promotion
      */
     public Promotion getPromotion() {
         return promotion;
     }
 
     
-    /** 
-     * @param promotion
+    /**
+     * Promotion setter
+     * 
+     * @param promotion - promotion to be set
      */
     public void setPromotion(Promotion promotion) {
         this.promotion = promotion;
     }
 
     
-    /** 
-     * @return String
+    /**
+     * Override String.toString()
+     * 
+     * @return String - converted string
      */
     public String toString() {
         return "\nType: " + productType + "\nIdentifier: " + identifier + "\nName: " + name + "\nPrice per unit: " + unitPrice + "\nStock: " + stock + "\nPromotion: " + promotion.toString();
@@ -151,10 +182,11 @@ public class Product implements Serializable {
 
     
     /** 
-     * @param promoType
-     * @param strStartDate
-     * @param strEndDate
-     * @return Promotion
+     * Gets the promotion type of product
+     * @param promoType - promotion type
+     * @param strStartDate - starting date
+     * @param strEndDate - ending date
+     * @return Promotion - retuns a new Promotion
      */
     public Promotion getProductPromotion(String promoType, String strStartDate, String strEndDate) {
         Promotion promotion = switch (promoType) {
@@ -170,8 +202,9 @@ public class Product implements Serializable {
 
     
     /** 
-     * @param lineSc
-     * @return Product
+     * Gets the product type
+     * @param lineSc - line read from text file
+     * @return Product - returns a new Product
      */
     public static Product getProductType(Scanner lineSc) {
         lineSc.useDelimiter("\\s*;\\s*");
@@ -194,11 +227,9 @@ public class Product implements Serializable {
 
     
     /**
-     * Separates the string so we can create a new product
-     * The amountToBuy is never given buy the text files so there is no need to read it
-     * 
-     * @param lineSc
-     * @return Product
+     * Separates the line read from the text file into the product's atributes
+     * @param line - line read from the text file
+     * @return - returns a new Product
      */
     public Product separateProductInfo(Scanner lineSc) {
         Product product = new Product();

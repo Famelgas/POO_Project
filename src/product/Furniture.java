@@ -2,16 +2,25 @@ package product;
 import java.lang.String;
 import java.util.Scanner;
 
+/**
+ * Class Furniture - extends Product: furniture products
+ */
 public class Furniture extends Product {
     private float height;
     private float width;
     private float depth;
     private float weight;
 
+    /**
+     * Furnitures's constructor
+     */
     public Furniture() {
         this.productType = "Furniture";
     }
 
+    /**
+     * Furnitures's constructor
+     */
     public Furniture(float height, float width, float depth, float weight) {
         this.height = height;
         this.width = width;
@@ -21,82 +30,100 @@ public class Furniture extends Product {
     }
 
     
-    /** 
-     * @return float
+    /**
+     * Height getter
+     * 
+     * @return float - returns height
      */
     public float getHeight() {
         return height;
     }
 
     
-    /** 
-     * @param height
+    /**
+     * Height setters
+     * 
+     * @param height - height to be set
      */
     public void setHeight(float height) {
         this.height = height;
     }
 
     
-    /** 
-     * @return float
+    /**
+     * Width getter
+     * 
+     * @return float - returns width
      */
     public float getWidth() {
         return width;
     }
 
     
-    /** 
-     * @param width
+    /**
+     * Width setter
+     * 
+     * @param width - width to be set
      */
     public void setWidth(float width) {
         this.width = width;
     }
 
     
-    /** 
-     * @return float
+    /**
+     * Depth getter
+     * 
+     * @return float - returns depth
      */
     public float getDepth() {
         return depth;
     }
 
     
-    /** 
-     * @param depth
+    /**
+     * Depth setter
+     * 
+     * @param depth - to be set 
      */
     public void setDepth(float depth) {
         this.depth = depth;
     }
 
     
-    /** 
-     * @return float
+    /**
+     * Weight getter
+     * 
+     * @return float - returns weight
      */
     public float getWeight() {
         return weight;
     }
 
     
-    /** 
-     * @param weight
+    /**
+     * Weight setter
+     * 
+     * @param weight - weight to be set
      */
     public void setWeight(float weight) {
         this.weight = weight;
     }
 
     
-    /** 
-     * @return String
+    /**
+     * Override String.toString()
+     * 
+     * @return String - converted string
      */
     public String toString() {
         return "\nType: " + productType + "\nIdentifier: " + identifier + "\nName: " + name + "\nPrice per unit: " + unitPrice + "\nStock: " + stock + "\nPromotion: " + promotion.toString() + "\nHeight: " + height + "\nWidth" + width + "\nDepth: " + depth + "\nWeight: " + weight;
     }
 
 
-    
-    /** 
-     * @param lineSc
-     * @return Product
+    /**
+     * Separates the line read from the text file into the furniture's atributes
+     * @param line - line read from the text file
+     * @return - returns a new Furniture
      */
     public Product separateProductInfo(Scanner lineSc) {
         Furniture product = new Furniture();

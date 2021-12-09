@@ -5,20 +5,26 @@ import product.*;
 import date.Date;
 
 public class PaySomeItems extends Promotion {
+    /**
+     * PaySomeItems's constructor
+     */
     public PaySomeItems() {}
     
+    /**
+     * PaySomeItems's constructor
+     */
     public PaySomeItems(Date startDate, Date endDate) {
         super(startDate, endDate);
         this.promotionType = "Pay some items";
     }
 
     
-    /** 
-     * @param product
-     * @return float
+    /**
+     * Calculates the pruchase price
+     * 
+     * @param product - product to buy
+     * @return float - returns price
      */
-    // Pague 3 leve 4
-    // verificar se funciona
     public float priceCalculator(Product product) {
         float price = 0;
         if (product.getAmountToBuy() <= 3) {
@@ -40,8 +46,10 @@ public class PaySomeItems extends Promotion {
     }
 
     
-    /** 
-     * @return String
+    /**
+     * Override String.toString()
+     * 
+     * @return String - converted string
      */
     public String toString() {
         return "\nStarting date: " + startDate + "\nEnding date: " + endDate + "\nPromotion type: " + "Pague 3 leve 4";

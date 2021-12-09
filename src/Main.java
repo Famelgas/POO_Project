@@ -5,20 +5,15 @@ import date.Date;
 import database.FormatText;
 
 
-// !!!!!!!!!!!!!!
-// Perguntar a prof se temos que ler sempre o ficheiro de texto dos produtos pra podermos
-// adicionar manualmente mais produtos ao stock do supermercado ou se fazemos uma funçao 
-// para o utilizador poder adicionar manualmente produtos ao stock, o que nao faz sentido
-// !!!!!!!!!!!!!!
-
-
-
-
-
+/**
+ * Class Main - runs the application a manages when the files are read or written
+ * and the date to use when the app is ran
+ */
 public class Main {
     
     /** 
-     * @param args
+     * Main method()
+     * @param args - no arguments
      */
     public static void main(String[] args) {
         DataBaseManager dataBaseManager = new DataBaseManager();

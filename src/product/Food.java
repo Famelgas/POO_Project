@@ -3,9 +3,9 @@ import java.lang.String;
 import java.util.Scanner;
 
 
-// tirei a parte das promoçoes, falta implementar isso 
-
-
+/**
+ * Class Food - extends Product: food products
+ */
 public class Food extends Product {
     private int caloriesPer100G;
     private float fatPercent;
@@ -21,40 +21,45 @@ public class Food extends Product {
     }
     
     
-    /** 
-     * @return int
+    /**
+     * CaloriesPer100G getter
+     * @return int - returns caloriesPer100G
      */
     public int getCaloriesPer100G() {
         return caloriesPer100G;
     }
     
     
-    /** 
-     * @param caloriesPer100G
+    /**
+     * CaloriesPer100G - setter
+     * @param caloriesPer100G - caloriesPer100G to be set
      */
     public void setCaloriesPer100G(int caloriesPer100G) {
         this.caloriesPer100G = caloriesPer100G;
     }
     
     
-    /** 
-     * @return float
+    /**
+     * FatPercent getter
+     * @return float - returns fatPercent
      */
     public float getFatPercent() {
         return fatPercent;
     }
     
     
-    /** 
-     * @param fatPercent
+    /**
+     * FatPercent setter
+     * @param fatPercent - fatPercent to be set
      */
     public void setFatPercent(float fatPercent) {
         this.fatPercent = fatPercent;
     }
     
     
-    /** 
-     * @return String
+    /**
+     * Override String.toString()
+     * @return String - converted string
      */
     public String toString() {
         return "\nType: " + productType + "\nIdentifier: " + identifier + "\nName: " + name + "\nPrice per unit: " + unitPrice + "\nStock: " + stock + "\nPromotion: " + promotion.toString() + "\nCalories per 100g: " + caloriesPer100G + "\nFat percentage: " + fatPercent;
@@ -62,9 +67,10 @@ public class Food extends Product {
 
 
     
-    /** 
-     * @param lineSc
-     * @return Product
+    /**
+     * Separates the line read from the text file into the food's atributes
+     * @param line - line read from the text file
+     * @return - returns a new Food
      */
     public Product separateProductInfo(Scanner lineSc) {
         Food product = new Food();

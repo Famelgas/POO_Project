@@ -8,7 +8,7 @@ import date.Date;
 import promotion.*;
 
 /**
- * Manages data related to files, clients and products from the supermarket
+ * Class DataBaseManager - manages data related to files, clients and products from the supermarket
  */
 public class DataBaseManager implements Serializable {
     // Imported client list from text file
@@ -29,8 +29,9 @@ public class DataBaseManager implements Serializable {
     }
     
     
-    /** 
-     * @return ArrayList<Client>
+    /**
+     * Client list getter 
+     * @return ArrayList<Client> - return clientList
      */
     public ArrayList<Client> getClientList() {
         return clientList;
@@ -38,7 +39,8 @@ public class DataBaseManager implements Serializable {
     
     
     /** 
-     * @param clientList
+     * Client list setter
+     * @param clientList - clientList to be set
      */
     public void setClientList(ArrayList<Client> clientList) {
         this.clientList = clientList;
@@ -46,7 +48,8 @@ public class DataBaseManager implements Serializable {
 
     
     /** 
-     * @return ArrayList<Product>
+     * Products list getter
+     * @return ArrayList<Product> - returns productList
      */
     public ArrayList<Product> getProductList() {
         return productList;
@@ -54,7 +57,8 @@ public class DataBaseManager implements Serializable {
     
     
     /** 
-     * @param productList
+     * Product list setter
+     * @param productList - productList to be set
      */
     public void setProductList(ArrayList<Product> productList) {
         this.productList = productList;
@@ -62,7 +66,8 @@ public class DataBaseManager implements Serializable {
 
     
     /** 
-     * @return ArrayList<Purchase>
+     * Purchase list getter
+     * @return ArrayList<Purchase> - returns purchaseList
      */
     public ArrayList<Purchase> getPurchaseList() {
         return purchaseList;
@@ -70,7 +75,8 @@ public class DataBaseManager implements Serializable {
     
     
     /** 
-     * @param purchaseList
+     * Purchase list setter
+     * @param purchaseList - purchaseList to be set
      */
     public void setPurchaseList(ArrayList<Purchase> purchaseList) {
         this.purchaseList = purchaseList;
@@ -104,6 +110,7 @@ public class DataBaseManager implements Serializable {
     
     
     /** 
+     * Adds a new Purhcase to the shop's stock
      * @param lineSc
      */
     public void addToPurchaseList(Scanner lineSc) {
@@ -117,7 +124,8 @@ public class DataBaseManager implements Serializable {
     }
 
     
-    /** 
+    /**
+     * Adds a given purchase to the shop's stock 
      * @param purchase
      */
     public void addPurchase(Purchase purchase) {
@@ -165,6 +173,9 @@ public class DataBaseManager implements Serializable {
         return newClient;
     }
 
+    /**
+     * Shows all the clients int the database
+     */
     public void showAllClients() {
         int count = 0;
         for (Client client: clientList) {
@@ -179,6 +190,11 @@ public class DataBaseManager implements Serializable {
         }
     }
 
+    /**
+     * Verifies if the email has as '@' and at least one '.' and not in the fist charecter
+     * @param email - email to verify
+     * @return - true if email is valid and false if it's not valid
+     */
     private static boolean verifyEmail(String email) {
         if (email.charAt(0) == '@' || email.charAt(0) == '.') {
             return false;
@@ -207,7 +223,11 @@ public class DataBaseManager implements Serializable {
     
     
     
-    
+    /**
+     * Gets a product from the productList
+     * @param productName - productName
+     * @return - null if there is no product with the given name
+     */
     public Product getProduct(String productName) {
         Product newProduct;
         for (Product product : productList) {
@@ -220,7 +240,9 @@ public class DataBaseManager implements Serializable {
     }
     
     
-    
+    /**
+     * Shows all available products
+     */
     public void showAvailableProducts() {
         int count = 0;
         for (Product product : productList) {
@@ -237,9 +259,10 @@ public class DataBaseManager implements Serializable {
 
 
     /**
-     * @param product
-     * @param amount
-     * @return Product
+     * Verifies that the shop has enough stock from the client to add the products to his shopping cart
+     * @param product - product the client wants
+     * @param amount - amount the client wants
+     * @return Product - null if there isn't enough stock 
      */
     public Product verifyShopStock(Product product, int amount) {
         System.out.println(product.getStock());
@@ -270,10 +293,9 @@ public class DataBaseManager implements Serializable {
 
     
     /**
-     * Buy a product from the online strore
+     * Creates a new purchase
      * @param client - client buying the product
-     * @return - returns true if the purchase is succesful 
-     *           returns false if theres is a problem
+     * @return - true if the purchase is succesful false if theres is a problem
      */
     public Purchase createNewPurchase(Client client, Date date) {
         Purchase newPurchase = new Purchase(date);
@@ -305,6 +327,9 @@ public class DataBaseManager implements Serializable {
         return newPurchase;
     }
 
+    /**
+     * Shows every purchase in the database
+     */
     public void showAllPurchases() {
         int count = 0;
         for (Purchase purchase : purchaseList) {
@@ -322,7 +347,8 @@ public class DataBaseManager implements Serializable {
 
     
     /** 
-     * @param client
+     * Lowers the shop's stock the amount bought by the client
+     * @param client - client who made the purchase
      */
     public void resetStock(Client client) {
         for (Product productInStock : productList) {

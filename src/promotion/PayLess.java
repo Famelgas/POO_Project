@@ -4,17 +4,25 @@ import product.*;
 import date.Date;
 
 public class PayLess extends Promotion {
+    /**
+     * PayLess's constructor
+     */
     public PayLess() {}
 
+    /**
+     * PayLess's constructor
+     */
     public PayLess(Date startDate, Date endDate) {
         super(startDate, endDate);
         this.promotionType = "Pay less";
     }
 
     
-    /** 
-     * @param product
-     * @return float
+    /**
+     * Calculates the pruchase price
+     * 
+     * @param product - product to buy
+     * @return float - returns price
      */
     public float priceCalculator(Product product){
         float discount = 0.05f;
@@ -49,8 +57,10 @@ public class PayLess extends Promotion {
     }
 
     
-    /** 
-     * @return String
+    /**
+     * Override String.toString()
+     * 
+     * @return String - converted string
      */
     public String toString() {
         return "\nStarting date: " + startDate + "\nEnding date: " + endDate + "\nPromotion type: " + "Pague menos";

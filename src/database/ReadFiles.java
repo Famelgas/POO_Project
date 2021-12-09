@@ -169,8 +169,7 @@ public class ReadFiles {
 
 
     /**
-     * Imports every client, product and purchase from data.obj file to the corresponding ArrayList
-     * 
+     * Imports every client, product and purchase from database.obj file to the corresponding ArrayLists
      * @param fileName - .obj file to import from
      */
     public static DataBaseManager importFromObjectFile(DataBaseManager dataBaseManager, String fileName) {
@@ -204,12 +203,12 @@ public class ReadFiles {
         }
     }
 
+    
     /**
-     * Writes every client and product in the corresponding .obj files. If a file
-     * doesn't exist creates a new one
-     * 
-     * @param clientFileName  - .obj client file
-     * @param productFileName - .obj product file
+     * Writes the clientList, productList and purchaseList to database.obj
+     * @param dataBaseManager - dataBaseManager
+     * @param fileName - .obj file to export to
+     * @return - true if succeeded and false if failed
      */
     public static boolean exportToObjectFile(DataBaseManager dataBaseManager, String fileName) {
         // Write every client in the ArrayList in the Clients.obj file

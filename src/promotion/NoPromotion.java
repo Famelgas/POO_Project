@@ -2,6 +2,9 @@ package promotion;
 import product.*;
 
 public class NoPromotion extends Promotion {
+    /**
+     * NoPromotion's constructor
+     */
     public NoPromotion() {
         this.startDate = null;
         this.endDate = null;
@@ -9,17 +12,21 @@ public class NoPromotion extends Promotion {
     }
 
     
-    /** 
-     * @param product
-     * @return float
+    /**
+     * Calculates the pruchase price
+     * 
+     * @param product - product to buy
+     * @return float - returns price
      */
     public float priceCalculator(Product product) {
         return product.getUnitPrice() * product.getAmountToBuy();
     }
 
     
-    /** 
-     * @return String
+    /**
+     * Override String.toString()
+     * 
+     * @return String - converted string
      */
     public String toString() {
         return "Nenhuma promoção disponível";

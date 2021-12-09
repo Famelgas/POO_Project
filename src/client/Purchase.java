@@ -6,25 +6,9 @@ import java.util.Scanner;
 import product.*;
 import date.Date;
 
-// revise class Purchase: pra mantermos um historico de compras do cliente
-// temos que ter um arraylist das compras que ele ja fez, a minha questao e 
-// como guardar a informaçao dos items comprados, podemos usar a class Purchase
-// pra isso, usando um arraylist de Products, e guardando um arraylist de Purchases 
-// em cada client. Porem vamos ter que mudar um bocado a estrutura das compras e 
-// promoções
-// acho que as promoções nao deviam herdar class nenhuma, simplesmente em cada produto
-// ter um atributo promoçao, e assim poderiamos usar esta classe para manter o historico.
-// ate porque nao faz sentido ter esta classe pras promoçoes, pq uma compra normal 
-// simplesmente nao tem promoçao.
-
-
-
-
-// falar com a professora sobre a inicializaçao de arraylists nos construtores das classes
-// deve ser inicializado sempre? apesar de poder criar uma nova compra sem adicionar 
-// produto nenhum previamente tenho sempre que ser capaz de adicionar mais a frente se eu quiser
-
-
+/**
+ * Class Purchase - manages the method associated with making a purchase
+ */
 public class Purchase implements Serializable {
     private Date date;
     private int reference;
@@ -33,19 +17,25 @@ public class Purchase implements Serializable {
     private float totalPrice;
     private ArrayList<Product> purchasedProducts;
 
-
+    /**
+     * Purchases's constructor
+     */
     public Purchase() {
         this.purchasedProducts = new ArrayList<>();
     }
     
+    /**
+     * Purchases's constructor
+     */
     public Purchase(Date date) {
         this.purchasedProducts = new ArrayList<>();
         this.date = date;
     }  
 
     
-    /** 
-     * @return Date
+    /**
+     * Purchase date getter 
+     * @return Date - returns purhcaseDate
      */
     public Date getPurchaseDate() {
         return date;
@@ -53,7 +43,8 @@ public class Purchase implements Serializable {
 
     
     /** 
-     * @param date
+     * Purhcase date setter
+     * @param date - purhcaseDate to be set
      */
     public void setPurchaseDate(Date date) {
         this.date = date;
@@ -61,7 +52,8 @@ public class Purchase implements Serializable {
 
     
     /** 
-     * @return int
+     * Purchase reference getter
+     * @return int - reference
      */
     public int getPurchaseReference() {
         return reference;
@@ -69,31 +61,36 @@ public class Purchase implements Serializable {
 
     
     /** 
-     * @param reference
+     * Purchase reference setter
+     * @param reference - reference to be set
      */
     public void setPurchaseReference(int reference) {
         this.reference = reference;
     }
 
     
-    /** 
-     * @return float
+    /**
+     * Purchase price getter 
+     * @return float - returns purchasePrice
      */
     public float getPurchasePrice() {
         return purchasePrice;
     }
 
-    
-    /** 
-     * @param purchasePrice
+
+    /**
+     * Puchase price setter 
+     * @param purchasePrice - purchasePrice to be set
      */
     public void setPurchasePrice(float purchasePrice) {
         this.purchasePrice = purchasePrice;
    
     }
     
-    /** 
-     * @return float
+
+    /**
+     * Shipping price getter 
+     * @return float - returns shippingPrice
      */
     public float getShippingPrice() {
         return shippingPrice;
@@ -101,7 +98,8 @@ public class Purchase implements Serializable {
 
     
     /** 
-     * @param shippingPrice
+     * Shipping price setter
+     * @param shippingPrice - shippingPrice to be set
      */
     public void setShippingPrice(int shippingPrice) {
         this.shippingPrice = shippingPrice;
@@ -109,7 +107,8 @@ public class Purchase implements Serializable {
    
     
     /** 
-     * @return float
+     * Total price getter
+     * @return float - returns totalPrice
      */
     public float getTotalPrice() {
         return totalPrice;
@@ -117,9 +116,10 @@ public class Purchase implements Serializable {
 
     
     /** 
-     * @param purchasePrice
-     * @param shippingPrice
-     * @return float
+     * Total Price getter
+     * @param purchasePrice - purchasePrice 
+     * @param shippingPrice - shippingPrice
+     * @return float - returns totalPrice
      */
     public float getTotalPrice(float purchasePrice, int shippingPrice) {
         return purchasePrice + shippingPrice;
@@ -127,8 +127,9 @@ public class Purchase implements Serializable {
 
     
     /** 
-     * @param purchasePrice
-     * @param shippingPrice
+     * Total price setter
+     * @param purchasePrice - purchasePrice
+     * @param shippingPrice - shippingPrice
      */
     public void setTotalPrice(float purchasePrice, int shippingPrice) {
         this.totalPrice = purchasePrice + shippingPrice;
@@ -136,7 +137,8 @@ public class Purchase implements Serializable {
 
     
     /** 
-     * @param totalPrice
+     * Total price setter
+     * @param totalPrice - totalPrice to be set
      */
     public void setTotalPrice(float totalPrice) {
         this.totalPrice = totalPrice;
@@ -144,7 +146,8 @@ public class Purchase implements Serializable {
 
     
     /** 
-     * @return ArrayList<Product>
+     * Purhcased products getter
+     * @return ArrayList<Product> - returns purhcasedProducts
      */
     public ArrayList<Product> getPurchadeProducts() {
         return purchasedProducts;
@@ -152,7 +155,8 @@ public class Purchase implements Serializable {
 
     
     /** 
-     * @param purchasedProducts
+     * Purchased products setter
+     * @param purchasedProducts - purchasedProducts to be set
      */
     public void setPurchasedProducts(ArrayList<Product> purchasedProducts) {
         this.purchasedProducts = purchasedProducts;
@@ -160,7 +164,8 @@ public class Purchase implements Serializable {
 
     
     /** 
-     * @param product
+     * Add product to purchasedProducts
+     * @param product - product to be added
      */
     public void addToPurchasedProducts(Product product) {
         purchasedProducts.add(product);
@@ -168,7 +173,8 @@ public class Purchase implements Serializable {
 
     
     /** 
-     * @param priceToRaise
+     * Raise purchase price
+     * @param priceToRaise - amount to raise
      */
     public void raisePurchasePrice(float priceToRaise) {
         this.purchasePrice += priceToRaise;
@@ -176,7 +182,8 @@ public class Purchase implements Serializable {
 
     
     /** 
-     * @return String
+     * Override String.toString()
+     * @return String - converted string
      */
     public String toString() {
         return "Date: " + date + "\nReference: " + reference + "\nPurchase price: " + purchasePrice + "\nShipping price: " + shippingPrice + "\nTotal price: " + totalPrice + "\nPurchased roducts:\n" + purchasedProducts.toString().substring(1, purchasedProducts.toString().length() - 1);
@@ -185,7 +192,7 @@ public class Purchase implements Serializable {
     /**
      * Separates purchase information for a client given by a .txt file
      * @param line - purchase information
-     * @return - return a new Purchase;
+     * @return - returns a new Purchase;
      */
     public Purchase separatePurchaseInfo(Scanner lineSc) {
         Purchase purchase = new Purchase();
@@ -214,7 +221,8 @@ public class Purchase implements Serializable {
 
     
     /** 
-     * @return int
+     * Creates a new purchase reference
+     * @return int - reference: 8 digit int
      */
     public static int createReference() {
         Random rand = new Random();
@@ -225,9 +233,10 @@ public class Purchase implements Serializable {
 
     
     /** 
-     * @param client
-     * @param purchase
-     * @return int
+     * Calculates the shipping price
+     * @param client - client making the purchase
+     * @param purchase - purchase being made
+     * @return int - shippingPrice
      */
     public int calculateShippingPrice(Client client, Purchase purchase) {
         int shippingPrice = 0;
